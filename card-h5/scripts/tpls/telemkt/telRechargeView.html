@@ -1,0 +1,39 @@
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+
+    <h1 class="mui-title">顺丰电子卡充值</h1>
+</header>
+<div class="buy-electron-card">
+
+    <div class="card-phone oh">
+        <span class="mui-pull-left">手机号码</span>
+        <span class="mui-pull-right">{{telRechargeInfo.mobile}} </span>
+    </div>
+    <div class="buy-money oh">
+        <span class="mui-pull-left">购卡金额</span>
+        <span class="mui-pull-right">{{telRechargeInfo.rechargeAmt}}元 </span>
+    </div>
+    <div class="get-money oh">
+        <span class="mui-pull-left">赠送金额</span>
+        <span class="mui-pull-right">{{telRechargeInfo.giftAmt}}元 </span>
+    </div>
+
+    <div class="bind-card">
+        <hr class="crossHr">
+        <div class="crossWord">付款方式</div>
+    </div>
+    <div class="pay-type">
+        <div class="mui-input-row mui-radio" ng-click="selectPayType(0)">
+            <label><i class="mui-icon iconfont icon-weixin"> </i> 顺首付支付</label>
+            <input name="radio1" type="radio">
+        </div>
+        <div class="mui-input-row mui-radio" ng-click="selectPayType(1)">
+            <label><i class="mui-icon iconfont icon-weixin"> </i> 微信支付</label>
+            <input name="radio1" type="radio" checked>
+        </div>
+    </div>
+    <div class="mui-text-center mtb1">
+        <a class="mui-btn mui-btn-primary mui-col-xs-6" ng-click="recharge()">确认支付{{telRechargeInfo.rechargeAmt}}元</a>
+    </div>
+</div>
+

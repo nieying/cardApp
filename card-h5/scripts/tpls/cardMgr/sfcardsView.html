@@ -1,0 +1,113 @@
+<header id="header" class="mui-bar mui-bar-nav">
+    <h1 class="mui-title">顺丰卡</h1>
+
+    <a class="mui-icon iconfont icon-bangzhu mui-pull-right" ui-sref="problem"></a>
+</header>
+<div ng-if="cardList.cardNum != 0">
+  <!--  <div class="card-tips">
+        顺丰卡方便快捷，优惠省心，充值赠送 5% 哦～
+    </div>-->
+    <div id="slider" class="mui-slider" >
+        <div class="mui-slider-group mui-slider-loop">
+            <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播)
+            <div class="mui-slider-item" ng-repeat="mkt in mktImgs">
+                <a ui-sref="{{mkt.lnk}}">
+                    <img ng-src="{{mkt.bnr}}">
+                </a>
+            </div>-->
+            <!-- 第一张 -->
+            <div class="mui-slider-item">
+                <a href="#">
+                    <img src="images/adbg1080.png">
+                </a>
+            </div>
+            <!-- 第二张 -->
+            <div class="mui-slider-item">
+                <a href="#">
+                    <img src="images/cardicon-card-list.png">
+                </a>
+            </div>
+            <!-- 第三张 -->
+            <div class="mui-slider-item">
+                <a href="#">
+                    <img src="images/adbg1080.png">
+                </a>
+            </div>
+            <!-- 第四张 -->
+            <div class="mui-slider-item">
+                <a href="#">
+                    <img src="images/cardicon-card-list.png">
+                </a>
+            </div>
+            <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+            <div class="mui-slider-item mui-slider-item-duplicate">
+                <a href="#">
+                    <img src="images/adbg1080.png">
+                </a>
+            </div>
+        </div>
+        <div class="mui-slider-indicator">
+            <div class="mui-indicator mui-active"></div>
+            <div class="mui-indicator"></div>
+            <div class="mui-indicator"></div>
+            <div class="mui-indicator"></div>
+        </div>
+    </div>
+    <div class="card-info">
+        <div class="info-key">
+            <span>总余额(元)</span>
+            <span>累计赠送(元)</span>
+            <span>卡账户</span>
+        </div>
+        <div class="info-value">
+            <span class="mui-ellipsis">{{cardList.cardTotalBalanceAmt |number:2}}</span>
+            <span class="mui-ellipsis">{{cardList.cardTotalPrefAmt|number:2}}</span>
+            <span class="mui-ellipsis">{{cardList.cardNum}}</span>
+        </div>
+    </div>
+
+    <div class="bind-card">
+        <hr class="crossHr">
+        <div class="crossWord">已绑定的卡片</div>
+    </div>
+    <div class="card-list">
+        <ul class="mui-card-info">
+            <li ng-repeat="card in cardList.outsideMemberCardInfoList" class="{{cardColor[$index % 4]}}"
+                ng-click="goCardDetail(card)">
+                <img class="mui-media-object mui-pull-left" src="images/cardicon-card-list.png">
+
+                <div class="mui-media-body">
+                    <p class="remark-name" ng-if="card.remark">{{card.remark}} 尾号 {{card.cardNo|subStrLast4}}</p>
+                    <p class="remark-name" ng-if="!card.remark && !(card.cardType =='EC')">顺丰卡 尾号
+                        {{card.cardNo|subStrLast4}}</p>
+
+                    <p class="remark-name" ng-if="!card.remark && card.cardType =='EC'">顺丰卡电子卡 尾号
+                        {{card.cardNo|subStrLast4}}</p>
+
+                    <p><i class="mui-icon iconfont icon-yuan"></i><span>{{card.cardBalanceAmt/100|number:2}}</span></p>
+                </div>
+                <div class="elogo" ng-show="card.cardType =='EC'">电子卡</div>
+            </li>
+        </ul>
+        <a class="bind-sfcard" ui-sref="bindCard">
+            <i class="mui-icon mui-icon-plusempty"></i> 绑定顺丰卡
+        </a>
+
+        <div class="no-eccard mui-text-center" ng-if="!cardList.existEleCard">
+            <a ui-sref="setPwd">还没顺丰电子卡？点击开通</a>
+        </div>
+    </div>
+</div>
+<!--用户没有卡的情况-->
+<div class="electron-card" ng-if="cardList.cardNum == 0">
+    <img src="images/adbg1080.png"/>
+
+    <div class="mui-text-center">
+        <a ui-sref="setElectronPwd" class="mui-btn mui-btn-primary mui-btn-outlined">开通电子卡</a>
+
+        <a ui-sref="bindCard" class="e-card">我有顺丰卡？去绑定</a>
+    </div>
+</div>
+
+
+

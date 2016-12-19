@@ -1,0 +1,40 @@
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+
+    <h1 class="mui-title">交易详情</h1>
+</header>
+<div class="trade-detail">
+    <div class="detail-type">{{tradeDetailInfo.bizTName|tradeType}}</div>
+    <div class="mui-text-center">
+        <p class="c-23" ng-if="tradeDetailInfo.businessType !='OFF_PAY'">+{{tradeDetailInfo.tradeAmt/100|number:2}}</p>
+
+        <p class="c-f1" ng-if="tradeDetailInfo.businessType =='OFF_PAY'">-{{tradeDetailInfo.tradeAmt/100|number:2}}</p>
+
+        <p class="c-fb">赠送{{tradeDetailInfo.prefAmt/100|number:2}}</p>
+    </div>
+    <div class="detail-card-info">
+        <div class="oh mui-table-view-cell">
+            <span class="mui-pull-left c-90">卡号信息</span>
+            <span class="mui-pull-right c-28">{{orderList.cardNo}}</span>
+        </div>
+        <div class="oh mui-table-view-cell">
+            <span class="mui-pull-left c-90">交易时间</span>
+            <span class="mui-pull-right c-28">{{tradeDetailInfo.tradeTime|date:'yyyy-MM-dd HH:mm:ss'}}</span>
+        </div>
+    </div>
+
+    <div class="trade-detail-list">
+        <div class="oh">
+            <span class="mui-pull-left">运单票数</span>
+            <span class="mui-pull-right">{{orderList.cardTradeDetails.length}}</span>
+        </div>
+        <ul>
+            <li class="oh" ng-repeat="item in orderList.cardTradeDetails">
+                <span class="mui-pull-left c-59">{{item.businessSn}}</span>
+                <span class="mui-pull-right c-28">{{item.amt|number:2}}元</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+

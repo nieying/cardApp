@@ -1,0 +1,112 @@
+<div ng-show="!showPwd == 1">
+    <header id="header" class="mui-bar mui-bar-nav">
+        <a class="mui-icon mui-icon-left-nav mui-pull-left" href="javascript:void(0)" ng-click="goBack()"></a>
+
+        <h1 class="mui-title">顺丰卡</h1>
+    </header>
+
+    <div class="card-code">
+        <!--通过页面点击进来的-->
+        <div class="mui-card scan-code">
+            <div class="span-div">
+                <i class="mui-icon iconfont icon-yinxingqia mui-pull-left"></i>
+
+                <div class="mui-pull-left">
+                    <div class="card-no">
+                        <span ng-show="singCardInfo.remark">{{singCardInfo.remark}}</span>
+                        <span ng-show="!singCardInfo.remark && singCardInfo.eleCard">顺丰电子卡</span>
+                        <span ng-show="!singCardInfo.remark && !singCardInfo.eleCard">顺丰卡</span>
+                    </div>
+                    <div class="c-28">
+                        <i class="mui-icon iconfont icon-yuan"></i>{{singCardInfo.balance/100 |number:2}}
+                    </div>
+                </div>
+            </div>
+            <div class="scan mui-text-center">
+                <div class="scan-img">
+                    <div barcode type="itf" render="img" string="{{singCardInfo.cardNo}}"></div>
+                </div>
+
+                <p class="c-28">{{singCardInfo.cardNo|cardNoFilter1}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card-detail">
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell" ng-show="singCardInfo.allowRecharge">
+                <a class="mui-navigate-right" ui-sref="recharge">
+                    <i class="mui-icon iconfont icon-chongzhi"></i> 我要充值
+                    <span class="mui-pull-right c-fb">赠送5%</span>
+                </a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" ui-sref="trade">
+                    <i class="mui-icon iconfont icon-bimaiqingdan"></i> 交易查询
+                </a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" ui-sref="changePwd">
+                    <i class="mui-icon iconfont icon-edit"></i> 密码修改
+                </a>
+            </li>
+            <li class="mui-table-view-cell" ng-if="singCardInfo.invoiceSwitch">
+                <a class="mui-navigate-right" ui-sref="invoiceApply">
+                    <i class="mui-icon iconfont icon-edit"></i> 发票申请
+                </a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" ng-if="singCardInfo.mobile==null" ui-sref="bindPhone">
+                    <i class="mui-icon iconfont icon-shouji"></i> 手机号码
+                    <span class="mui-pull-right">去绑定</span>
+                </a>
+                <a class="mui-navigate-right" ng-if="singCardInfo.mobile !=null" ui-sref="changeMobile">
+                    <i class="mui-icon iconfont icon-shouji"></i> 手机号码
+                    <span class="mui-pull-right">{{singCardInfo.mobile}}</span>
+                </a>
+            </li>
+          <!--  <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" ui-sref="cardRule">
+                    <i class="mui-icon iconfont icon-bangzhu"></i> 常见问题
+                </a>
+            </li>-->
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" ng-click="goUpdateRemark()">
+                    <i class="mui-icon iconfont icon-beizhu"></i> 备注
+                    <span class="mui-pull-right">{{singCardInfo.remark}}</span>
+                </a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" href="tel:400-055-5555">
+                    <i class="mui-icon iconfont icon-dianhua-copy"></i> 联系客服
+                    <a class="mui-pull-right">400-055-5555</a>
+                </a>
+            </li>
+        </ul>
+        <div class="mui-text-center unbind">
+            <button class="btn-grey" ng-click="showPwdView(0)"> 解除绑定</button>
+        </div>
+    </div>
+</div>
+
+<div ng-show="showPwd">
+    <header id="header" class="mui-bar mui-bar-nav">
+        <a ng-click="showPwd =false" class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+
+        <h1 class="mui-title">输入密码</h1>
+    </header>
+    <div class="change-pwd">
+        <form name="pwdForm" class="mui-input-group">
+            <div class="mui-input-row">
+                <label class="mui-text-center">密&nbsp;&nbsp;&nbsp;&nbsp; 码</label>
+                <input type="password" maxlength="8" pattern="[0-9]*" ng-model="params.pwd"
+                       required placeholder="请输入您的密码">
+            </div>
+        </form>
+        <div class="change-pwd-btn mui-text-center">
+            <button class="mui-btn " ng-class="{'mui-btn-grey':pwdForm.$invalid,'mui-btn-primary':!pwdForm.$invalid}"
+                    ng-click="confirm()">确认
+            </button>
+            <a class="forget-Pwd c-23" ui-sref="findPwd">忘记密码？</a>
+        </div>
+    </div>
+</div>

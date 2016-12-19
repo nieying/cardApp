@@ -1,0 +1,115 @@
+<div ng-show="!showPwd">
+    <header id="header" class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+
+        <h1 class="mui-title">顺丰卡</h1>
+    </header>
+
+    <div ng-if="showView">
+        <div class="scan-card-info">
+            <div class="card-img">
+                <img ng-src="{{cardInfo.cardFaceUrl}}" alt=""/>
+                <div class="crad-number">{{cardInfo.cardNo}}</div>
+            </div>
+            <div class="scan-pwd mui-text-center" ng-if="!cardInfo.setPwd">
+                <p>{{cardInfo.cardNo}}</p>
+
+                <p>卡片未设置密码</p>
+
+                <a href="javascript:void(0)" class="mui-btn mui-btn-primary" ng-click="goSetPwd()">设置密码</a>
+            </div>
+        </div>
+        <div class="scan-card-detail card-detail">
+            <!--已设置密码-->
+            <ul class="mui-table-view" ng-if="cardInfo.setPwd">
+                <li class="mui-table-view-cell" ng-if="cardInfo.allowRecharge">
+                    <a class="mui-navigate-right" ui-sref="recharge">
+                        <i class="mui-icon iconfont icon-chongzhi"></i> 我要充值
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right" href="javascript:void(0)" ng-click="showPwdView()">
+                        <i class="mui-icon iconfont icon-bimaiqingdan"></i> 交易查询
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right" ui-sref="changePwd">
+                        <i class="mui-icon iconfont icon-edit"></i> 密码修改
+                    </a>
+                </li>
+                <li class="mui-table-view-cell" ng-if="cardInfo.invoiceSwitch">
+                    <a class="mui-navigate-right" ui-sref="invoice">
+                        <i class="mui-icon iconfont icon-edit"></i> 发票申请
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right" ng-if="cardInfo.mobile==null" ui-sref="bindPhone">
+                        <i class="mui-icon iconfont icon-shouji"></i> 手机号码
+                        <span class="mui-pull-right">去绑定</span>
+                    </a>
+                    <a class="mui-navigate-right" ng-if="cardInfo.mobile !=null" ui-sref="changeMobile">
+                        <i class="mui-icon iconfont icon-shouji"></i> 手机号码
+                        <span class="mui-pull-right">{{cardInfo.mobile}}</span>
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">   <!---->
+                    <a class="mui-navigate-right" ui-sref="cardRule">
+                        <i class="mui-icon iconfont icon-bangzhu"></i> 常见问题
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right" ui-sref="updateRemark">
+                        <i class="mui-icon iconfont icon-beizhu"></i> 备注
+                        <span class="mui-pull-right">{{cardInfo.remark}}</span>
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right">
+                        <i class="mui-icon iconfont icon-dianhua-copy"></i> 联系客服
+                        <a class="mui-pull-right" href="tel:400-055-5555">400-055-5555</a>
+                    </a>
+                </li>
+            </ul>
+            <!--未设置密码-->
+            <div class="problem" ng-if="!cardInfo.setPwd">
+                <h5>用卡规则</h5>
+                <div class="problem-item">
+                    <p>1.本卡仅用于消费除货款以外的快递服务费用。 </p>
+
+                    <p>2.本卡不记名、不挂失、不透支、不计息、不提现。 </p>
+
+                    <p>3.本卡从激活之日起有效期三年。 </p>
+
+                    <p>4.本卡在使用前需扫描卡二维码设置交易密码方可正常使用。</p>
+                </div>
+
+                <div class="mui-text-center">
+                    <a ui-sref="cardRuleDetail">了解更多请查阅《用卡手册》</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="showPwd">
+    <header id="header" class="mui-bar mui-bar-nav">
+        <a ng-click="showPwd = false" class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+
+        <h1 class="mui-title">输入密码</h1>
+    </header>
+    <div class="change-pwd">
+        <form name="pwdForm" class="mui-input-group">
+            <div class="mui-input-row">
+                <label class="mui-text-center">密&nbsp;&nbsp;&nbsp;&nbsp; 码</label>
+                <input type="password" maxlength="8" pattern="[0-9]*" ng-model="params.pwd"
+                       required placeholder="请输入您的密码">
+            </div>
+        </form>
+        <div class="change-pwd-btn mui-text-center">
+            <button class="mui-btn " ng-class="{'mui-btn-grey':pwdForm.$invalid,'mui-btn-primary':!pwdForm.$invalid}"
+                    ng-click="confirmPwd()">确认
+            </button>
+            <a class="forget-Pwd c-23" ui-sref="findPwd">忘记密码？</a>
+        </div>
+    </div>
+</div>

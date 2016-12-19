@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html ng-app="cardApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>顺丰卡</title>
+    <meta name="viewport"
+          content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width,min-device-width=320">
+    <meta name="screen-orientation" content="portrait"> <!--uc强制竖屏-->
+    <meta name="x5-orientation" content="portrait">   <!--qq强制竖屏-->
+    <meta name="format-detection" content="telephone=no">
+    <!--<base href="/">-->
+    <!-- build:css(.) styles/vendor.css -->
+
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(card-h5) styles/app.css -->
+    <link rel="stylesheet" href="styles/mui.min.css">
+    <link rel="stylesheet" href="styles/app.css">
+    <!--<link rel="stylesheet" href="styles/mui.picker.min.css">-->
+    <!-- endbuild -->
+</head>
+<body id="orientation">
+<!-- Add your site or application content here -->
+<div class="view-container" ui-view>
+</div>
+
+<loading></loading>
+
+<!-- build:js(.) scripts/vendor.js -->
+
+<!-- bower:js -->
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/angular/angular.min.js"></script>
+<script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+<script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script src="/bower_components/hammerjs/hammer.min.js"></script>
+<script src="/bower_components/angular-gestures-master/dist/gestures.min.js"></script>
+<!--<script src="/bower_components/kindeditor/kindeditor-all-min.js"></script>
+<script src="/bower_components/angular-kindeditor/angular-kindeditor.min.js"></script>-->
+
+<!--js 工具库-->
+<script src="/bower_components/lodash/lodash.min.js"></script>
+
+<!--ng-bind-html $sce.trustAsHtml(object)-->
+<!--<script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>-->
+<!-- endbuild -->
+
+
+<!-- build:js({.tmp,card-h5}) scripts/main.js -->
+<script src="utils/ocLazyLoad.js"></script>
+<script src="app.js"></script>
+<script src="app.config.js"></script>
+<script src="app.router.js"></script>
+<!--页面跳转或者请求数据时出现的加载gif-->
+<script src="scripts/directives/loading.js"></script>
+<script src="scripts/directives/Barcode.js"></script>
+<script src="scripts/services/encodeService.js"></script>
+<script src="scripts/services/ItfNumberService.js"></script>
+<script src="scripts/services/dataService.js"></script>
+<script src="scripts/filters/subStrLast4.js"></script>
+<script src="scripts/filters/cardNoFilter.js"></script>
+<script src="scripts/filters/app.filter.js"></script>
+
+<!--rem手机适配-->
+<!--<script src="utils/adaptation.js"></script>-->
+
+<!--utils-->
+<!--<script src="utils/zepto.min.js"></script>-->
+<script src="utils/mui/mui.min.js"></script>
+<!--<script src="utils/mui/mui.picker.js"></script>
+<script src="utils/mui/mui.poppicker.js"></script>-->
+<script src="utils/mui/mui.pullToRefresh.js"></script>
+<script src="utils/mui/mui.pullToRefresh.material.js"></script>
+<!--<script src="utils/jquery-barcode.min.js"></script>-->
+<script src="utils/des_enc.min.js"></script>
+<script src="utils/jquery.citys.js"></script>
+
+<!--services start-->
+<!-- endbuild -->
+</body>
+</html>

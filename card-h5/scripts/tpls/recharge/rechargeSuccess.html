@@ -1,0 +1,11 @@
+<div class='success-tips mui-text-center'>
+    <i class='mui-icon iconfont icon-dui'></i>
+
+    <p class='s-p1'>{{rcgSuccInfo.status}}</p>
+
+    <p class="s-p0">
+        <span class="rcg-money">充值金额<i class="mui-icon iconfont icon-yuan"></i>{{rcgSuccInfo.rechargeAmt}} </span>
+        <span class="give-money" ng-if="rcgSuccInfo.giftAmt != '0.00'">赠送金额 <i class="mui-icon iconfont icon-yuan"></i>{{rcgSuccInfo.giftAmt}}</span>
+    </p>
+    <a ui-sref="sfcard" class='mui-btn mui-btn-primary'>完成</a>
+</div>

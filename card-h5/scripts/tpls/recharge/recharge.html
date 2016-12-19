@@ -1,0 +1,62 @@
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+
+    <h1 class="mui-title">我要充值</h1>
+</header>
+<div class="recharge">
+    <div class="oh recharge-info">
+        <div class="mui-pull-left">
+            <i class="mui-icon iconfont icon-yinxingqia"></i>
+        </div>
+        <div class="mui-pull-left">
+            <p class="recharge-p" ng-show="!rechargeInfo.remark && rechargeInfo.eleCard">顺丰电子卡</p>
+
+            <p class="recharge-p" ng-show="!rechargeInfo.remark && !rechargeInfo.eleCard">顺丰卡</p>
+
+            <p class="recharge-p" ng-show="rechargeInfo.remark">{{rechargeInfo.remark}}
+                尾号{{rechargeInfo.cardTail}}</p>
+
+            <p class="recharge-p2">余额 <span class="c-f1">{{rechargeInfo.balance/100|number:2}}</span></p>
+        </div>
+    </div>
+    <div class="bind-card">
+        <hr class="crossHr">
+        <div class="crossWord">充值金额</div>
+    </div>
+    <ul class="recharge-type oh">
+        <li ng-repeat="recharge in rechargeList"
+            ng-class="{'active':$index == rechargeIndex}" ng-click="checkItem(recharge,$index)">
+            <div><i class="mui-icon iconfont icon-yuan"></i>{{recharge}}</div>
+            <div class="mui-ellipsis" ng-show="rechargeInfo.giveScale != 'null'">(赠送{{recharge*rechargeInfo.giveScale/100}}元)</div>
+            <div class="mui-ellipsis" ng-show="rechargeInfo.giveScale == 'null'">(赠送0.00元)</div>
+        </li>
+
+        <!--充值金额大于卡内余额-->
+        <li ng-repeat="recharge1 in rechargeDisable"
+            class="recharge-disable">
+            <div>&yen; <!--<i class="mui-icon iconfont icon-yuan"></i>-->
+                {{recharge1}}
+            </div>
+            <div class="mui-ellipsis" ng-show="rechargeInfo.giveScale != 'null'">(赠送{{recharge1*rechargeInfo.giveScale/100}}元)</div>
+            <div class="mui-ellipsis" ng-show="rechargeInfo.giveScale == 'null'">(赠送0.00元)</div>
+        </li>
+    </ul>
+    <div class="bind-card">
+        <hr class="crossHr">
+        <div class="crossWord">付款方式</div>
+    </div>
+    <div class="pay-type">
+        <div class="mui-input-row mui-radio" ng-click="selectPayType(0)">
+            <label><i class="mui-icon iconfont icon-weixin"> </i> 顺首付支付</label>
+            <input name="radio1" type="radio">
+        </div>
+        <div class="mui-input-row mui-radio" ng-click="selectPayType(1)">
+            <label><i class="mui-icon iconfont icon-weixin"> </i> 微信支付</label>
+            <input name="radio1" type="radio" checked>
+        </div>
+    </div>
+    <div class="mui-text-center mtb1">
+        <a class="mui-btn mui-btn-primary mui-col-xs-6" ng-click="recharge()">充值</a>
+    </div>
+</div>
+

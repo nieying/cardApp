@@ -1,0 +1,70 @@
+<div class="trade">
+    <header id="header" class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+
+        <h1 class="mui-title">交易明细</h1>
+    </header>
+    <div class="mui-table">
+        <div class="mui-table-cell mui-col-xs-1">
+            <span class="w-dot"></span>
+        </div>
+        <div class="mui-table-cell mui-col-xs-11">
+            <div>卡号</div>
+            <div>余额 {{trades.balanceAmt}}元 累计赠送 {{trades.prefAmt|number:2}}元</div>
+        </div>
+    </div>
+</div>
+<div id="slider" class="mui-slider mui-fullscreen">
+    <div class="mui-slider-group">
+        <div class="mui-slider-item mui-control-content">
+            <div id="scroll1" class="mui-scroll-wrapper">
+                <div class="mui-scroll trade-list">
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell" ng-repeat="tradeItem in tradeList"
+                            hm-tap="goTradeDetail(tradeItem)">
+                            <div class='trade-consume oh'>
+                                <span class='mui-pull-left c-59'>{{tradeItem.businessType|tradeType}}</span>
+                                <span class='mui-pull-right c-23'>{{tradeItem.tradeAmt/100|number:2}}</span>
+                            </div>
+                            <div class='trade-time oh'>
+                                <span class='mui-pull-left c-c4'>{{tradeItem.tradeTime|date:'yyyy-MM-dd'}}</span>
+                                <span ng-if="tradeItem.giftAmt != 0">
+                                     <span class='mui-pull-right c-fb'
+                                           ng-show="tradeItem.businessType != 'OFF_PAY'||
+                                           tradeItem.businessType != 'OFF_CANCEL'||
+                                           tradeItem.businessType != 'OFF_REFUND'||
+                                           tradeItem.businessType != 'RGE_WEBREFUND'||
+                                           tradeItem.businessType != 'RGE_CASHCANCEL'||
+                                           tradeItem.businessType != 'HHT_CZCANCEL'">
+                                           赠送 {{tradeItem.giftAmt/100|number:2}}
+                                     </span>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- <div class="mui-slider-item mui-control-content"
+                  ng-show="tab =='tab2'" ng-class="{'mui-active':tab =='tab2'}">
+                 <div class="mui-scroll-wrapper">
+                     <div class="mui-scroll">
+                         <ul class="mui-table-view">
+                             <li class="mui-table-view-cell">
+                                 第2个选项卡子项-20
+                             </li>
+                             <li class="mui-table-view-cell">
+                                 第2个选项卡子项-20
+                             </li>
+                             <li class="mui-table-view-cell">
+                                 第2个选项卡子项-20
+                             </li>
+                             <li class="mui-table-view-cell">
+                                 第2个选项卡子项-20
+                             </li>
+                         </ul>
+                     </div>
+                 </div>
+             </div>-->
+        </div>
+    </div>
+</div>

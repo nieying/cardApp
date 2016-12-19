@@ -1,0 +1,19 @@
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+
+    <h1 class="mui-title">顺丰卡备注</h1>
+</header>
+<div class="change-pwd">
+    <form name="remarkForm" class="mui-input-group">
+        <div class="mui-input-row">
+            <label>卡备注</label>
+            <input type="text" maxlength="8" ng-model="remark"  placeholder="请输入8个字以内的信息" required>
+        </div>
+    </form>
+    <div class="change-pwd-btn mui-text-center">
+        <button class="mui-btn "
+                ng-class="{'mui-btn-grey':remarkForm.$invalid,'mui-btn-primary':!remarkForm.$invalid}"
+                ng-click="comfirm()">确认
+        </button>
+    </div>
+</div>
