@@ -67,10 +67,11 @@ ul li {
 
 .btn-grey {
     width: 55%;
+    color: white;
     height: 2rem;
     font-size: 0.75rem;
     line-height: 1.5rem;
-    border: 1px solid #c2c8cc;
+    border: 1px solid #c7c7cc;
 }
 
 html, body {
@@ -90,7 +91,7 @@ html, body {
 /*header*/
 #header a.mui-pull-right {
     font-size: 0.7rem;
-    line-height: 2.5rem;
+    line-height: 2.2rem;
     padding-right: 0.7rem;
 }
 
@@ -235,7 +236,7 @@ div.crossWord {
 
 
 .card-detail .mui-table-view-cell{
-    padding:.6rem .75rem !important;
+    padding:.52rem .75rem !important;
 }
 
 /*
@@ -352,7 +353,7 @@ div.crossWord {
     padding-right: 1rem;
     color: #282e33;
     display: inline-block;
-    margin: -1.7rem 0;
+    margin: -1.5rem 0;
 }
 
 .card-detail ul span.mui-pull-right {
@@ -473,8 +474,8 @@ div.crossWord {
     margin-bottom: 0.5rem;
 }
 
-.recharge-type li div:last-child {
-    font-size: 0.65rem;
+.recharge-type li div.mui-ellipsis {
+    font-size: 0.6rem;
     color: #c9c9c9;
 }
 
@@ -566,7 +567,7 @@ div.crossWord {
 
 /*changePwd css*/
 .change-pwd {
-    margin: 2.5rem 0 1rem 0;
+    margin: 2.2rem 0 1rem 0;
 }
 
 .change-pwd .mui-input-group .mui-input-row {
@@ -754,7 +755,7 @@ div.crossWord {
 
 .online-pay, .add-card {
     font-size: 0.7rem;
-    margin-top: 50px;
+    margin-top: 2.2rem;
 }
 
 .online-pay .oh .mui-pull-right {
@@ -951,10 +952,6 @@ div.crossWord {
     -moz-transform: rotate(45deg);
     -o-transform: rotate(45deg);
     transform: rotate(45deg);
-}
-
-.header-cancel {
-    line-height: 41px !important;
 }
 
 /*bind phone css*/
@@ -1178,20 +1175,19 @@ div.crossWord {
 
 /*-----------------picker----------------*/
 .mui-bar-nav {
-    height: 2.5rem;
-    box-shadow: none;
-    background-color: #FFFFFF;
-}
+    height: 2.2rem;
+    /*box-shadow: none;*/
+.mui-bar-nav}
 
 .mui-bar .mui-title {
     height: 100%;
-    line-height: 2.5rem;
+    line-height: 2.2rem;
     font-size: 0.9rem;
 }
 
 .mui-bar-nav.mui-bar .mui-icon {
     height: 100%;
-    line-height: 2.5rem;
+    line-height: 2.2rem;
     color: #000000;
 }
 
@@ -1273,4 +1269,22 @@ div.crossWord {
     color: #5ee1e9;
     font-size: 0.75rem;
     font-weight: 100 !important;
+}
+
+.invoice-info h3{
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-top: 1px solid #c8c7cc;
+    border-bottom: 1px solid #c8c7cc;
+    padding: 0.6rem 0.4rem;
+}
+
+.invoice-info input{
+    font-size: 0.6rem !important;
+}
+
+.span-tips{
+    position: absolute;
+    right: 0.7rem;
+    color: red;
 }

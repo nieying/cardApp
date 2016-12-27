@@ -87,7 +87,7 @@ angular.module('cardApp').controller('rechargeCtrl', function ($scope, $rootScop
         if (obj.success) {
             if (obj.msgData.checkRcg) {
                 $scope.businessNo = obj.msgData.businessNo;
-                $cookieStore.put("businessNo",{value:obj.msgData.businessNo})
+                $cookieStore.put("businessNo",{value:obj.msgData.businessNo});
                 openModal();
             }
             console.log("待查询充值信息", obj);

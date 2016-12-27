@@ -27,8 +27,8 @@
         <li ng-repeat="recharge in rechargeList"
             ng-class="{'active':$index == rechargeIndex}" ng-click="checkItem(recharge,$index)">
             <div><i class="mui-icon iconfont icon-yuan"></i>{{recharge}}</div>
-            <div class="mui-ellipsis" ng-show="rechargeInfo.giveScale != 'null'">(赠送{{recharge*rechargeInfo.giveScale/100}}元)</div>
-            <div class="mui-ellipsis" ng-show="rechargeInfo.giveScale == 'null'">(赠送0.00元)</div>
+            <div class="mui-ellipsis" ng-show="rechargeInfo.giveScale != 'null'">( 赠送{{recharge*rechargeInfo.giveScale/100}}元 )</div>
+            <div class="mui-ellipsis" ng-show="rechargeInfo.giveScale == 'null'">( 赠送0.00元 )</div>
         </li>
 
         <!--充值金额大于卡内余额-->

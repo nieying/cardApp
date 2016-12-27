@@ -5,50 +5,72 @@
 </header>
 <div class="change-pwd">
     <form name="invoiceApplyForm" class="mui-input-group">
-        <div class="mui-input-row">
-            <label>开票金额</label>
-            <input type="text" pattern="[0-9]*" ng-model="params.money" required placeholder="请输入开票金额">
-        </div>
-        <div class="mui-input-row">
-            <label>开票抬头</label>
-            <input type="text" pattern="[0-9]*" ng-model="params.title" required placeholder="公司/个人">
-        </div>
-        <div class="mui-input-row">
-            <label>开票內容</label>
-            <input type="text" pattern="[0-9]*" ng-model="params.content" required placeholder="预付卡销售和充值（备注顺丰卡）">
-        </div>
-        <div class="mui-input-row">
-            <label>收件人名</label>
-            <input type="text" pattern="[0-9]*" ng-model="params.name" required placeholder="请输入收件人名">
-        </div>
-        <div class="mui-input-row">
-            <label>手机号码</label>
-            <input type="text" maxlength="11" pattern="[0-9]*" ng-model="params.mobile" required placeholder="请输入手机号码">
-        </div>
-        <div id="demo" class="citys">
+        <div class="invoice-info">
+            <h3>开票信息</h3>
             <div class="mui-input-row">
-                <label>省份</label>
-                <select class="mui-select" id="province" ng-model="params.province" name="province"></select>
+                <label>开票金额</label>
+                <input type="text" pattern="[0-9]*" ng-model="params.amt" required placeholder="可开票{{invoiveInfo.limitAmt}}元，输入100的整数倍"><span class="span-tips">*</span>
             </div>
             <div class="mui-input-row">
-                <label>城市</label>
-                <select class="mui-select" id="city" ng-model="params.city" name="city"></select>
+                <label>开票抬头</label>
+                <input type="text" ng-model="params.title" required placeholder="公司/个人">
+                <span class="span-tips">*</span>
             </div>
             <div class="mui-input-row">
-                <label>区域</label>
-                <select class="mui-select" id="area" ng-model="params.area" name="area"></select>
+                <label>纳税人识别号</label>
+                <input type="text" ng-model="params.taxpayerId"  placeholder="请输入纳税识别号，可不填写">
             </div>
-          <!--  <select class="mui-select" id="province" ng-model="params.province" name="province"></select>
-            <select class="mui-select" id="city" ng-model="params.city" name="city"></select>
-            <select class="mui-select" id="area" ng-model="params.area" name="area"></select>-->
+            <div class="mui-input-row">
+                <label>地址、电话</label>
+                <input type="text" ng-model="params.taxpayerAddrMob"  placeholder="请输入发票的地址及电话，可不填写">
+            </div>
+            <div class="mui-input-row">
+                <label>开户行及账户</label>
+                <input type="text" ng-model="params.taxpaerBank"  placeholder="请输入发票的开户信息，可不填写">
+            </div>
         </div>
-        <script type="text/javascript">
-            $('#demo').citys({province: '福建', city: '厦门', area: '思明'});
-        </script>
-        <div class="mui-input-row">
-            <label>详细地址</label>
-            <input type="text" ng-model="params.address" required placeholder="请输入详细地址">
+
+        <div class="invoice-info">
+            <h3>发票配送信息</h3>
+            <div class="mui-input-row">
+                <label>收件人名</label>
+                <input type="text" ng-model="params.addressee" required placeholder="请输入收件人名"><span class="span-tips">*</span>
+            </div>
+            <div class="mui-input-row">
+                <label>手机号码</label>
+                <input type="text" maxlength="11" pattern="[0-9]*" ng-model="params.mobile" required
+                       placeholder="请输入手机号码">
+                <span class="span-tips">*</span>
+            </div>
+            <div id="demo" class="citys">
+                <div class="mui-input-row">
+                    <label>省  份</label>
+                    <select class="mui-select" id="province" placeholder="请选择省份" ng-model="params.province" name="province"></select>
+                    <span class="span-tips">*</span>
+                </div>
+                <div class="mui-input-row">
+                    <label>城  市</label>
+                    <select class="mui-select" id="city" ng-model="params.city" name="city"></select>
+                    <span class="span-tips">*</span>
+                </div>
+                <div class="mui-input-row">
+                    <label>区  域</label>
+                    <select class="mui-select" id="area" ng-model="params.area" name="area"></select>
+                </div>
+                <!--  <select class="mui-select" id="province" ng-model="params.province" name="province"></select>
+                  <select class="mui-select" id="city" ng-model="params.city" name="city"></select>
+                  <select class="mui-select" id="area" ng-model="params.area" name="area"></select>-->
+            </div>
+            <script type="text/javascript">
+                $('#demo').citys(/*{province: '福建', city: '厦门', area: '思明'}*/);
+            </script>
+            <div class="mui-input-row">
+                <label>详细地址</label>
+                <input type="text" ng-model="params.address" required placeholder="请输入详细地址">
+                <span class="span-tips">*</span>
+            </div>
         </div>
+
         <div class="invioce-apply-tips">
             <p>据国税总局【2016】53号公告，2016年9月1日起，本卡充值后只能在当前页申请开具普通发票（非增值税专用发票），后续消费使用环节不再开票。本卡开票方为“顺丰速运有限公司”。
             <p>

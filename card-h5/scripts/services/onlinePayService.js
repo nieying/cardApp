@@ -1,13 +1,13 @@
 /**
  * Created by nieying on 2016/6/21.
  */
-angular.module("cardApp").service('onlinePayService', ['$http', function ($http) {
+angular.module("cardApp").service('onlinePayService', function ($http) {
     return {
         /*在线支付 获取支付信息*/
-        onlinePay: function (params) {
+        onlinePay: function () {
             return $http({
                 method: "GET",
-                url: "card-h5/onlinePay/payReqAndCardListInfo?version=V1.0.0&charset=UTF-8&signType=RSA&sourceCode=SFAPP&memNo=43242353121233&mobile=13688807437&orderId=1111111110&payAmt=5000&totalAmt=5000&ccy=ccy&businessType=OFF_PAY&notifyUrl=http://10.118.200.63:8080/testcase/notifyResult&returnUrl=http://10.118.200.63:8080/testcase/payResult&expressSnAndAmtStr=555555:2000&sign=asdfsdf"
+                url: "onlinePay/payInfo"
             });
         },
 
@@ -15,8 +15,8 @@ angular.module("cardApp").service('onlinePayService', ['$http', function ($http)
         repay: function (params) {
             return $http({
                 method: "POST",
-                url: "card-h5/onlinePay/payReturnInfo",
-                params: params
+                url: "card-h5/onlinePay/pay",
+                data: params
             });
         },
 
@@ -29,4 +29,4 @@ angular.module("cardApp").service('onlinePayService', ['$http', function ($http)
             });
         },
     }
-}]);
+});

@@ -324,6 +324,49 @@ angular.module("cardApp").service('dataService', ['$http', function ($http) {
                 url: 'business/businessInfo',
                 data: params
             })
-        }
+        },
+
+        /*查询卡片可开票信息*/
+        invoiceApplyInfo: function () {
+            return $http({
+                method: 'POST',
+                url: 'sfcard/invoiceApplyInfo'
+            })
+        },
+
+        /*开票申请*/
+        invoiceApply: function (params) {
+            return $http({
+                method: 'POST',
+                url: 'sfcard/invoiceApply',
+                data: params
+            })
+        },
+
+        /*在线支付 获取支付信息*/
+        onlinePay: function () {
+            return $http({
+                method: "GET",
+                url: "onlinePay/payInfo"
+            });
+        },
+
+        /*在线支付 立即支付*/
+        repay: function (params) {
+            return $http({
+                method: "POST",
+                url: "onlinePay/pay",
+                data: params
+            });
+        },
+
+        /*在线支付 支付并绑定*/
+        bindAndPay: function (params) {
+            return $http({
+                method: "POST",
+                url: "onlinePay/bindAndPay",
+                data: params
+            });
+        },
     }
 }]);

@@ -327,15 +327,15 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
                 ]);
             }]
         }
-    }).state('onlinePay', {  //在线支付
-        url: '/onlinePay',
+    }).state('onlinePay/payInfo', {  //在线支付
+        url: '/onlinePay/payInfo',
         templateUrl: 'scripts/tpls/onlinePay/onlinePay.html',
         controller: 'onlinePayCtrl',
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
                     'scripts/controllers/onlinePay/onlinePayCtrl.js',
-                    'scripts/services/onlinePayService.js'
+                    'scripts/services/dataService.js'
                 ]);
             }]
         }
@@ -347,7 +347,7 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
                     'scripts/controllers/onlinePay/onlinePayCtrl.js',
-                    'scripts/services/onlinePayService.js'
+                    'scripts/services/dataService.js'
                 ]);
             }]
         }
@@ -359,7 +359,7 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
                     'scripts/controllers/onlinePay/onlinePayCtrl.js',
-                    'scripts/services/onlinePayService.js'
+                    'scripts/services/dataService.js'
                 ]);
             }]
         }
