@@ -58,7 +58,7 @@ angular.module('cardApp').controller('sfcardCtrl',  function ($scope, $rootScope
 
             $rootScope.loading = true;
             var unbindParams = {
-                pwd: DES3.encrypt($scope.params.pwd,$scope.pwdDes3Sk)
+                pwd: aesEncode($scope.params.pwd,$scope.pwdDes3Sk)
             };
 
             if ($scope.isUnbind) {
@@ -81,4 +81,16 @@ angular.module('cardApp').controller('sfcardCtrl',  function ($scope, $rootScope
             }
         }
     }
+
+
+    /*获取电话*/
+    dataService.getServiceTel().success(function (obj) {
+        if(obj.success){
+            $scope.tel = obj.msgData;
+        }else{
+            errorTips(obj,$state)
+        }
+    }).error(function (err) {
+        mui.alert(err)
+    })
 });

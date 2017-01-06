@@ -16,53 +16,61 @@
                 <input type="text" ng-model="params.title" required placeholder="公司/个人">
                 <span class="span-tips">*</span>
             </div>
-            <div class="mui-input-row">
-                <label>纳税人识别号</label>
-                <input type="text" ng-model="params.taxpayerId"  placeholder="请输入纳税识别号，可不填写">
+            <div class="mui-input-row" ng-click="showMoreInfo = !showMoreInfo">
+                <label style="color:#2390ed">更多信息</label>
             </div>
-            <div class="mui-input-row">
-                <label>地址、电话</label>
-                <input type="text" ng-model="params.taxpayerAddrMob"  placeholder="请输入发票的地址及电话，可不填写">
-            </div>
-            <div class="mui-input-row">
-                <label>开户行及账户</label>
-                <input type="text" ng-model="params.taxpaerBank"  placeholder="请输入发票的开户信息，可不填写">
-            </div>
+           <div ng-show="showMoreInfo">
+               <div class="mui-input-row">
+                   <label>纳税人识别号</label>
+                   <input type="text" ng-model="params.taxpayerId"  placeholder="请输入纳税识别号，可不填写">
+               </div>
+               <div class="mui-input-row">
+                   <label>地址、电话</label>
+                   <input type="text" ng-model="params.taxpayerAddrMob"  placeholder="请输入发票的地址及电话，可不填写">
+               </div>
+               <div class="mui-input-row">
+                   <label>开户行及账户</label>
+                   <input type="text" ng-model="params.taxpaerBank"  placeholder="请输入发票的开户信息，可不填写">
+               </div>
+           </div>
         </div>
 
         <div class="invoice-info">
-            <h3>发票配送信息</h3>
+            <h3 style="margin-top: -1px">发票配送信息</h3>
             <div class="mui-input-row">
                 <label>收件人名</label>
                 <input type="text" ng-model="params.addressee" required placeholder="请输入收件人名"><span class="span-tips">*</span>
             </div>
             <div class="mui-input-row">
                 <label>手机号码</label>
-                <input type="text" maxlength="11" pattern="[0-9]*" ng-model="params.mobile" required
+                <input type="text" minlength="11" pattern="[0-9]*" ng-model="params.mobile" required
                        placeholder="请输入手机号码">
                 <span class="span-tips">*</span>
             </div>
             <div id="demo" class="citys">
-                <div class="mui-input-row">
-                    <label>省  份</label>
-                    <select class="mui-select" id="province" placeholder="请选择省份" ng-model="params.province" name="province"></select>
-                    <span class="span-tips">*</span>
+                <div class="mui-input-row select-area">
+                    <label>地 区</label>
+                    <select style="width:18%;" class="mui-select" id="province" ng-model="params.province" name="province">
+                    </select>
+                    <select style="width:19%;" class="mui-select" id="city" ng-model="params.city" name="city">
+                    </select>
+                    <select style="width:22%;" class="mui-select" id="area" ng-model="params.area" name="area">
+                    </select>
                 </div>
-                <div class="mui-input-row">
+                <!--<div class="mui-input-row">
                     <label>城  市</label>
                     <select class="mui-select" id="city" ng-model="params.city" name="city"></select>
-                    <span class="span-tips">*</span>
                 </div>
                 <div class="mui-input-row">
                     <label>区  域</label>
                     <select class="mui-select" id="area" ng-model="params.area" name="area"></select>
-                </div>
+                </div>-->
                 <!--  <select class="mui-select" id="province" ng-model="params.province" name="province"></select>
                   <select class="mui-select" id="city" ng-model="params.city" name="city"></select>
                   <select class="mui-select" id="area" ng-model="params.area" name="area"></select>-->
             </div>
             <script type="text/javascript">
-                $('#demo').citys(/*{province: '福建', city: '厦门', area: '思明'}*/);
+                $('#demo').citys({required:false, nodata:'hidden'});
             </script>
             <div class="mui-input-row">
                 <label>详细地址</label>

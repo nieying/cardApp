@@ -11,7 +11,7 @@
         </div>
         <div class="mui-input-row">
             <label>新密码</label>
-            <input type="password" maxlength="6" pattern="[0-9]*" ng-model="params.newPwd"  placeholder="请输入新密码" required>
+            <input type="password" maxlength="6" pattern="[0-9]*" ng-model="params.newPwd"  placeholder="请输入6位数字新密码" required>
         </div>
         <div class="mui-input-row">
             <label>确定新密码</label>
@@ -20,7 +20,7 @@
     </form>
     <div class="change-pwd-btn mui-text-center">
         <button class="mui-btn" ng-class="{'mui-btn-grey':changPwdForm.$invalid,'mui-btn-primary':!changPwdForm.$invalid}"
-             ng-click="updatePwd()">确认修改</button>
+             ng-click="updatePwd()">确 认</button>
         <a class="forget-Pwd c-23" ng-show="hasMmobile" ui-sref="findPwd">忘记密码？</a>
         <a class="forget-Pwd c-23" ng-show="!hasMmobile" ui-sref="bindPhone">忘记密码？</a>
     </div>

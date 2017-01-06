@@ -38,7 +38,7 @@ angular.module('cardApp').controller('pwdSetCtrl', function ($scope, $rootScope,
             }
             var params = {
                 coatingCode: encodeService.encode64($scope.params.coatingCode),
-                pwd: DES3.encrypt($scope.params.pwd, $scope.pwdDes3Sk)
+                pwd: aesEncode($scope.params.pwd, $scope.pwdDes3Sk)
             };
             dataService.scanSetPwd(params).success(function (obj) {
                 if (obj.success) {

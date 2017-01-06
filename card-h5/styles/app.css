@@ -71,7 +71,7 @@ ul li {
     height: 2rem;
     font-size: 0.75rem;
     line-height: 1.5rem;
-    border: 1px solid #c7c7cc;
+    border: 1px solid #ebeef0;
 }
 
 html, body {
@@ -193,7 +193,7 @@ div.crossWord {
     color: #2390ed;
     font-size: 1rem;
     text-align: center;
-    border: 1px dashed #c2c8cc;
+    border: 2px dashed #c2c8cc;
     margin: 0 0.7rem 1rem 0.7rem;
     border-radius: 10px;
     height: 2.2rem;
@@ -201,6 +201,7 @@ div.crossWord {
 }
 
 .bind-sfcard .mui-icon-plusempty {
+    padding-top:0.3rem;
     font-size: 1.5rem;
     color: #2390ed;
     font-weight: 700;
@@ -234,9 +235,8 @@ div.crossWord {
     margin: 1rem 0 !important;
 }
 
-
-.card-detail .mui-table-view-cell{
-    padding:.52rem .75rem !important;
+.card-detail .mui-table-view-cell {
+    padding: .52rem .75rem !important;
 }
 
 /*
@@ -358,7 +358,7 @@ div.crossWord {
 
 .card-detail ul span.mui-pull-right {
     padding-right: 1rem;
-    color: #282e33;
+    color: #5f6d78;
     margin-top: 1px;
 }
 
@@ -415,14 +415,14 @@ div.crossWord {
 
 .recharge-info .recharge-p {
     color: #333;
-    margin-bottom: 0.15rem;
+    margin-bottom: 0.3rem;
     margin-top: 0.3rem;
     font-size: 0.75rem;
 }
 
 .recharge-p2 {
     color: #333;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
 }
 
 .recharge .icon-yinxingqia {
@@ -496,7 +496,7 @@ div.crossWord {
     color: white;
     position: fixed;
     z-index: 999;
-    top:2.2rem;
+    top: 2.2rem;
 }
 
 .w-dot {
@@ -755,7 +755,7 @@ div.crossWord {
 
 .online-pay, .add-card {
     font-size: 0.7rem;
-    margin-top: 2.2rem;
+    margin-top: 2.5rem;
 }
 
 .online-pay .oh .mui-pull-right {
@@ -819,7 +819,13 @@ div.crossWord {
 }
 
 .add-card .mui-input-row input {
-    width: 75%;
+    width: 62%;
+    float: left;
+}
+
+.add-card .mui-input-row .mui-pull-left{
+    display: inline-block;
+    padding-top: 0.5rem;
 }
 
 /*error css*/
@@ -830,7 +836,8 @@ div.crossWord {
 
 .error-view .error-p1, .success-tips .s-p1 {
     margin-top: 1rem;
-    font-size: 0.9rem !important;
+    font-size: 0.7rem !important;
+    line-height: 1.2rem;
 }
 
 .error-view .error-p2, .success-tips .s-p2 {
@@ -944,6 +951,7 @@ div.crossWord {
     display: block;
     width: 4rem;
     height: 1rem;
+    line-height: 1rem;
     color: white;
     font-size: 0.6rem;
     text-align: center;
@@ -1164,20 +1172,19 @@ div.crossWord {
     }
 }
 
-
 /*发票申请*/
-.invioce-apply-tips{
+.invioce-apply-tips {
     padding: 1rem 0.75rem 0 0.75rem;
     line-height: 0.85rem;
     margin-bottom: -1rem;
 }
 
-
 /*-----------------picker----------------*/
 .mui-bar-nav {
     height: 2.2rem;
     /*box-shadow: none;*/
-.mui-bar-nav}
+. mui-bar-nav
+}
 
 .mui-bar .mui-title {
     height: 100%;
@@ -1271,7 +1278,7 @@ div.crossWord {
     font-weight: 100 !important;
 }
 
-.invoice-info h3{
+.invoice-info h3 {
     font-size: 0.7rem;
     font-weight: 700;
     border-top: 1px solid #c8c7cc;
@@ -1279,11 +1286,44 @@ div.crossWord {
     padding: 0.6rem 0.4rem;
 }
 
-.invoice-info input{
+.invoice-info input {
     font-size: 0.6rem !important;
 }
+/*
+.select-area select:first-child {
+    width: 17% !important;
 
-.span-tips{
+}
+
+.select-area select:nth-child(1) {
+    width: 18% !important;
+
+}
+
+.select-area select:last-child {
+    width: 25% !important;
+
+}*/
+
+.select-area option{
+    color:#2390ed;
+}
+
+.select-area option:hover{
+    color: #1c7ded;
+}
+
+.select-area option{
+    padding: 0.4rem;
+}
+
+.select-area select {
+    font-size: 0.55rem;
+    display: inline-block !important;
+    float: left !important;
+}
+
+.span-tips {
     position: absolute;
     right: 0.7rem;
     color: red;

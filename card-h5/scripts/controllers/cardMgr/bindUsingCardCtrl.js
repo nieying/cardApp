@@ -27,9 +27,8 @@ angular.module('cardApp').controller('bindUsingCardCtrl', function ($scope, $roo
 
             $rootScope.loading = true;
             var params = {
-                pwd: DES3.encrypt($scope.params.pwd, $scope.pwdDes3Sk)
+                pwd: aesEncode($scope.params.pwd, $scope.pwdDes3Sk)
             };
-            debugger;
             dataService.bindUsingCard(params).success(function (obj) {
                 if (obj.success) {
                     $state.go("sfcards");

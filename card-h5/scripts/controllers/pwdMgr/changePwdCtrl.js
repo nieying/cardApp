@@ -38,8 +38,8 @@ angular.module('cardApp').controller('changePwdCtrl',function ($scope, $rootScop
             }
 
             var params = {
-                pwd: DES3.encrypt($scope.params.oldPwd,$scope.pwdDes3Sk),
-                newPwd: DES3.encrypt($scope.params.newPwd,$scope.pwdDes3Sk)
+                pwd: aesEncode($scope.params.oldPwd,$scope.pwdDes3Sk),
+                newPwd: aesEncode($scope.params.newPwd,$scope.pwdDes3Sk)
             };
 
             dataService.changePwd(params).success(function (obj) {

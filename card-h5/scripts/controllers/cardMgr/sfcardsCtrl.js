@@ -4,6 +4,7 @@
  */
 angular.module('cardApp').controller('sfcardsCtrl', function ($scope, $rootScope, $state, $stateParams, dataService, encodeService, $cookieStore) {
     $rootScope.loading = true;
+    $scope.showGoBackBtn = true;//判断是否显示返回按钮
     $cookieStore.put("system", {value: 'SFCARD'});
 
     /*获取卡列表*/
@@ -40,8 +41,40 @@ angular.module('cardApp').controller('sfcardsCtrl', function ($scope, $rootScope
         $cookieStore.put("cno", {value: card.cardNo});
         $cookieStore.put("mobile", {value: card.moblie});
         $cookieStore.put("isEleCard", {value: card.cardType == 'EC' ? true : false});
+    };
+
+
+    if (isWeiXin()) {//微信
+        if (typeof WeixinJSBridge == "undefined") {
+            if (document.addEventListener) {
+                document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+            } else if (document.attachEvent) {
+                document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+            }
+        } else {
+            // console.log("weixin---goBack", WeixinJSBridge, typeof(WeixinJSBridge));
+            onBridgeReady()
+        }
+    } else if (isSfApp()) {//新版APP
+        onBridgeReady();
+    } else {//旧版APP等其他
+        $scope.showGoBackBtn = false;
+    }
+
+    function onBridgeReady() {
+        $scope.goBack = function () {
+            if (isWeiXin()) {
+                alert("wechat return back close"); //console;
+                WeixinJSBridge.invoke('closeWindow', {}, function (resp) {});
+            } else {
+                window.location.href = "ActionInterface.backToBeforePage";
+            }
+        };
     }
 });
+
+
 
 
 

@@ -24,16 +24,15 @@ angular.module('cardApp').controller('pwdSetNoValueCardCtrl', function ($scope, 
     };
 
     /*定时器*/
-    function timer() {
-        $scope.second = 60;
-        $interval(function () {
+    $scope.startTimer = function (second) {
+        $scope.second = second;
+        $scope.timer = $interval(function () {
             $scope.second--;
             if ($scope.second == 0) {
-                $scope.showCode = false;
+                $scope.showCode = true;
             }
-        }, 1000, 60);
-    }
-
+        }, 1000, second);
+    };
     /*获取短信验证码*/
     $scope.sendCode = function () {
         var phoneReg = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
@@ -45,10 +44,11 @@ angular.module('cardApp').controller('pwdSetNoValueCardCtrl', function ($scope, 
             mobile:encodeService.encode64($scope.params.phone),
             op:encodeService.encode64('SET_PWD_NOVALUECARD')
         };
+        $interval.cancel($scope.timer);
         dataService.getSmsCode(params).success(function (obj) {
             if (obj.success) {
                 $scope.showCode = true;
-                timer();
+                $scope.startTimer(60);
                 mui.toast("验证码已发送" + $scope.params.phone);
             } else {
                 if(obj.code == '01'){
@@ -59,6 +59,7 @@ angular.module('cardApp').controller('pwdSetNoValueCardCtrl', function ($scope, 
                     //todo
                 }
                 errorTips(obj, $state);
+                $scope.startTimer(obj.msgData);
             }
         }).error(function () {
             mui.alert("系统繁忙，请稍后重试！");
@@ -79,7 +80,7 @@ angular.module('cardApp').controller('pwdSetNoValueCardCtrl', function ($scope, 
             }
 
             var params = {
-                pwd: DES3.encrypt($scope.params.pwd,$scope.pwdDes3Sk),
+                pwd: aesEncode($scope.params.pwd,$scope.pwdDes3Sk),
                 mobile: encodeService.encode64($scope.params.phone),
                 confirmCode:encodeService.encode64($scope.params.code)
             };

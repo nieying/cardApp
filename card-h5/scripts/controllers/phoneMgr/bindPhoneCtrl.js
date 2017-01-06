@@ -17,7 +17,6 @@ angular.module('cardApp').controller('bindPhoneCtrl', function ($scope, $rootSco
         code: ''
     };
 
-
     /*获取短信验证码*/
     $scope.sendCode = function () {
         var phoneReg = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
@@ -29,14 +28,15 @@ angular.module('cardApp').controller('bindPhoneCtrl', function ($scope, $rootSco
             mobile: encodeService.encode64($scope.params.phone),
             op: $scope.hasMmobile ? encodeService.encode64('UPDATE_PHONE') : encodeService.encode64('BIND_PHONE')
         };
-
+        $interval.cancel($scope.timer);
         dataService.getSmsCode(params).success(function (obj) {
             if (obj.success) {
                 $scope.showCode = true;
-                timer();
+                $scope.startTimer(60);
                 mui.toast("验证码已发送" + $scope.params.phone);
             } else {
                 errorTips(obj, $state);
+                $scope.startTimer(obj.msgData);
             }
         }).error(function () {
             mui.alert("系统繁忙，请稍后重试！");
@@ -70,15 +70,15 @@ angular.module('cardApp').controller('bindPhoneCtrl', function ($scope, $rootSco
 
 
     /*定时器*/
-    function timer() {
-        $scope.second = 60;
-        $interval(function () {
+    $scope.startTimer = function (second) {
+        $scope.second = second;
+        $scope.timer = $interval(function () {
             $scope.second--;
             if ($scope.second == 0) {
-                $scope.showCode = false;
+                $scope.showCode = true;
             }
-        }, 1000, 60);
-    }
+        }, 1000, second);
+    };
 
     function successTips(obj) {
         if (obj.success) {
@@ -87,6 +87,7 @@ angular.module('cardApp').controller('bindPhoneCtrl', function ($scope, $rootSco
                 content: "请记住您的手机号，可以使用手机号找回密码",
                 url: ($cookieStore.get("system").value == 'SFCARD') ? 'sfcard' : 'sfcardscan'
             });
+            $cookieStore.put("mobile", {value: $scope.params.phone});
             $state.go("pwdSuccess");
         } else {
             errorTips(obj, $state);

@@ -42,39 +42,32 @@ angular.module('cardApp').controller('changeMobileCtrl', function ($scope, $root
     };
 
     /*定时器*/
-    function timer() {
-        $scope.second = 60;
-        $interval(function () {
+    $scope.startTimer = function (second) {
+        $scope.second = second;
+        $scope.timer = $interval(function () {
             $scope.second--;
             if ($scope.second == 0) {
                 $scope.showCode = true;
             }
-        }, 1000, 60);
-    }
+        }, 1000, second);
+    };
 
     /*再次发送*/
-    $scope.sendMsg = function () {
-        $interval.cancel(timer);
+    $scope.sendCode = function () {
+        // $interval.cancel($scope.timer);
         $scope.showCode = false;
-        timer();
         getMsgCode();
     };
 
-    /*获取验证码*/
-    $scope.sendCode = function () {
-        $interval.cancel(timer);
-        $scope.showCode = true;
-        timer();
-    };
-
-
     function getMsgCode() {
+        $interval.cancel($scope.timer);
         dataService.getSmsCode(params).success(function (obj) {
             if (obj.success) {
-                timer();
+                $scope.startTimer(60);
                 mui.toast("验证码已发送" + $scope.mobile);
             } else {
                 mui.alert(obj.msg);
+                $scope.startTimer(obj.msgData);
             }
         }).error(function () {
             mui.alert("系统繁忙，请稍后重试！");

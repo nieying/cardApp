@@ -3,8 +3,6 @@
  */
 angular.module('cardApp').controller('telRechargeCtrl', function ($scope, $rootScope,$state,$cookieStore, dataService, encodeService) {
 
-    console.log($cookieStore.get("telMobile").value);
-
     var telParams = {
         mobile: encodeService.encode64($cookieStore.get("telMobile").value),
         reqBusSn: encodeService.encode64($cookieStore.get("reqBusSn").value)

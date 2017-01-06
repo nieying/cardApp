@@ -32,7 +32,7 @@ angular.module("cardApp").service('dataService', ['$http', function ($http) {
         bindUsingCard: function (params) {
             return $http({
                 method: "POST",
-                url: "sfexpWxScan/bindUsingCard",
+                url: "sfcards/bindCard",
                 data: params
             });
         },
@@ -41,7 +41,7 @@ angular.module("cardApp").service('dataService', ['$http', function ($http) {
         setPwdAndBindCard: function (params) {
             return $http({
                 method: "POST",
-                url: "sfexpWxScan/setPwdAndBindCard",
+                url: "sfcards/setPwdAndBindCard",
                 data: params
             });
         },
@@ -50,7 +50,7 @@ angular.module("cardApp").service('dataService', ['$http', function ($http) {
         setPwdAndBindNoValueCard: function (params) {
             return $http({
                 method: "POST",
-                url: "sfexpWxScan/setPwdAndBindNoValueCard",
+                url: "sfcards/setPwdAndBindNoValueCard",
                 data: params
             });
         },
@@ -147,11 +147,11 @@ angular.module("cardApp").service('dataService', ['$http', function ($http) {
             });
         },
 
-        /*绑卡*/
-        bindCard: function (params) {
+        /*校验要绑定的卡号*/
+        verifyBindingCard: function (params) {
             return $http({
                 method: "POST",
-                url: "sfcards/cardBind",
+                url: "sfcards/verifyBindingCard",
                 data: params
             });
         },
@@ -366,6 +366,24 @@ angular.module("cardApp").service('dataService', ['$http', function ($http) {
                 method: "POST",
                 url: "onlinePay/bindAndPay",
                 data: params
+            });
+        },
+
+        /*获取微信配置*/
+        getWeChatConfig: function (params) {
+            return $http({
+                method: "POST",
+                url: "weixin/wxConfig",
+                data: params
+            });
+        },
+
+        /*获取电话接口*/
+        getServiceTel: function () {
+            return $http({
+                method: "GET",
+                url: "serviceTel",
+                responeType:'string'
             });
         },
     }

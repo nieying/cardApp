@@ -2103,7 +2103,6 @@ select:focus {
 
 .mui-input-group {
     position: relative;
-    padding: 0;
     border: 0;
     background-color: #fff
 }
@@ -2168,6 +2167,7 @@ select:focus {
     /*height: 40px*/
 }
 
+
 .mui-input-group .mui-input-row:after {
     position: absolute;
     right: 15px;
@@ -2185,7 +2185,7 @@ select:focus {
     line-height: 1.1;
     float: left;
     width: 35%;
-    padding: 11px 15px
+    padding: 11px 12px
 }
 
 .mui-input-row label ~ input, .mui-input-row label ~ select, .mui-input-row label ~ textarea {

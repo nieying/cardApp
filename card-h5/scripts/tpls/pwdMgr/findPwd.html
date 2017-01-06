@@ -4,19 +4,19 @@
     <h1 class="mui-title">修改密码</h1>
 </header>
 <div class="find-pwd">
-    <div class="c-59">
+   <!-- <div class="c-59">
         验证码已发送至您的 <span class="c-28">{{mobile|phoneFilter}}</span>
-    </div>
+    </div>-->
     <form name="findPwdForm" class="mui-input-group oh">
-        <input type="text" maxlength="6" pattern="[0-9]*" class="mui-input-row"
-               placeholder="请输入短信验证码" ng-model="params.code" required/>
-        <label ng-show="!showCode"> {{second}} 秒后重发</label>
-        <label ng-show="showCode" class="mui-pull-right c-23" ng-click="sendMsg()">
-            再次发送
-        </label>
+            <input type="text" maxlength="6" pattern="[0-9]*" class="mui-input-row"
+                   placeholder="请输入短信验证码" ng-model="params.code" required/>
+            <label ng-show="!showCode"> {{second}} 秒后重发</label>
+            <label ng-show="showCode" class="mui-pull-right c-23" ng-click="sendCode()">
+                再次发送
+            </label>
     </form>
-    <div class="c-59 phone-tips">
-        如您已经变跟了手机号码，请先更换手机绑定信息。
+    <div class="c-90 phone-tips">
+        请验证绑定手机 {{mobile|phoneFilter}}
     </div>
 
     <div class="change-pwd-btn mui-text-center">

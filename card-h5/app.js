@@ -1,18 +1,18 @@
 /**rem手机适配*/
-function ad(doc,win){
+function ad(doc, win) {
     var docE1 = doc.documentElement;
     var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
-    var recalc = function(){
+    var recalc = function () {
         var clientWidth = docE1.clientWidth;
-        if(!clientWidth) return;
+        if (!clientWidth) return;
         docE1.style.fontSize = 20 * (clientWidth / 320 ) + 'px';
     };
-    if(!doc.addEventListener) return;
-    win.addEventListener(resizeEvt,recalc,false);
-    doc.addEventListener('DOMContentLoaded',recalc,false);
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvt, recalc, false);
+    doc.addEventListener('DOMContentLoaded', recalc, false);
 }
 
-ad(document,window);
+ad(document, window);
 
 
 /**获取浏览器版本*/
@@ -46,25 +46,46 @@ function getBrowser(n) {
 };
 
 /**判断是否是微信浏览器*/
-function isWeiXin(){
+function isWeiXin() {
     var ua = window.navigator.userAgent.toLowerCase();
-    if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+    if (ua.match(/MicroMessenger/i) == 'micromessenger') {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
 
+/**判断是否是顺丰APP*/
+function isSfApp() {
+    var a = window.navigator.userAgent.toLowerCase();
+    var b = a.match(/mediaCode=SFEXPRESSAPP\/((IOS)|(ANDROID))/ig);
+    var c = a.match(/clientVersion=\d\.\d\.\d/ig);
+    if (null != b && b.length > 0 && null != c && c.length > 0) {
+        if (c[0].split('=')[1] >= "8.2.0") {
+            return true;
+        }
+    }
+    return false;
+}
+
 /**提示错误信息*/
-function errorTips(obj,$state){
+function errorTips(obj, $state) {
     if (obj.msg == '连接失效,请重新登录') {
         mui.alert("连接失效,请重新登录", "", function () {
-            $state.go("error",{code:'408'})
+            $state.go("error", {code: '408'})
         });
     } else {
         mui.alert(obj.msg);
     }
 }
+
+
+/*APP设置扫码结果*/
+function setScanResult(str) {
+    str = str + "";
+    $("#cno").val(str.replace(/[^0-9]/ig,"").substring(0,16).replace(/\D/g,'').replace(/....(?!$)/g,'$& '));
+}
+
 
 /**依赖的插件*/
 angular.module('cardApp', [

@@ -25,7 +25,6 @@ angular.module('cardApp').controller('sfcardScanCtrl', function ($scope, $rootSc
     dataService.getSfcardCardInfo().success(function (obj) {
         $scope.showView = true;
         if (obj.success) {
-            debugger;
             $scope.cardInfo = obj.msgData;
             $rootScope.loading = false;
             $cookieStore.put("mobile", {value: $scope.cardInfo.mobile});
@@ -61,7 +60,7 @@ angular.module('cardApp').controller('sfcardScanCtrl', function ($scope, $rootSc
             }
             $rootScope.loading = true;
             var params = {
-                pwd: DES3.encrypt($scope.params.pwd, $scope.pwdDes3Sk)
+                pwd: aesEncode($scope.params.pwd, $scope.pwdDes3Sk)
             };
             dataService.tradeValidate(params).success(function (obj) {
                 if (obj.success) {
@@ -77,4 +76,15 @@ angular.module('cardApp').controller('sfcardScanCtrl', function ($scope, $rootSc
             })
         }
     }
+
+    /*获取电话*/
+    dataService.getServiceTel().success(function (obj) {
+        if(obj.success){
+            $scope.tel = obj.msgData;
+        }else{
+            errorTips(obj,$state)
+        }
+    }).error(function (err) {
+        mui.alert(err)
+    })
 });

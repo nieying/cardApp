@@ -9,22 +9,27 @@
 <div class="online-pay add-card">
     <div class="mui-table-view-cell oh">
         <span class="mui-pull-left">支付运费</span>
-        <span class="mui-pull-right">{{onlineInfo.payAmt|number:2}} 元</span>
+        <span class="mui-pull-right">{{onlineInfo.payAmt/100|number:2}} 元</span>
     </div>
-
-    <div class="mui-input-group">
-        <div class="mui-input-row">
-            <label>卡&nbsp;      号</label>
-            <input type="text" ng-model="cardInfo.cardNo" placeholder="请输入卡号"/>
+    <form name="addCardForm" class="mui-input-group">
+        <div class="mui-input-group">
+            <div class="mui-input-row">
+                <label>卡&nbsp; 号</label>
+                <input type="text" maxlength="16" pattern="[0-9]*" ng-model="params.cno" placeholder="请输入卡号"/>
+                <span class="mui-pull-left" ng-if="showScanCode" ng-click="scanCode()">扫码</span>
+            </div>
+            <div class="mui-input-row">
+                <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+                <input type="password" maxlength="8" pattern="[0-9]*" ng-model="params.pwd" placeholder="请输入卡密码"/>
+            </div>
         </div>
-        <div class="mui-input-row">
-            <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
-            <input type="password"  ng-model="cardInfo.bindPwd" placeholder="请输入卡密码"/>
-        </div>
-    </div>
 
-    <div class="mui-text-center mtb1">
-        <a class="mui-btn mui-btn-primary mui-col-xs-6" href="javascript:void(0)" ng-click="payBindCard()">支付并绑定</a>
-    </div>
+        <div class="mui-text-center mtb1">
+            <button class="mui-btn mui-col-xs-6" ng-click="payBindCard()"
+                    ng-class="{'mui-btn-grey':addCardForm.$invalid,'mui-btn-primary':!addCardForm.$invalid}">支付并绑定
+            </button>
+        </div>
+    </form>
 </div>
+
 

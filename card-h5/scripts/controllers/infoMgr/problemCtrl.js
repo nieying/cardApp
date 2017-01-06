@@ -8,8 +8,4 @@ angular.module('cardApp').controller('problemCtrl', function ($scope, $rootScope
     $scope.showData = function () {
 
     };
-
-    if (codeMsg) {
-        $scope.msg = codeMsg[$stateParams.code];
-    }
 });

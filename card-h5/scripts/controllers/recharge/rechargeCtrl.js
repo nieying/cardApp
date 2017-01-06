@@ -90,7 +90,6 @@ angular.module('cardApp').controller('rechargeCtrl', function ($scope, $rootScop
                 $cookieStore.put("businessNo",{value:obj.msgData.businessNo});
                 openModal();
             }
-            console.log("待查询充值信息", obj);
             $rootScope.loading = false;
         } else {
             errorTips(obj, $state);

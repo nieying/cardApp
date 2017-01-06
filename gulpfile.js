@@ -16,7 +16,7 @@ var config = {
     dist: pkg.version + '/card-h5',
    // proxyUrl: 'http://10.118.202.104:9005/',
     changeOrigin: true,
-    //proxyUrl: 'http://localhost:8080/'
+    proxyUrl: 'http://localhost:8080/'
 };
 
 //编译sass文件

@@ -40,7 +40,7 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
             }]
         }
     }).state('bindUsingCard', { //实体卡微信扫码速运回传(绑定当前顺丰卡)
-        url: '/bindUsingCard',
+        url: '/bindUsingCard/:cno',
         templateUrl: 'scripts/tpls/cardMgr/bindUsingCard.html',
         controller: 'bindUsingCardCtrl',
         resolve: {
@@ -51,7 +51,7 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
             }]
         }
     }).state('setPwdAndBindCard', { //实体卡微信扫码速运回传(绑定当前顺丰卡)
-        url: '/setPwdAndBindCard',
+        url: '/setPwdAndBindCard/:cno',
         templateUrl: 'scripts/tpls/cardMgr/setPwdAndBindCard.html',
         controller: 'setPwdAndBindCardCtrl',
         resolve: {
@@ -62,7 +62,7 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
             }]
         }
     }).state('setPwdAndBindNoValueCard', { //实体卡微信扫码速运回传(绑定当前顺丰卡)
-        url: '/setPwdAndBindNoValueCard',
+        url: '/setPwdAndBindNoValueCard/:cno',
         templateUrl: 'scripts/tpls/cardMgr/setPwdAndBindNoValueCard.html',
         controller: 'setPwdAndBindNoValueCardCtrl',
         resolve: {
@@ -166,6 +166,17 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
     }).state('invoiceApply', {  //发票申请
         url: '/invoiceApply',
         templateUrl: 'scripts/tpls/invoiceMgr/invoiceApply.html',
+        controller: 'invoiceApplyCtrl',
+        resolve: {
+            deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                return $ocLazyLoad.load([
+                    'scripts/controllers/invoiceMgr/invoiceApplyCtrl.js',
+                ]);
+            }]
+        }
+    }).state('invoiceApplySuccess', {  //发票申请成功
+        url: '/invoiceApplySuccess',
+        templateUrl: 'scripts/tpls/invoiceMgr/invoiceTips.html',
         controller: 'invoiceApplyCtrl',
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
@@ -366,12 +377,12 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
     }).state('error', {  //异常页面
         url: '/error/:code',
         templateUrl: 'scripts/tpls/infoMgr/error.html',
-        controller: 'problemCtrl',
+        controller: 'errorCtrl',
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
                     'data/code_msg.js',
-                    'scripts/controllers/infoMgr/problemCtrl.js',
+                    'scripts/controllers/infoMgr/errorCtrl.js',
                 ]);
             }]
         }

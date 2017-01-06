@@ -2,7 +2,7 @@
  * 实体卡微信扫码速运回传(设置密码 并绑定(无面额))顺丰卡
  * Created by nieying on 2016/6/2.
  */
-angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl', function ($scope, $rootScope, $state, $interval, $cookieStore, encodeService, dataService) {
+angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl', function ($scope, $rootScope, $stateParams, $state, $interval, $cookieStore, encodeService, dataService) {
     $rootScope.loading = false;
     $scope.showCode = false;
     $scope.pwdDes3Sk = '';
@@ -14,8 +14,11 @@ angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl', function ($
         }
     });
 
+    $scope.showCno = $cookieStore.get("showCno") ? $cookieStore.get("showCno") : false;
+
     /*初始化参数*/
     $scope.params = {
+        cno: $stateParams.cno,
         pwd: '',
         confrimPwd: '',
         phone: '',
@@ -23,15 +26,15 @@ angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl', function ($
     };
 
     /*定时器*/
-    function timer() {
-        $scope.second = 60;
-        $interval(function () {
+    $scope.startTimer = function (second) {
+        $scope.second = second;
+        $scope.timer = $interval(function () {
             $scope.second--;
             if ($scope.second == 0) {
-                $scope.showCode = false;
+                $scope.showCode = true;
             }
-        }, 1000, 60);
-    }
+        }, 1000, second);
+    };
 
     /*获取短信验证码*/
     $scope.sendCode = function () {
@@ -44,10 +47,11 @@ angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl', function ($
             mobile: encodeService.encode64($scope.params.phone),
             op: encodeService.encode64('SET_PWD_NOVALUECARD')
         };
+        $interval.cancel($scope.timer);
         dataService.getSmsCode(params).success(function (obj) {
             if (obj.success) {
                 $scope.showCode = true;
-                timer();
+                $scope.startTimer(60);
                 mui.toast("验证码已发送" + $scope.params.phone);
             } else {
                 if (obj.code == '01') {
@@ -58,6 +62,7 @@ angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl', function ($
                     //todo
                 }
                 errorTips(obj, $state);
+                $scope.startTimer(obj.msgData);
             }
         }).error(function () {
             mui.alert("系统繁忙，请稍后重试！");
@@ -76,21 +81,29 @@ angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl', function ($
                 mui.alert("获取秘钥失败，请刷新重试！");
                 return false;
             }
-            debugger;
+
             var params = {
-                pwd: DES3.encrypt($scope.params.pwd, $scope.pwdDes3Sk),
+                cno: encodeService.encode64($stateParams.cno),
+                pwd: aesEncode($scope.params.pwd, $scope.pwdDes3Sk),
                 mobile: encodeService.encode64($scope.params.phone),
                 confirmCode: encodeService.encode64($scope.params.code)
             };
 
+
             dataService.setPwdAndBindNoValueCard(params).success(function (obj) {
                 if (obj.success) {
-                    $cookieStore.put("tips", {
-                        title: obj.msg,
-                        content: "请记住您的新密码，使用卡片支付运费时将需使用",
-                        url: 'sfcards'
-                    });
-                    $state.go("pwdSuccess");
+                    if($scope.showCno){//绑卡流程
+                        $cookieStore.put("showCno", {value: false});
+                        $state.go("sfcards");
+                    }else{
+                        $cookieStore.put("tips", {
+                            title: obj.msg,
+                            content: "请记住您的新密码，使用卡片支付运费时将需使用",
+                            url: 'sfcards'
+                        });
+                        $state.go("pwdSuccess");
+                    }
+
                 } else {
                     errorTips(obj, $state);
                 }

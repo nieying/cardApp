@@ -16,7 +16,7 @@
             <p class="recharge-p" ng-show="rechargeInfo.remark">{{rechargeInfo.remark}}
                 尾号{{rechargeInfo.cardTail}}</p>
 
-            <p class="recharge-p2">余额 <span class="c-f1">{{rechargeInfo.balance/100|number:2}}</span></p>
+            <p class="recharge-p2">余额 <span class="c-f1">{{rechargeInfo.balance/100|number:2}}元</span></p>
         </div>
     </div>
     <div class="bind-card">
@@ -26,9 +26,9 @@
     <ul class="recharge-type oh">
         <li ng-repeat="recharge in rechargeList"
             ng-class="{'active':$index == rechargeIndex}" ng-click="checkItem(recharge,$index)">
-            <div><i class="mui-icon iconfont icon-yuan"></i>{{recharge}}</div>
-            <div class="mui-ellipsis" ng-show="rechargeInfo.giveScale != 'null'">( 赠送{{recharge*rechargeInfo.giveScale/100}}元 )</div>
-            <div class="mui-ellipsis" ng-show="rechargeInfo.giveScale == 'null'">( 赠送0.00元 )</div>
+            <div> <!--<i class="mui-icon iconfont icon-yuan"></i>--> {{recharge}}元</div>
+            <div class="mui-ellipsis" ng-show="rechargeInfo.giveScale != 0">( 赠送{{recharge*rechargeInfo.giveScale/100}}元 )</div>
+            <div class="mui-ellipsis" ng-show="rechargeInfo.giveScale == 0"></div>
         </li>
 
         <!--充值金额大于卡内余额-->
@@ -57,6 +57,7 @@
     </div>
     <div class="mui-text-center mtb1">
         <a class="mui-btn mui-btn-primary mui-col-xs-6" ng-click="recharge()">充值</a>
+        <p style="margin-top: 2rem;">本卡由顺丰速运发行</p>
     </div>
 </div>
 

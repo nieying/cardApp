@@ -31,7 +31,7 @@ angular.module('cardApp').controller('telSetPwdCtrl', function ($scope, $rootSco
                 return false;
             }
             var params = {
-                pwd: DES3.encrypt($scope.params.pwd, $scope.pwdDes3Sk)
+                pwd: aesEncode($scope.params.pwd, $scope.pwdDes3Sk)
             };
             dataService.telSetPwd(params).success(function (obj) {
                 if (obj.success) {

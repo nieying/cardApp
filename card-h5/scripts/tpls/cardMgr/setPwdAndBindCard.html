@@ -4,15 +4,13 @@
     <h1 class="mui-title">设置密码</h1>
 </header>
 <div class="change-pwd scan-code-pwd">
-    <div class="mui-text-center">
+    <div class="mui-text-center" ng-show="!showCno">
         <img src="images/cardBack.png"/>
     </div>
     <form name="setPwdAndBindCardForm" class="mui-input-group">
-        <div class="mui-input-row">
-            <label>涂层码</label>
-            <input type="text" maxlength="6" pattern="[0-9]*" ng-model="params.coatingCode"
-                   required
-                   placeholder="请输入验证码">
+        <div class="mui-input-row" ng-if="showCno">
+            <label>卡   号</label>
+            <input type="text" readonly maxlength="16" pattern="[0-9]*" ng-model="params.cno">
         </div>
         <div class="mui-input-row">
             <label>设置密码</label>
@@ -24,9 +22,15 @@
             <input type="password" maxlength="6" pattern="[0-9]*" ng-model="params.confrimPwd"
                    required placeholder="请再次输入密码">
         </div>
+        <div class="mui-input-row">
+            <label>涂层码</label>
+            <input type="text" maxlength="6" pattern="[0-9]*" ng-model="params.coatingCode"
+                   required
+                   placeholder="请输入验证码">
+        </div>
+        <div class="change-pwd-btn mui-text-center">
+            <div class="mui-btn" ng-class="{'mui-btn-grey':setPwdAndBindCardForm.$invalid,'mui-btn-primary':!setPwdAndBindCardForm.$invalid,}" ng-click="confrim()">确认</div>
+        </div>
     </form>
-    <div class="change-pwd-btn mui-text-center">
-        <div class="mui-btn" ng-class="{'mui-btn-grey':setPwdAndBindCardForm.$invalid,'mui-btn-primary':!setPwdAndBindCardForm.$invalid,}" ng-click="confrim()">确认</div>
-    </div>
 </div>
 

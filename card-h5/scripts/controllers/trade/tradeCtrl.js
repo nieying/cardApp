@@ -75,19 +75,23 @@ angular.module('cardApp').controller('tradeCtrl', function ($scope, $rootScope, 
         };
 
         dataService.getTradeList(params).success(function (obj) {
-            $scope.trades = obj.msgData;
-            if (pull == 1) {
-                $scope.tradeList = [];
-            }
-            $scope.tradeList = $scope.tradeList.concat($scope.trades.list);
+           if(obj.success){
+               $scope.trades = obj.msgData;
+               if (pull == 1) {
+                   $scope.tradeList = [];
+               }
+               $scope.tradeList = $scope.tradeList.concat($scope.trades.list);
 
-            if (typeof ($scope.trades.list) == 'null') {
-                mui.alert("系统繁忙，请稍后重试！");
-            } else {
-                $scope.lastTime = _.min(_.map($scope.trades.list, function (trade) {
-                    return trade.tradeTime;
-                }));
-            }
+               if (typeof ($scope.trades.list) == 'null') {
+                   mui.alert("系统繁忙，请稍后重试！");
+               } else {
+                   $scope.lastTime = _.min(_.map($scope.trades.list, function (trade) {
+                       return trade.tradeTime;
+                   }));
+               }
+           }else{
+               errorTips(obj,$state)
+           }
         }).error(function () {
             mui.alert("系统繁忙，请稍后重试！");
         });
