@@ -3,15 +3,35 @@
  * Created by nieying on 2016/6/2.
  */
 
-angular.module('cardApp').controller('rechargeCtrl', function ($scope, $rootScope, $cookieStore, $state, $stateParams, dataService, encodeService) {
+angular.module('cardApp').controller('rechargeCtrl',['$scope', '$rootScope', '$cookieStore', '$state', '$stateParams', 'dataService', 'encodeService', function ($scope, $rootScope, $cookieStore, $state, $stateParams, dataService, encodeService) {
     $rootScope.loading = true;
+    $scope.loadMktBnr = false;
+    $scope.mktBanners = [];
+
+    /**获取市场活动Banners广告信息*/
+    dataService.getMktBanners().success(function (obj) {
+        if (obj.success) {
+            _.each(obj.msgData.mktBanners, function (data) {
+                var mtkbnr = JSON.parse(data);
+                if (data && mtkbnr.pos == 1) {
+                    $scope.mktBanners.push(mtkbnr);
+                }
+            });
+            $scope.fristMktBnr = $scope.mktBanners[0];
+            $scope.lastMktBnr = $scope.mktBanners[$scope.mktBanners.length - 1];
+            $scope.loadMktBnr = true;
+
+            mui("#slider").slider({
+                interval: 5000
+            });
+        }
+    });
 
     /**获取充值信息*/
-    dataService.getRechargeInfo($cookieStore.get("cno").value).success(function (obj) {
+    dataService.getRechargeInfo($cookieStore.get("cardNo").value).success(function (obj) {
         if (obj.success) {
-            $scope.rechargeInfo = obj.msgData;
             $rootScope.loading = false;
-
+            $scope.rechargeInfo = obj.msgData;
             /*充值金额大于卡内金额*/
             $scope.rechargeDisable = _.filter($scope.rechargeInfo.amtList, function (data) {
                 return $scope.rechargeInfo.maxRcgAmt / 100 < data;
@@ -24,7 +44,7 @@ angular.module('cardApp').controller('rechargeCtrl', function ($scope, $rootScop
             errorTips(obj, $state);
         }
     }).error(function () {
-        mui.alert("系统繁忙，请稍后重试！");
+        systemBusy($rootScope,$state);
     });
 
     /**选择充值金额*/
@@ -44,6 +64,12 @@ angular.module('cardApp').controller('rechargeCtrl', function ($scope, $rootScop
         }
     };
 
+    /**返回*/
+    $scope.goBack = function () {
+        back($cookieStore,$state);
+    };
+
+
     /**充值*/
     $scope.recharge = function () {
         //默认选择充值金额
@@ -51,7 +77,7 @@ angular.module('cardApp').controller('rechargeCtrl', function ($scope, $rootScop
             $scope.rechargeItem = $scope.rechargeList[0]
         }
         var params = {
-            cno: $cookieStore.get("cno").value,
+            cno: $cookieStore.get("cardNo").value,
             rcgAmt: encodeService.encode64($scope.rechargeItem * 100 + ""),
             payChannel: encodeService.encode64($scope.payType + ""),
             isWxBrowser: encodeService.encode64(isWeiXin() + "")
@@ -64,7 +90,7 @@ angular.module('cardApp').controller('rechargeCtrl', function ($scope, $rootScop
                 errorTips(obj, $state);
             }
         }).error(function () {
-            mui.alert("系统繁忙，请稍后重试！");
+            systemBusy($rootScope,$state);
         });
     };
 
@@ -76,27 +102,25 @@ angular.module('cardApp').controller('rechargeCtrl', function ($scope, $rootScop
                 //  document.getElementsByClassName(".mui-popup").removeChild();
                 queryRechargeResult();
             } else {
-               rcgCheckRmv();
+                rcgCheckRmv();
             }
         });
     }
 
     /**待查询充值信息*/
     dataService.rcgCheckInfo().success(function (obj) {
-        $rootScope.loading = true;
+        $rootScope.loading = false;
         if (obj.success) {
             if (obj.msgData.checkRcg) {
                 $scope.businessNo = obj.msgData.businessNo;
-                $cookieStore.put("businessNo",{value:obj.msgData.businessNo});
+                $cookieStore.put("businessNo", {value: obj.msgData.businessNo});
                 openModal();
             }
-            $rootScope.loading = false;
         } else {
             errorTips(obj, $state);
         }
-    }).error(function (err) {
-        $rootScope.loading = false;
-        mui.alert("系统繁忙，请稍后重试！");
+    }).error(function () {
+        systemBusy($rootScope,$state);
     });
 
     /**移除待查询充值信息*/
@@ -105,17 +129,15 @@ angular.module('cardApp').controller('rechargeCtrl', function ($scope, $rootScop
             businessNo: encodeService.encode64($scope.businessNo)
         };
         dataService.rcgCheckRmv(params).success(function (obj) {
-            $rootScope.loading = true;
+            $rootScope.loading = false;
             if (obj.success) {
                 $(".mui-popup").remove();
                 $('.mui-popup-backdrop').removeClass('mui-active');
-                $rootScope.loading = false;
             } else {
                 errorTips(obj, $state);
             }
-        }).error(function (err) {
-            $rootScope.loading = false;
-            mui.alert("系统繁忙，请稍后重试！");
+        }).error(function () {
+            systemBusy($rootScope,$state);
         })
     }
 
@@ -126,7 +148,7 @@ angular.module('cardApp').controller('rechargeCtrl', function ($scope, $rootScop
             businessNo: encodeService.encode64($scope.businessNo)
         };
         dataService.queryRechargeResult(params).success(function (obj) {
-            $rootScope.loading = true;
+            $rootScope.loading = false;
             if (obj.code == "00") {
                 $state.go("rechargeSuccess")
             } else if (obj.code == "02") {
@@ -134,9 +156,8 @@ angular.module('cardApp').controller('rechargeCtrl', function ($scope, $rootScop
             } else {
                 errorTips(obj, $state);
             }
-        }).error(function (err) {
-            $rootScope.loading = false;
-            mui.alert("系统繁忙，请稍后重试！");
+        }).error(function () {
+            systemBusy($rootScope,$state);
         })
     }
-});
+}]);

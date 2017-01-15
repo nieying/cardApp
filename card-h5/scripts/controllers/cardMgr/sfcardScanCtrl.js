@@ -2,10 +2,11 @@
  * 通过扫码进来的ctrl
  * Created by nieying on 2016/6/2.
  */
-angular.module('cardApp').controller('sfcardScanCtrl', function ($scope, $rootScope, $stateParams, dataService, encodeService, $cookieStore, $location, $state) {
+angular.module('cardApp').controller('sfcardScanCtrl', ['$scope', '$rootScope', '$cookieStore', '$state', '$stateParams', 'dataService', function ($scope, $rootScope, $cookieStore, $state, $stateParams, dataService) {
     $rootScope.loading = true;    //页面进来时显示的加载的动画！
     $scope.showView = false;
     $scope.showPwd = false;
+    clearCookie();
     $cookieStore.put("system", {value: 'SFCARDSCAN'});
 
     /*交易明細------>输入密码*/
@@ -21,24 +22,25 @@ angular.module('cardApp').controller('sfcardScanCtrl', function ($scope, $rootSc
         });
     };
 
+    $scope.forgetPwd = function () {
+        if ($scope.cardInfo.mobile == null) {
+            $state.go("bindPhone", {mobile: ''});
+        } else {
+            $state.go("findPwd");
+        }
+    };
+
     /*扫码进来获取卡信息*/
     dataService.getSfcardCardInfo().success(function (obj) {
         $scope.showView = true;
+        $rootScope.loading = false;
         if (obj.success) {
             $scope.cardInfo = obj.msgData;
-            $rootScope.loading = false;
-            $cookieStore.put("mobile", {value: $scope.cardInfo.mobile});
-            $cookieStore.put("remark", {value: $scope.cardInfo.remark});
         } else {
-            $state.go('error', {code: obj.title});//扫码进来请求错误跳到错误页面去
-            $rootScope.loading = false;
+          errorTips(obj,$state);
         }
     }).error(function () {
-        mui.alert("系统繁忙，请稍后重试！", function () {
-            //todo
-        });
-        $state.go('sfcard');
-        $rootScope.loading = false;
+       systemBusy($rootScope,$state);
     });
 
 
@@ -53,38 +55,36 @@ angular.module('cardApp').controller('sfcardScanCtrl', function ($scope, $rootSc
 
     /*输入密码操作*/
     $scope.confirmPwd = function () {
+        if ($scope.pwdDes3Sk == '') {
+            mui.alert(tipMsg.GET_DES3SK_FAIL);
+            return false;
+        }
         if (!$scope.pwdForm.$invalid) {
-            if ($scope.pwdDes3Sk == '') {
-                mui.alert("获取秘钥失败，请刷新重试！");
-                return false;
-            }
             $rootScope.loading = true;
             var params = {
                 pwd: aesEncode($scope.params.pwd, $scope.pwdDes3Sk)
             };
             dataService.tradeValidate(params).success(function (obj) {
+                $rootScope.loading = false;
                 if (obj.success) {
-                    $rootScope.loading = false;
                     $state.go("trade");
                 } else {
-                    $rootScope.loading = false;
                     errorTips(obj, $state);
                 }
             }).error(function () {
-                $rootScope.loading = false;
-                mui.alert("系统繁忙，请稍后重试！");
+                systemBusy($rootScope,$state);
             })
         }
-    }
+    };
 
     /*获取电话*/
     dataService.getServiceTel().success(function (obj) {
-        if(obj.success){
+        if (obj.success) {
             $scope.tel = obj.msgData;
-        }else{
-            errorTips(obj,$state)
+        } else {
+            errorTips(obj, $state)
         }
-    }).error(function (err) {
-        mui.alert(err)
+    }).error(function () {
+        systemBusy($rootScope,$state);
     })
-});
+}]);

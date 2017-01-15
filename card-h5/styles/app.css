@@ -1,4 +1,12 @@
-/*common css*/
+/*app css*/
+body {
+    user-select: none;
+    text-size-adjust: none;
+    overflow-scrolling: touch;
+    -webkit-user-select: none;
+    -webkit-text-size-adjust: none;
+    -webkit-overflow-scrolling: touch;
+}
 
 ul li {
     list-style: none;
@@ -7,6 +15,10 @@ ul li {
 * {
     margin: 0;
     padding: 0;
+}
+
+.pwd {
+    -webkit-text-security: disc;
 }
 
 .bg-23 {
@@ -61,6 +73,10 @@ ul li {
     display: none !important;
 }
 
+.mt3rem {
+    margin-top: 3rem !important;
+}
+
 .mtb1 {
     margin: 1rem 0;
 }
@@ -103,7 +119,6 @@ html, body {
 }
 
 .card-tips {
-    margin-top: 44px;
     height: 1.5rem;
     line-height: 1.5rem;
     background: #f8f3e1;
@@ -115,7 +130,7 @@ html, body {
 .card-info {
     padding: 0 0.7rem;
     text-align: center;
-    margin-top: 2.5rem;
+    margin-top: 3rem;
 }
 
 .card-info div span {
@@ -201,7 +216,7 @@ div.crossWord {
 }
 
 .bind-sfcard .mui-icon-plusempty {
-    padding-top:0.3rem;
+    padding-top: 0.3rem;
     font-size: 1.5rem;
     color: #2390ed;
     font-weight: 700;
@@ -238,12 +253,6 @@ div.crossWord {
 .card-detail .mui-table-view-cell {
     padding: .52rem .75rem !important;
 }
-
-/*
-.card-detail .mui-table-view-cell a{
-    border:1px solid #000000;
-}
-*/
 
 .scan-card-info .card-img img {
     width: 87%;
@@ -309,14 +318,6 @@ div.crossWord {
     font-size: 0.75rem;
     margin-top: 0.1rem;
 }
-
-/*.entity-cardinfo {
-    color: #595e67;
-    font-size: 0.7rem;
-    position: absolute;
-    top: 0.75rem;
-    right: 0.7rem;
-}*/
 
 .scan-code .icon-yinxingqia {
     font-size: 2.6rem;
@@ -567,7 +568,7 @@ div.crossWord {
 
 /*changePwd css*/
 .change-pwd {
-    margin: 2.2rem 0 1rem 0;
+    margin: 2.4rem 0 1rem 0;
 }
 
 .change-pwd .mui-input-group .mui-input-row {
@@ -620,6 +621,7 @@ div.crossWord {
 
 .find-pwd .mui-input-group {
     margin: 0.5rem 0;
+    border-bottom: 1px solid #eee;
 }
 
 .find-pwd .mui-input-group::before {
@@ -635,11 +637,14 @@ div.crossWord {
 .find-pwd .mui-input-group label {
     width: 37%;
     display: inline-block;
-    text-align: right;
+    text-align: center;
+    color: #999;
 }
 
-.find-pwd .oh .c-23 {
-    margin-top: 0.5rem;
+.send-btn {
+    color: #2390ed;
+    border: 1px solid #2390ed;
+    padding: 7px 10px;
 }
 
 .find-pwd .mui-input-group::after {
@@ -764,11 +769,11 @@ div.crossWord {
 }
 
 .online-pay .mui-input-row label {
-    width: 38%;
+    width: 28%;
 }
 
 .online-pay .mui-input-row input {
-    width: 62%;
+    width: 72%;
 }
 
 .online-pay .mui-navigate-right::after {
@@ -823,9 +828,8 @@ div.crossWord {
     float: left;
 }
 
-.add-card .mui-input-row .mui-pull-left{
+.add-card .mui-input-row .mui-pull-left {
     display: inline-block;
-    padding-top: 0.5rem;
 }
 
 /*error css*/
@@ -981,6 +985,17 @@ div.crossWord {
     font-size: 0.5rem;
 }
 
+.phone-second-btn {
+    font-size: 0.5rem;
+    border: 1px solid;
+    text-align: center;
+    width: 3rem;
+    height: 1.5rem;
+    margin-top: 0.2rem;
+    line-height: 1.5rem;
+    margin-right: 0.7rem;
+}
+
 /*trade*/
 
 .mui-pull-top-tips {
@@ -1020,17 +1035,12 @@ div.crossWord {
     /*-webkit-backface-visibility: hidden;
     -webkit-transition-duration: 400ms;
     transition-duration: 400ms;*/
-
     margin: 0;
 }
 
 .mui-pull-top-wrapper .mui-icon,
 .mui-pull-top-wrapper .mui-spinner {
     margin-top: 7px;
-}
-
-.mui-pull-top-wrapper .mui-icon.mui-reverse {
-    /*-webkit-transform: rotate(180deg) translateZ(0);*/
 }
 
 .mui-pull-bottom-tips {
@@ -1202,7 +1212,6 @@ div.crossWord {
     text-align: center;
     display: inline-block;
     height: 100%;
-    /*width: 5rem;*/
 }
 
 .mui-poppicker-header .mui-inlineBlock {
@@ -1289,31 +1298,24 @@ div.crossWord {
 .invoice-info input {
     font-size: 0.6rem !important;
 }
-/*
-.select-area select:first-child {
-    width: 17% !important;
 
+.invoice-info .mui-input-row label {
+    width: 34% !important;
 }
 
-.select-area select:nth-child(1) {
-    width: 18% !important;
-
+.invoice-info .mui-input-row input {
+    width: 66% !important;
 }
 
-.select-area select:last-child {
-    width: 25% !important;
-
-}*/
-
-.select-area option{
-    color:#2390ed;
+.select-area option {
+    color: #2390ed;
 }
 
-.select-area option:hover{
+.select-area option:hover {
     color: #1c7ded;
 }
 
-.select-area option{
+.select-area option {
     padding: 0.4rem;
 }
 

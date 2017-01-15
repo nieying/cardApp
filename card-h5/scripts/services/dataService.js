@@ -205,12 +205,11 @@ angular.module("cardApp").service('dataService', ['$http', function ($http) {
         /*注册电子卡*/
         ecardRegister: function (params) {
             return $http({
-                method: 'GET',
+                method: 'POST',
                 url: 'sfcards/ecardRegister',
                 data: params
             })
         },
-
 
         /*获取充值信息*/
         getRechargeInfo: function () {

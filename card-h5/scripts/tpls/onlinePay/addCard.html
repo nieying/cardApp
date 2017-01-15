@@ -3,7 +3,8 @@
 
     <h1 class="mui-title">顺丰卡支付</h1>
 
-    <a href="{{onlineInfo.cancelUrl}}" class="mui-pull-right header-cancel">取消</a>
+    <a ng-if="onlineInfo.cardOptionList.length != 0" href="javascript:void(0)"
+       ng-click="cancelPay()"class="mui-pull-right header-cancel">取消</a>
 </header>
 
 <div class="online-pay add-card">
@@ -14,13 +15,14 @@
     <form name="addCardForm" class="mui-input-group">
         <div class="mui-input-group">
             <div class="mui-input-row">
-                <label>卡&nbsp; 号</label>
-                <input type="text" maxlength="16" pattern="[0-9]*" ng-model="params.cno" placeholder="请输入卡号"/>
-                <span class="mui-pull-left" ng-if="showScanCode" ng-click="scanCode()">扫码</span>
+                <label>卡&nbsp;&nbsp;&nbsp;号</label>
+                <input type="tel" id="cno" maxlength="19" ng-model="params.cno" placeholder="请输入卡号"/>
+                <img style="padding-top: 0.2rem;" class="mui-pull-left" src="images/scan.png" ng-if="showScanCode"
+                     ng-click="scanCode()"/>
             </div>
             <div class="mui-input-row">
-                <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
-                <input type="password" maxlength="8" pattern="[0-9]*" ng-model="params.pwd" placeholder="请输入卡密码"/>
+                <label>密&nbsp;&nbsp;&nbsp;码</label>
+                <input class="pwd" type="tel" maxlength="8" pattern="[0-9]*" ng-model="params.pwd" placeholder="请输入卡密码"/>
             </div>
         </div>
 

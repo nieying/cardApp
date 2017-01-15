@@ -3,7 +3,7 @@
  * Created by nieying on 2016/6/7.
  */
 
-angular.module('cardApp').controller('onlinePayCtrl',['$scope', '$rootScope','$state', 'dataService', 'encodeService',function ($scope, $rootScope, $state, dataService, encodeService) {
+angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '$state', 'dataService', 'encodeService', function ($scope, $rootScope, $state, dataService, encodeService) {
     $rootScope.loading = false;
     $scope.showOnline = true;//判断显示选卡页面
     $scope.balanceCardList = []; //余额不足卡列表；
@@ -19,8 +19,6 @@ angular.module('cardApp').controller('onlinePayCtrl',['$scope', '$rootScope','$s
         }
     });
 
-
-
     //初始化支付并绑卡页面的参数
     $scope.params = {
         password: '',//支付密码
@@ -28,9 +26,23 @@ angular.module('cardApp').controller('onlinePayCtrl',['$scope', '$rootScope','$s
         pwd: ''
     };
 
+    /*取消支付*/
+    $scope.cancelPay = function () {
+        mui.confirm("是否放弃支付?","",["取消","确定"],function (e) {
+            if(e.index == 1){
+                window.location.href = $scope.onlineInfo.cancelUrl
+            }else{
+                //todo
+            }
+        })
+    };
+
     /*获取支付信息*/
     dataService.onlinePay().success(function (obj) {
         $scope.onlineInfo = obj.msgData;
+        if ($scope.onlineInfo.cardOptionList.length == 0) {//判断该会员号有没有绑卡，没有绑卡跳到支付并绑卡页面
+            $state.go("addCard");
+        }
 
         $scope.cardList = _.filter($scope.onlineInfo.cardOptionList, function (card) {
             return card.cardBalanceAmt >= $scope.onlineInfo.payAmt;
@@ -57,9 +69,8 @@ angular.module('cardApp').controller('onlinePayCtrl',['$scope', '$rootScope','$s
                 card.checked = false;
             }
         });
-
     }).error(function () {
-        mui.toast("系统繁忙，请稍后重试！");
+       systemBusy($rootScope,$state);
     });
 
     $scope.showSelectCard = function () {
@@ -82,15 +93,15 @@ angular.module('cardApp').controller('onlinePayCtrl',['$scope', '$rootScope','$s
     /*立即支付*/
     $scope.repay = function () {
         if ($scope.pwdDes3Sk == '') {
-            mui.alert("获取秘钥失败，请刷新重试！");
+            mui.alert(tipMsg.GET_DES3SK_FAIL);
             return false;
         }
-        if ($scope.params.password == '') {
-            mui.alert("请输入支付密码！");
+        if (!regular.reg6.test($scope.params.password)) {
+            mui.alert(tipMsg.COMFIRM_PWD);
             return false;
         }
         $rootScope.loading = true;
-        $rootScope.loadingText = "请稍后......!";
+        $rootScope.loadingText = "支付中...";
         var params = {
             bizSn: $scope.onlineInfo.bizSn,
             outOrderNo: $scope.onlineInfo.outOrderNo,
@@ -98,46 +109,52 @@ angular.module('cardApp').controller('onlinePayCtrl',['$scope', '$rootScope','$s
             pwd: aesEncode($scope.params.password, $scope.pwdDes3Sk)
 
         };
-
         dataService.repay(params).success(function (obj) {
             if (obj.success) {
-                $rootScope.successInfo = obj;
-                $state.go('paySuccess');
-                $rootScope.loading = false;
+                $rootScope.loadingText = "支付成功，正在跳转...";
+                window.location.href = obj.msgData.url;
             } else {
-                mui.alert(obj.msg);
                 $rootScope.loading = false;
+                errorTips(obj, $state);
             }
         }).error(function () {
-            mui.alert("系统繁忙，请稍后重试！");
+            systemBusy($rootScope,$state);
         })
     };
 
     /*支付并綁定*/
     $scope.payBindCard = function () {
+        if ($scope.pwdDes3Sk == '') {
+            mui.alert(tipMsg.GET_DES3SK_FAIL);
+            return false;
+        }
+        if (!regular.reg16.test($scope.params.cno)) {
+            mui.alert(tipMsg.COMFIRM_CARDNO);
+            return false;
+        }
+        if (!regular.reg8.test($scope.params.pwd)) {
+            mui.alert(tipMsg.COMFIRM_OLD_PWD);
+            return false;
+        }
         if (!$scope.addCardForm.$invalid) {
-            if ($scope.params.cno == '' || $scope.params.pwd == '') {
-                mui.alert("请输入卡号或密码！");
-                return false;
-            }
+            $rootScope.loading = true;
+            $rootScope.loadingText = "支付中...";
             var params = {
                 bizSn: $scope.onlineInfo.bizSn,
                 outOrderNo: $scope.onlineInfo.outOrderNo,
                 cno: encodeService.encode64($scope.params.cno + ''),
                 pwd: aesEncode($scope.params.pwd, $scope.pwdDes3Sk)
             };
-
             dataService.bindAndPay(params).success(function (obj) {
                 if (obj.success) {
-                    $scope.successInfo = obj;
-                    $state.go('paySuccess');
-                    $rootScope.loading = false;
+                    $rootScope.loadingText = "支付成功，正在跳转...";
+                    window.location.href = obj.msgData.url;
                 } else {
-                    mui.alert(obj.msg);
                     $rootScope.loading = false;
+                    errorTips(obj, $state);
                 }
             }).error(function () {
-                mui.alert("系统繁忙，请稍后重试！");
+                systemBusy($rootScope,$state);
             })
         }
     };
@@ -198,8 +215,7 @@ angular.module('cardApp').controller('onlinePayCtrl',['$scope', '$rootScope','$s
         }
     };
 
-    function setScanResult(str) {
-        str = str + "";
-        $scope.params.cno = str.replace(/\D/g, '').replace(/....(?!$)/g, '$& ');
-    }
+    $scope.$watch("params.cno", function (newValue, oldValue) {
+        if (newValue) setScanResult(newValue);
+    })
 }]);

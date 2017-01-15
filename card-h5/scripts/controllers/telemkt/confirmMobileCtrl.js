@@ -1,7 +1,7 @@
 /**
  * Created by nieying on 2016/6/6.
  */
-angular.module('cardApp').controller('confirmMobileCtrl', function ($scope,$cookieStore, $rootScope, $state, dataService, encodeService) {
+angular.module('cardApp').controller('confirmMobileCtrl',['$scope','$cookieStore', '$rootScope','$state', 'dataService', function ($scope,$cookieStore, $rootScope, $state, dataService) {
     $rootScope.loading = false;
 
     dataService.getTeleSale().success(function (obj) {
@@ -13,9 +13,8 @@ angular.module('cardApp').controller('confirmMobileCtrl', function ($scope,$cook
             $rootScope.loading = false;
         } else {
             errorTips(obj, $state);
-            $rootScope.loading = false;
         }
     }).error(function () {
-        mui.alert("系统繁忙，请稍后重试！");
+        systemBusy($rootScope,$state)
     });
-});
+}]);

@@ -2,7 +2,7 @@
  * Created by nieying on 2016/6/3.
  */
 
-angular.module('cardApp').controller('errorCtrl', function ($scope, $rootScope, $stateParams, dataService) {
+angular.module('cardApp').controller('errorCtrl', ['$scope', '$rootScope', '$stateParams','dataService',function ($scope, $rootScope, $stateParams, dataService) {
     $rootScope.loading = false;
     $scope.showGoBackBtn = true;//判断是否显示返回按钮
 
@@ -38,4 +38,4 @@ angular.module('cardApp').controller('errorCtrl', function ($scope, $rootScope, 
             }
         };
     }
-});
+}]);

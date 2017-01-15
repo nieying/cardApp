@@ -36,7 +36,7 @@
             <li class="mui-table-view-cell" ng-show="singCardInfo.allowRecharge">
                 <a class="mui-navigate-right" ui-sref="recharge">
                     <i class="mui-icon iconfont icon-chongzhi"></i> 我要充值
-                    <span class="mui-pull-right c-fb">赠送5%</span>
+                    <!--<span class="mui-pull-right c-fb">赠送5%</span>-->
                 </a>
             </li>
             <li class="mui-table-view-cell">
@@ -45,21 +45,23 @@
                 </a>
             </li>
             <li class="mui-table-view-cell">
-                <a class="mui-navigate-right" ui-sref="changePwd">
+                <a class="mui-navigate-right" ui-sref="changePwd({mobile:singCardInfo.mobile})">
                     <i class="mui-icon iconfont icon-edit"></i> 密码修改
                 </a>
             </li>
             <li class="mui-table-view-cell" ng-if="singCardInfo.invoiceSwitch">
                 <a class="mui-navigate-right" ui-sref="invoiceApply">
-                    <i class="mui-icon iconfont icon-edit"></i> 发票申请
+                    <!--<i class="mui-icon iconfont icon-edit"></i>-->
+                    <img style="width: 1rem;height: 1rem;vertical-align: bottom;" src="images/menu-invoice-apply.png" alt="">
+                    发票申请
                 </a>
             </li>
             <li class="mui-table-view-cell">
-                <a class="mui-navigate-right" ng-if="singCardInfo.mobile==null" ui-sref="bindPhone">
+                <a class="mui-navigate-right" ng-if="singCardInfo.mobile==null" ui-sref="bindPhone({mobile:''})">
                     <i class="mui-icon iconfont icon-shouji"></i> 手机号码
                     <span class="mui-pull-right">去绑定</span>
                 </a>
-                <a class="mui-navigate-right" ng-if="singCardInfo.mobile !=null" ui-sref="changeMobile">
+                <a class="mui-navigate-right" ng-if="singCardInfo.mobile !=null" ui-sref="changeMobile({mobile:singCardInfo.mobile})">
                     <i class="mui-icon iconfont icon-shouji"></i> 手机号码
                     <span class="mui-pull-right">{{singCardInfo.mobile}}</span>
                 </a>
@@ -70,7 +72,7 @@
                 </a>
             </li>-->
             <li class="mui-table-view-cell">
-                <a class="mui-navigate-right" ng-click="goUpdateRemark()">
+                <a class="mui-navigate-right" ui-sref="updateRemark({remarkName:singCardInfo.remark})">
                     <i class="mui-icon iconfont icon-beizhu"></i> 备注
                     <span class="mui-pull-right">{{singCardInfo.remark}}</span>
                 </a>
@@ -98,7 +100,7 @@
         <form name="pwdForm" class="mui-input-group">
             <div class="mui-input-row">
                 <label class="mui-text-center">密&nbsp;&nbsp;&nbsp;&nbsp; 码</label>
-                <input type="password" maxlength="8" pattern="[0-9]*" ng-model="params.pwd"
+                <input class="pwd" type="tel" maxlength="8" pattern="[0-9]*" ng-model="params.pwd"
                        required placeholder="请输入您的密码">
             </div>
         </form>
@@ -106,7 +108,8 @@
             <button class="mui-btn " ng-class="{'mui-btn-grey':pwdForm.$invalid,'mui-btn-primary':!pwdForm.$invalid}"
                     ng-click="confirm()">确认
             </button>
-            <a class="forget-Pwd c-23" ui-sref="findPwd">忘记密码？</a>
+            <a class="forget-Pwd c-23" ng-if="singCardInfo.mobile" ui-sref="findPwd({mobile:singCardInfo.mobile})">忘记密码？</a>
+            <a class="forget-Pwd c-23" ng-if="!singCardInfo.mobile" ui-sref="bindPhone({mobile:''})">忘记密码？</a>
         </div>
     </div>
 </div>

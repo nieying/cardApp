@@ -24,14 +24,14 @@
         <h1 class="mui-title">手机号码</h1>
     </header>
     <div class="find-pwd">
-        <div class="c-59">
+        <div class="c-59" ng-show="!showCode">
             验证码已发送至您的 <span class="c-28">{{mobile|phoneFilter}}</span>
         </div>
         <form name="phoneForm" class="mui-input-group oh">
-            <input type="text" maxlength="6" pattern="[0-9]*" class="mui-input-row"
+            <input type="tel" maxlength="6" pattern="[0-9]*" class="mui-input-row"
                    placeholder="请输入短信验证码" ng-model="params.code" required/>
             <label ng-show="!showCode">{{second}} 秒后重发</label>
-            <label ng-show="showCode" class="mui-pull-right c-23" ng-click="sendCode()">再次发送</label>
+            <label ng-show="showCode" class="mui-pull-right send-btn c-23" ng-click="sendCode()">再次发送</label>
         </form>
         <div class="c-90">
             如您已经变更了手机号码，请先更换手机绑定信息。

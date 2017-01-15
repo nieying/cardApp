@@ -1,8 +1,4 @@
-angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
-    //$urlRouterProvider.otherwise('/');
-    // $urlRouterProvider.when('', '/');
-
-    //	http://10.118.202.105:9088/card-h5/main?cno=YRghnqo4sZJ3eElj6ju7XIT6C17KHMrw
+angular.module('cardApp').config(['$stateProvider',function ($stateProvider) {
     $stateProvider.state('/', {  //默认页面
         url: '/',
         templateUrl: 'scripts/tpls/cardMgr/home.html'
@@ -17,8 +13,8 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
                 ]);
             }]
         }
-    }).state('sfcard', { //顺丰卡详情 ----单卡页面
-        url: '/sfcards/sfcard',
+    }).state('sfcard', { //顺丰卡详情----单卡页面
+        url: '/sfcards/sfcard/:cardNo',
         templateUrl: 'scripts/tpls/cardMgr/sfcardView.html',
         controller: 'sfcardCtrl',
         resolve: {
@@ -28,7 +24,7 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
                 ]);
             }]
         }
-    }).state('sfcardscan', { //顺丰卡详情---- 扫码进来----单卡
+    }).state('sfcardscan', { //顺丰卡详情----扫码进来----单卡
         url: '/sfcardscan',
         templateUrl: 'scripts/tpls/cardMgr/sfcardScanView.html',
         controller: 'sfcardScanCtrl',
@@ -72,6 +68,17 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
                 ]);
             }]
         }
+    }).state('ecardRegister', {  //开通电子卡
+        url: '/ecardRegister',
+        templateUrl: 'scripts/tpls/pwdMgr/ecardRegister.html',
+        controller: 'ecardRegisterCtrl',
+        resolve: {
+            deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                return $ocLazyLoad.load([
+                    'scripts/controllers/pwdMgr/ecardRegisterCtrl.js',
+                ]);
+            }]
+        }
     }).state('pwdSet', {  //扫码设置密码
         url: '/pwdSet',
         templateUrl: 'scripts/tpls/pwdMgr/pwdSet.html',
@@ -112,6 +119,7 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
+                    'data/jweixin-1.1.0.js',
                     'scripts/controllers/cardMgr/bindCardCtrl.js',
                 ]);
             }]
@@ -186,7 +194,7 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
             }]
         }
     }).state('changePwd', {  //修改密码
-        url: '/changePwd',
+        url: '/changePwd/:mobile',
         templateUrl: 'scripts/tpls/pwdMgr/changePwd.html',
         controller: 'changePwdCtrl',
         resolve: {
@@ -199,6 +207,7 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
     }).state('setPwd', {  //设置密码
         url: '/setPwd',
         templateUrl: 'scripts/tpls/pwdMgr/setPwd.html',
+        controller: 'setPwdCtrl',
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
@@ -207,7 +216,7 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
             }]
         }
     }).state('findPwd', {  //找回密码
-        url: '/findPwd',
+        url: '/findPwd/:mobile',
         templateUrl: 'scripts/tpls/pwdMgr/findPwd.html',
         controller: 'findPwdCtrl',
         resolve: {
@@ -218,7 +227,7 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
             }]
         }
     }).state('bindPhone', {  //绑定手机号码
-        url: '/bindPhone',
+        url: '/bindPhone/:mobile',
         templateUrl: 'scripts/tpls/phoneMgr/bindPhone.html',
         controller: 'bindPhoneCtrl',
         resolve: {
@@ -229,7 +238,7 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
             }]
         }
     }).state('changeMobile', {  //手机号码-----更换手机
-        url: '/changeMobile',
+        url: '/changeMobile/:mobile',
         templateUrl: 'scripts/tpls/phoneMgr/changeMobile.html',
         controller: 'changeMobileCtrl',
         resolve: {
@@ -240,7 +249,7 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
             }]
         }
     }).state('updateRemark', {  //修改备注
-        url: '/updateRemark',
+        url: '/updateRemark/:remarkName',
         templateUrl: 'scripts/tpls/infoMgr/updateRemark.html',
         controller: 'updateRemarkCtrl',
         resolve: {
@@ -316,7 +325,7 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
                 ]);
             }]
         }
-    }).state('teleSale/rechargeSuccessSetPwd', {  // 电销购卡充值下单请求成功设置密码頁面
+    })/*.state('teleSale/rechargeSuccessSetPwd', {  // 电销购卡充值下单请求成功设置密码頁面
         url: '/teleSale/rechargeSuccessSetPwd',
         templateUrl: 'scripts/tpls/telemkt/telRechargeSuccessSetPwd.html',
         controller: 'telRechargeSuccessSetPwdCtrl',
@@ -327,7 +336,7 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
                 ]);
             }]
         }
-    }).state('telSetPwd', {  // 电销购卡设置密码
+    })*/.state('telSetPwd', {  // 电销购卡设置密码
         url: '/telSetPwd',
         templateUrl: 'scripts/tpls/telemkt/telSetPwdView.html',
         controller: 'telSetPwdCtrl',
@@ -345,6 +354,7 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
+                    'data/jweixin-1.1.0.js',
                     'scripts/controllers/onlinePay/onlinePayCtrl.js',
                     'scripts/services/dataService.js'
                 ]);
@@ -357,6 +367,7 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
+                    'data/jweixin-1.1.0.js',
                     'scripts/controllers/onlinePay/onlinePayCtrl.js',
                     'scripts/services/dataService.js'
                 ]);
@@ -399,7 +410,7 @@ angular.module('cardApp').config(function ($stateProvider, $urlRouterProvider, $
             }]
         }
     });
-});
+}]);
 
 
 

@@ -1,19 +1,10 @@
 <header id="header" class="mui-bar mui-bar-nav">
     <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 
-    <h1 class="mui-title">设置密码</h1>
+    <h1 class="mui-title">设置电子卡密码</h1>
 </header>
 <div class="change-pwd scan-code-pwd">
-    <div class="mui-text-center">
-        <img src="images/cardBack.png"/>
-    </div>
     <form name="scanCodeForm" class="mui-input-group">
-        <div class="mui-input-row">
-            <label>涂层码</label>
-            <input type="tel" maxlength="6" pattern="[0-9]*" ng-model="params.coatingCode"
-                   required
-                   placeholder="请输入验证码">
-        </div>
         <div class="mui-input-row">
             <label>设置密码</label>
             <input class="pwd" type="tel" maxlength="6" pattern="[0-9]*" ng-model="params.pwd"

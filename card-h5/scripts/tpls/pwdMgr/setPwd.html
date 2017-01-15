@@ -7,13 +7,13 @@
     <form name="setPwdForm" class="mui-input-group">
         <div class="mui-input-row">
             <label>新密码</label>
-            <input type="password" maxlength="6" pattern="[0-9]*"
+            <input class="pwd" type="tel" maxlength="6" pattern="[0-9]*"
                    ng-model="params.pwd" required
                    placeholder="请输入新密码">
         </div>
         <div class="mui-input-row">
-            <label>确定新密码</label>
-            <input type="password" maxlength="6" pattern="[0-9]*"
+            <label>确认新密码</label>
+            <input class="pwd" type="tel" maxlength="6" pattern="[0-9]*"
                    ng-model="params.confirmPwd" required
                    placeholder="请再次输入新密码">
         </div>

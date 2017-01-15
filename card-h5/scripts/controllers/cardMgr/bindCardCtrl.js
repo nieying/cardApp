@@ -2,7 +2,7 @@
  * 绑卡
  * Created by nieying on 2016/6/2.
  */
-angular.module('cardApp').controller('bindCardCtrl',['$scope', '$rootScope', '$cookieStore', '$state', 'ncodeService', 'dataService', function ($scope, $rootScope, $cookieStore, $state, encodeService, dataService) {
+angular.module('cardApp').controller('bindCardCtrl', ['$scope', '$rootScope', '$cookieStore', '$state', 'encodeService', 'dataService', function ($scope, $rootScope, $cookieStore, $state, encodeService, dataService) {
     $rootScope.loading = false;
     $scope.showBindCard = false;
     $scope.pwdDes3Sk = '';
@@ -18,11 +18,14 @@ angular.module('cardApp').controller('bindCardCtrl',['$scope', '$rootScope', '$c
     $scope.params = {
         cno: '',
         pwd: '',
-        confrimPwd: '',
     };
 
     /*confirm card number*/
     $scope.confirmCardNo = function () {
+        if(!regular.reg16.test($scope.params.cno)){
+            mui.alert(tipMsg.COMFIRM_CARDNO);
+            return false;
+        }
         if (!$scope.verifyBindCardForm.$invalid) {
             var params = {
                 cno: encodeService.encode64($scope.params.cno)
@@ -45,34 +48,36 @@ angular.module('cardApp').controller('bindCardCtrl',['$scope', '$rootScope', '$c
                     $rootScope.loading = false;
                 }
             }).error(function () {
-                mui.alert("系统繁忙，请稍后重试！");
+                systemBusy($rootScope,$state);
             })
         }
     };
 
     /*绑定当前顺丰卡*/
     $scope.bindCard = function () {
+        if ($scope.pwdDes3Sk == '') {
+            mui.alert(tipMsg.GET_DES3SK_FAIL);
+            return false;
+        }
+        if(!regular.reg6.test($scope.params.pwd)){
+            mui.alert(tipMsg.COMFIRM_PWD);
+            return false;
+        }
         if (!$scope.bindCardForm1.$invalid) {
-            if ($scope.pwdDes3Sk == '') {
-                mui.alert("获取秘钥失败，请刷新重试！");
-                return false;
-            }
             $rootScope.loading = true;
             var params = {
                 cno: encodeService.encode64($scope.params.cno),
                 pwd: aesEncode($scope.params.pwd, $scope.pwdDes3Sk)
             };
             dataService.bindUsingCard(params).success(function (obj) {
+                $rootScope.loading = false;
                 if (obj.success) {
                     $state.go("sfcards");
-                    mui.toast("绑定成功！");
-                    $rootScope.loading = false;
                 } else {
                     errorTips(obj, $state);
-                    $rootScope.loading = false;
                 }
             }).error(function () {
-                mui.alert("系统繁忙，请稍后重试！");
+                systemBusy($rootScope,$state);
             })
         }
     };
@@ -138,7 +143,6 @@ angular.module('cardApp').controller('bindCardCtrl',['$scope', '$rootScope', '$c
             return false;
         }
     };
-
 
     $scope.$watch("params.cno", function (newValue, oldValue) {
         if (newValue) setScanResult(newValue);

@@ -2,31 +2,38 @@
  * 修改备注
  * Created by nieying on 2016/6/3.
  */
-angular.module('cardApp').controller('updateRemarkCtrl', function ($scope, $rootScope, $state, $stateParams, $cookieStore, encodeService, dataService) {
+angular.module('cardApp').controller('updateRemarkCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$cookieStore', 'dataService', function ($scope, $rootScope, $state, $stateParams, $cookieStore, dataService) {
 
     $rootScope.loading = false;
-    $scope.remark = $cookieStore.get("remark").value ? $cookieStore.get("remark").value : '';
+    $scope.remark = $stateParams.remarkName;
 
     /*修改卡备注*/
     $scope.comfirm = function () {
+        if ($scope.remark == '') {
+            mui.alert(tipMsg.REMARK_NOT_NULL);
+            return false
+        }
         if (!$scope.remarkForm.$invalid) {
+            $rootScope.loading = true;
             var params = {
                 remark: $scope.remark
             };
-
             dataService.updateRemark(params).success(function (obj) {
+                $rootScope.loading = false;
                 if (obj.success) {
-                    if($cookieStore.get("system").value == 'SFCARD'){
-                        $state.go('sfcard',{cno:$cookieStore.get("cno").value});
-                    }else{
-                        $state.go('sfcardscan');
-                    }
+                    mui.alert(tipMsg.UPDATE_REMARK_SUCCESS, function () {
+                        if ($cookieStore.get("system").value == 'SFCARD') {
+                            $state.go("sfcard", {cardNo: $cookieStore.get("cardNo").value});
+                        } else {
+                            $state.go("sfcardscan");
+                        }
+                    });
                 } else {
                     errorTips(obj, $state);
                 }
             }).error(function () {
-                mui.alert("系统繁忙，请稍后重试！");
+                systemBusy($rootScope, $state);
             });
         }
     }
-});
+}]);

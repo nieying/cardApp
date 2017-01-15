@@ -3,7 +3,7 @@
  * Created by nieying on 2016/6/3.
  */
 
-angular.module('cardApp').controller('tradeCtrl', function ($scope, $rootScope, $state, $window, $stateParams, $filter, $cookieStore, dataService) {
+angular.module('cardApp').controller('tradeCtrl',['$scope','$rootScope', '$state', '$window', '$stateParams', '$filter', '$cookieStore', 'dataService', function ($scope, $rootScope, $state, $window, $stateParams, $filter, $cookieStore, dataService) {
     $rootScope.loading = false;
     $scope.tradeList = [];
 
@@ -83,7 +83,7 @@ angular.module('cardApp').controller('tradeCtrl', function ($scope, $rootScope, 
                $scope.tradeList = $scope.tradeList.concat($scope.trades.list);
 
                if (typeof ($scope.trades.list) == 'null') {
-                   mui.alert("系统繁忙，请稍后重试！");
+                   mui.alert(tipMsg.SYSTEM_BUSY);
                } else {
                    $scope.lastTime = _.min(_.map($scope.trades.list, function (trade) {
                        return trade.tradeTime;
@@ -93,7 +93,7 @@ angular.module('cardApp').controller('tradeCtrl', function ($scope, $rootScope, 
                errorTips(obj,$state)
            }
         }).error(function () {
-            mui.alert("系统繁忙，请稍后重试！");
+            mui.alert(tipMsg.SYSTEM_BUSY);
         });
     }
-});
+}]);

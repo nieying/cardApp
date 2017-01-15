@@ -4,41 +4,41 @@
     <h1 class="mui-title">绑定顺丰卡</h1>
 </header>
 
-<div class="online-pay add-card" ng-show="!showBindCard">
+<div class="online-pay add-card mt3rem" ng-show="!showBindCard">
     <form name="verifyBindCardForm" class="mui-input-group">
         <div class="mui-input-row">
             <label>卡&nbsp;&nbsp;&nbsp;&nbsp;号</label>
-            <input type="text" id="cno"  maxlength="19" ng-model="params.cno" placeholder="请输入卡号" required/>
+            <input type="tel" id="cno"  maxlength="19" ng-model="params.cno" placeholder="请输入卡号" required/>
             <span class="mui-pull-left mui-icon mui-icon-closeempty" ng-if="!showScanCode && params.cno != ''" ng-click="params.cno = ''"></span>
-            <span class="mui-pull-left" ng-if="showScanCode" ng-click="scanCode()">扫码</span>
-        </div>
-        <div class="mui-text-center mtb1">
-            <button class="mui-btn mui-col-xs-6" ng-click="confirmCardNo()"
-                    ng-class="{'mui-btn-grey':verifyBindCardForm.$invalid,'mui-btn-primary':!verifyBindCardForm.$invalid}">
-                确 定
-            </button>
+            <img class="mui-pull-left" src="images/scan.png" ng-if="showScanCode" ng-click="scanCode()"/>
         </div>
     </form>
+    <div class="mui-text-center mtb1">
+        <button class="mui-btn mui-col-xs-6" ng-click="confirmCardNo()"
+                ng-class="{'mui-btn-grey':verifyBindCardForm.$invalid,'mui-btn-primary':!verifyBindCardForm.$invalid}">
+            确 定
+        </button>
+    </div>
 </div>
 
 <!--bind card-->
-<div class="online-pay add-card" ng-show="showBindCard">
+<div class="online-pay add-card mt3rem" ng-show="showBindCard">
     <form name="bindCardForm1" class="mui-input-group">
         <div class="mui-input-row">
             <label>卡&nbsp;&nbsp;&nbsp;&nbsp;号</label>
-            <input type="text" maxlength="16" pattern="[0-9]*" ng-model="params.cno" readonly required/>
+            <input type="tel" maxlength="16" pattern="[0-9]*" ng-model="params.cno" readonly required/>
         </div>
         <div class="mui-input-row">
             <label>密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
-            <input type="password" maxlength="8" pattern="[0-9]*" ng-model="params.pwd"
+            <input class="pwd" type="tel" maxlength="8" pattern="[0-9]*" ng-model="params.pwd"
                    placeholder="请输入卡密码" required/>
         </div>
-        <div class="mui-text-center mtb1">
-            <button class="mui-btn mui-col-xs-6" ng-click="bindCard()"
-                    ng-class="{'mui-btn-grey':bindCardForm1.$invalid,'mui-btn-primary':!bindCardForm1.$invalid}">绑 定
-            </button>
-        </div>
     </form>
+    <div class="mui-text-center mtb1">
+        <button class="mui-btn mui-col-xs-6" ng-click="bindCard()"
+                ng-class="{'mui-btn-grey':bindCardForm1.$invalid,'mui-btn-primary':!bindCardForm1.$invalid}">绑 定
+        </button>
+    </div>
 </div>
 
 

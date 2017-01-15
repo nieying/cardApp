@@ -3,7 +3,7 @@
  * Created by nieying on 2016/6/3.
  */
 
-angular.module('cardApp').controller('setPwdCtrl', function ($scope, $rootScope, $state, $interval, $cookieStore, encodeService, dataService) {
+angular.module('cardApp').controller('setPwdCtrl', ['$scope', '$rootScope', '$state', '$interval', '$cookieStore', 'dataService', function ($scope, $rootScope, $state, $interval, $cookieStore, dataService) {
     $rootScope.loading = false;
 
     $scope.params = {
@@ -21,32 +21,40 @@ angular.module('cardApp').controller('setPwdCtrl', function ($scope, $rootScope,
     });
 
     $scope.confirm = function () {
+        if ($scope.pwdDes3Sk == '') {
+            mui.alert(tipMsg.GET_DES3SK_FAIL);
+            return false;
+        }
+        if (!regular.reg6.test($scope.params.pwd)) {
+            mui.alert(tipMsg.COMFIRM_PWD);
+            return false;
+        }
+        if ($scope.params.pwd != $scope.params.confirmPwd) {
+            mui.alert(tipMsg.CONFIRM_PWD_NOT_SAME);
+            return false;
+        }
         if (!$scope.setPwdForm.$invalid) {
-            if ($scope.params.pwd != $scope.params.confirmPwd) {
-                mui.alert("两次输入密码不一致！");
-                return false;
-            }
-
-            if ($scope.pwdDes3Sk == '') {
-                mui.alert("获取秘钥失败，请刷新重试！");
-                return false;
-            }
-
+            $rootScope.loading = true;
             var params = {
                 newPwd: aesEncode($scope.params.pwd, $scope.pwdDes3Sk)
             };
-
             dataService.resetPwd(params).success(function (obj) {
+                $rootScope.loading = false;
                 if (obj.success) {
-                    mui.toast("重置密码成功！");
-                    var url = ($cookieStore.get("system").value == 'SFCARD') ? 'sfcard' : 'sfcardscan';
-                    $state.go(url);
+                    mui.alert(tipMsg.SET_PWD_SUCCESS, function () {
+                        if ($cookieStore.get("system").value == 'SFCARD') {
+                            $state.go("sfcard", {cardNo: $cookieStore.get("cardNo").value});
+
+                        } else {
+                            $state.go("sfcardscan");
+                        }
+                    });
                 } else {
                     errorTips(obj, $state);
                 }
             }).error(function () {
-                mui.alert("系统繁忙，请稍后重试！")
+                systemBusy($rootScope, $state);
             })
         }
     }
-});
+}]);

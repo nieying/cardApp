@@ -1,5 +1,5 @@
 /**
- * 扫卡设置密码Ctrl
+ * 扫卡设置无面额卡密码Ctrl
  * Created by nieying on 2016/6/6.
  */
 
@@ -18,7 +18,7 @@ angular.module('cardApp').controller('pwdSetNoValueCardCtrl', function ($scope, 
     /*初始化参数*/
     $scope.params = {
         pwd: '',
-        confrimPwd: '',
+        confirmPwd: '',
         phone: '',
         code: ''
     };
@@ -35,9 +35,8 @@ angular.module('cardApp').controller('pwdSetNoValueCardCtrl', function ($scope, 
     };
     /*获取短信验证码*/
     $scope.sendCode = function () {
-        var phoneReg = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
-        if ($scope.params.phone == '' || !phoneReg.test($scope.params.phone)) {
-            mui.alert("请先输入正确的手机号！");
+        if (!regular.regp.test($scope.params.phone)) {
+            mui.alert(tipMsg.COMFIRM_PHOME);
             return false;
         }
         var params = {
@@ -62,23 +61,34 @@ angular.module('cardApp').controller('pwdSetNoValueCardCtrl', function ($scope, 
                 $scope.startTimer(obj.msgData);
             }
         }).error(function () {
-            mui.alert("系统繁忙，请稍后重试！");
+            systemBusy($rootScope,$state);
         });
     };
 
     /*确认设置密码*/
     $scope.confrim = function () {
+        if ($scope.pwdDes3Sk == '') {
+            mui.alert(tipMsg.GET_DES3SK_FAIL);
+            return false;
+        }
+        if(!regular.reg6.test($scope.params.pwd)){
+            mui.alert(tipMsg.COMFIRM_PWD);
+            return false;
+        }
+        if ($scope.params.pwd != $scope.params.confirmPwd) {
+            mui.alert(tipMsg.CONFIRM_PWD_NOT_SAME);
+            return false;
+        }
+        if (!regular.regp.test($scope.params.phone)) {
+            mui.alert(tipMsg.COMFIRM_PHOME);
+            return false;
+        }
+        if (!regular.reg6.test($scope.params.code)) {
+            mui.alert(tipMsg.COMFIRM_CODE);
+            return false;
+        }
         if (!$scope.scanCodeForm.$invalid) {
-            if ($scope.params.pwd != $scope.params.confrimPwd) {
-                mui.toast("确认密码与设置密码不一致！");
-                return false;
-            }
-
-            if ($scope.pwdDes3Sk == '') {
-                mui.alert("获取秘钥失败，请刷新重试！");
-                return false;
-            }
-
+            $rootScope.loading = true;
             var params = {
                 pwd: aesEncode($scope.params.pwd,$scope.pwdDes3Sk),
                 mobile: encodeService.encode64($scope.params.phone),
@@ -86,18 +96,16 @@ angular.module('cardApp').controller('pwdSetNoValueCardCtrl', function ($scope, 
             };
 
             dataService.noValueCardSetPwd(params).success(function (obj) {
+                $rootScope.loading = false;
                 if (obj.success) {
-                    $cookieStore.put("tips", {
-                        title: obj.msg,
-                        content: "请记住您的新密码，使用卡片支付运费时将需使用",
-                        url: 'sfcardscan'
-                    });
-                    $state.go("pwdSuccess");
+                    mui.alert("无面额卡设置密码成功！",function () {
+                        $state.go("sfcardscan");
+                    })
                 } else {
                     errorTips(obj, $state);
                 }
             }).error(function () {
-                mui.alert("系统繁忙，请稍后重试！");
+                systemBusy($rootScope,$state);
             });
         }
     }

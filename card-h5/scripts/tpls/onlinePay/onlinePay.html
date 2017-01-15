@@ -1,11 +1,11 @@
-<div ng-if="showOnline">
+<div ng-show="showOnline">
     <header id="header" class="mui-bar mui-bar-nav">
         <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 
-        <h1 class="mui-title">在线支付</h1>
+        <h1 class="mui-title" style="width: 73%">在线支付</h1>
 
-        <a ng-if="onlineInfo.cardOptionList.length != 0" href="{{onlineInfo.cancelUrl}}"
-           class="mui-pull-right header-cancel">取消</a>
+        <a ng-if="onlineInfo.cardOptionList.length != 0" href="javascript:void(0)"
+           ng-click="cancelPay()"class="mui-pull-right header-cancel">取消</a>
     </header>
 
     <div class="online-pay">
@@ -26,8 +26,8 @@
             </div>
             <div class="mui-input-group">
                 <div class="mui-input-row">
-                    <label>确认卡密码</label>
-                    <input type="password" ng-model="cardInfo.password" placeholder="请输入您的顺丰卡密码">
+                    <label>密  码</label>
+                    <input class="pwd" type="tel" maxlength="6" ng-model="params.password" placeholder="请输入您的顺丰卡密码">
                 </div>
             </div>
             <div class="mui-text-center mtb1">
@@ -35,29 +35,32 @@
                 <a ng-show="onlineInfo.noEleCard" ui-sref="setElectronPwd" class="mui-btn mui-btn-primary mui-btn-outlined">还没顺丰电子卡?点击开通</a>
             </div>
         </div>
-        <!--add card-->
-        <div class="online-pay add-card" ng-if="onlineInfo.cardOptionList.length == 0">
-            <div class="mui-input-group">
-                <div class="mui-input-row">
-                    <label>卡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</label>
-                    <input type="text" placeholder="请输入卡号"/>
-                </div>
-                <div class="mui-input-row">
-                    <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</label>
-                    <input type="password" placeholder="请输入卡密码"/>
-                </div>
-            </div>
 
-            <div class="mui-text-center mtb1">
-                <a class="mui-btn mui-btn-primary mui-col-xs-6">支付并绑定</a>
-            </div>
-        </div>
+        <!--add card-->
+        <!--<div class="online-pay" ng-if="onlineInfo.cardOptionList.length == 0">-->
+            <!--<div class="mui-input-group">-->
+                <!--<div class="mui-input-row">-->
+                    <!--<label>卡&nbsp;&nbsp;&nbsp;号</label>-->
+                    <!--<input type="tel" id="cno" maxlength="19" ng-model="params.cno" placeholder="请输入卡号"/>-->
+                    <!--<img style="padding-top: 0.2rem;" class="mui-pull-left" src="images/scan.png" ng-if="showScanCode"-->
+                         <!--ng-click="scanCode()"/>-->
+                <!--</div>-->
+                <!--<div class="mui-input-row">-->
+                    <!--<label>密&nbsp;&nbsp;&nbsp;码</label>-->
+                    <!--<input class="pwd" type="tel" maxlength="8" pattern="[0-9]*" ng-model="params.pwd" placeholder="请输入卡密码"/>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="mui-text-center mtb1">-->
+                <!--<button class="mui-btn mui-btn-primary mui-col-xs-6">支付并绑定</button>-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
 </div>
 
-<div ng-if="!showOnline">
+<div ng-show="!showOnline">
     <header id="header" class="mui-bar mui-bar-nav">
-        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" ui-sref="onlinePay"></a>
+        <a class=" mui-icon mui-icon-left-nav mui-pull-left" href="javascript:void(0)" ng-click="showOnline = true"></a>
 
         <h1 class="mui-title">跟换储值卡</h1>
     </header>

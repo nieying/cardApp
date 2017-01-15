@@ -7,21 +7,21 @@
     <form name="changPwdForm" class="mui-input-group">
         <div class="mui-input-row">
             <label>原密码</label>
-            <input type="password" maxlength="8" pattern="[0-9]*" ng-model="params.oldPwd"  placeholder="请输入原密码" required>
+            <input class="pwd" type="tel" maxlength="8" pattern="[0-9]*" ng-model="params.oldPwd"  placeholder="请输入原密码" required>
         </div>
         <div class="mui-input-row">
             <label>新密码</label>
-            <input type="password" maxlength="6" pattern="[0-9]*" ng-model="params.newPwd"  placeholder="请输入6位数字新密码" required>
+            <input class="pwd" type="tel" maxlength="6" pattern="[0-9]*" ng-model="params.pwd"  placeholder="请输入6位数字新密码" required>
         </div>
         <div class="mui-input-row">
             <label>确定新密码</label>
-            <input type="password" maxlength="6" pattern="[0-9]*" ng-model="params.confrimPwd"  placeholder="请再次输入新密码" required>
+            <input class="pwd" type="tel" maxlength="6" pattern="[0-9]*" ng-model="params.confirmPwd"  placeholder="请再次输入新密码" required>
         </div>
     </form>
     <div class="change-pwd-btn mui-text-center">
         <button class="mui-btn" ng-class="{'mui-btn-grey':changPwdForm.$invalid,'mui-btn-primary':!changPwdForm.$invalid}"
              ng-click="updatePwd()">确 认</button>
-        <a class="forget-Pwd c-23" ng-show="hasMmobile" ui-sref="findPwd">忘记密码？</a>
-        <a class="forget-Pwd c-23" ng-show="!hasMmobile" ui-sref="bindPhone">忘记密码？</a>
+        <a class="forget-Pwd c-23" ng-show="hasMmobile" ui-sref="findPwd({mobile:mobile})">忘记密码？</a>
+        <a class="forget-Pwd c-23" ng-show="!hasMmobile" ui-sref="bindPhone({mobile:mobile})">忘记密码？</a>
     </div>
 </div>

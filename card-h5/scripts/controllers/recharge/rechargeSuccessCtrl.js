@@ -19,6 +19,6 @@ angular.module('cardApp').controller('rechargeSuccessCtrl', function ($scope, $r
         }
     }).error(function (err) {
         $rootScope.loading = false;
-        mui.alert("系统繁忙，请稍后重试！");
+        mui.alert(tipMsg.SYSTEM_BUSY);
     });
 });

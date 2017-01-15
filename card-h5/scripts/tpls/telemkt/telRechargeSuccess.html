@@ -2,7 +2,7 @@
     <i class='mui-icon iconfont icon-dui'></i>
     <p class='s-p1'>{{rcgSuccInfo.status}}</p>
     <p class='s-p0'>{{rcgSuccInfo.rechargeAmt}}元,赠送{{rcgSuccInfogit.giftAmt}}元</p>
-    <a ui-sref="sfcard" class='mui-btn mui-btn-grey'>完成</a>
+    <a ui-sref="sfcard({cardNo:rcgSuccInfo.cardNo})" class='mui-btn mui-btn-grey'>完成</a>
 </div>
 <div class='success-card-tips'>
     <h5>温馨提示</h5>

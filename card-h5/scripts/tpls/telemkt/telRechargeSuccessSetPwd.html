@@ -4,7 +4,7 @@
     <p class='s-p0'>{{rcgSuccInfo.rechargeAmt}}元,赠送{{rcgSuccInfogit.giftAmt}}元</p>
     <p class='s-p2'>顺丰电子卡初始密码默认为开通手机号码后6位,为了您的用卡安全,建议立即修改</p>
     <a ui-sref='telSetPwd' class='mui-btn mui-btn-primary'>立即修改密码</a>
-    <a ui-sref="sfcard" class='mui-btn mui-btn-grey'>暂不修改</a>
+    <a ui-sref="sfcard({cardNo:rcgSuccInfo.cardNo})" class='mui-btn mui-btn-grey'>暂不修改</a>
 </div>
 <div class='success-card-tips'>
     <h5>温馨提示</h5>

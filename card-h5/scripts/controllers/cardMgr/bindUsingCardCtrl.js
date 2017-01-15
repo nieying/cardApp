@@ -2,7 +2,7 @@
  * 绑卡
  * Created by nieying on 2016/6/2.
  */
-angular.module('cardApp').controller('bindUsingCardCtrl', function ($scope, $rootScope, $cookieStore, $state, encodeService, dataService) {
+angular.module('cardApp').controller('bindUsingCardCtrl',['$scope', '$rootScope', '$cookieStore', '$state', 'encodeService', 'dataService', function ($scope, $rootScope, $cookieStore, $state, encodeService, dataService) {
     $rootScope.loading = false;
     $scope.pwdDes3Sk = '';
 
@@ -19,27 +19,29 @@ angular.module('cardApp').controller('bindUsingCardCtrl', function ($scope, $roo
 
     /*绑定卡事件*/
     $scope.confrim = function () {
+        if ($scope.pwdDes3Sk == '') {
+            mui.alert(tisMsg.GET_DES3SK_FAIL);
+            return false;
+        }
+        if(!regular.reg6.test($scope.params.pwd)){
+            mui.alert(tipMsg.COMFIRM_PWD);
+            return false;
+        }
         if (!$scope.bindCardForm.$invalid) {
-            if ($scope.pwdDes3Sk == '') {
-                mui.alert("获取秘钥失败，请刷新重试！");
-                return false;
-            }
-
             $rootScope.loading = true;
             var params = {
                 pwd: aesEncode($scope.params.pwd, $scope.pwdDes3Sk)
             };
             dataService.bindUsingCard(params).success(function (obj) {
+                $rootScope.loading = false;
                 if (obj.success) {
                     $state.go("sfcards");
-                    $rootScope.loading = false;
                 } else {
                     errorTips(obj, $state);
-                    $rootScope.loading = false;
                 }
             }).error(function () {
-                mui.alert("系统繁忙，请稍后重试！");
+                systemBusy($rootScope,$state);
             })
         }
     }
-});
+}]);

@@ -14,12 +14,12 @@
         </div>
         <div class="mui-input-row">
             <label>设置密码</label>
-            <input type="password" maxlength="6" pattern="[0-9]*" ng-model="params.pwd"
+            <input class="pwd" type="tel" maxlength="6" pattern="[0-9]*" ng-model="params.pwd"
                    required placeholder="请输入密码">
         </div>
         <div class="mui-input-row">
-            <label>确定密码</label>
-            <input type="password" maxlength="6" pattern="[0-9]*" ng-model="params.confrimPwd"
+            <label>确认密码</label>
+            <input class="pwd" type="tel" maxlength="6"pattern="[0-9]*" ng-model="params.confirmPwd"
                    required placeholder="请再次输入密码">
         </div>
         <div class="mui-input-row">
@@ -29,7 +29,7 @@
                    placeholder="请输入验证码">
         </div>
         <div class="change-pwd-btn mui-text-center">
-            <div class="mui-btn" ng-class="{'mui-btn-grey':setPwdAndBindCardForm.$invalid,'mui-btn-primary':!setPwdAndBindCardForm.$invalid,}" ng-click="confrim()">确认</div>
+            <div class="mui-btn" ng-class="{'mui-btn-grey':setPwdAndBindCardForm.$invalid,'mui-btn-primary':!setPwdAndBindCardForm.$invalid,}" ng-click="confrim()">确定</div>
         </div>
     </form>
 </div>

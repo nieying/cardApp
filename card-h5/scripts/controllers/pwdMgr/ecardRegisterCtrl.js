@@ -1,9 +1,9 @@
 /**
- * 扫卡设置密码Ctrl 实体卡设置密码
+ * 开通电子卡
  * Created by nieying on 2016/6/6.
  */
 
-angular.module('cardApp').controller('pwdSetCtrl',['$scope', '$rootScope', '$state', '$cookieStore', 'encodeService', 'dataService', function ($scope, $rootScope, $state, $cookieStore, encodeService, dataService) {
+angular.module('cardApp').controller('ecardRegisterCtrl',['$scope', '$rootScope', '$state', '$cookieStore', 'encodeService', 'dataService', function ($scope, $rootScope, $state, $cookieStore, encodeService, dataService) {
     $rootScope.loading = false;
     $scope.pwdDes3Sk = '';
 
@@ -16,7 +16,6 @@ angular.module('cardApp').controller('pwdSetCtrl',['$scope', '$rootScope', '$sta
 
     /*初始化参数*/
     $scope.params = {
-        coatingCode: '',
         pwd: '',
         confirmPwd: ''
     };
@@ -25,10 +24,6 @@ angular.module('cardApp').controller('pwdSetCtrl',['$scope', '$rootScope', '$sta
     $scope.confrim = function () {
         if ($scope.pwdDes3Sk == '') {
             mui.alert(tipMsg.GET_DES3SK_FAIL);
-            return false;
-        }
-        if (!regular.reg6.test($scope.params.coatingCode)) {
-            mui.alert(tipMsg.CONFIRM_COATINGCODE);
             return false;
         }
         if (!regular.reg6.test($scope.params.pwd)) {
@@ -42,20 +37,18 @@ angular.module('cardApp').controller('pwdSetCtrl',['$scope', '$rootScope', '$sta
         if (!$scope.scanCodeForm.$invalid) {
             $rootScope.loading = true;
             var params = {
-                coatingCode: encodeService.encode64($scope.params.coatingCode),
                 pwd: aesEncode($scope.params.pwd, $scope.pwdDes3Sk)
             };
-            dataService.scanSetPwd(params).success(function (obj) {
-                $rootScope.loading = false;
+            dataService.ecardRegister(params).success(function (obj) {
+                $rootScope.loading = true;
                 if (obj.success) {
-                    mui.alert(tipMsg.SET_PWD_SUCCESS,function () {
-                        $state.go("sfcardscan");
-                    })
+                    mui.toast(tipMsg.OPEN_ECARD_SUCCESS);
+                    $state.go("sfcards");
                 } else {
                     errorTips(obj, $state);
                 }
             }).error(function () {
-               systemBusy($rootScope,$state);
+                systemBusy($rootScope,$state);
             });
         }
     }

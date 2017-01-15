@@ -14,7 +14,6 @@ function ad(doc, win) {
 
 ad(document, window);
 
-
 /**获取浏览器版本*/
 function getBrowser(n) {
     var ua = navigator.userAgent.toLowerCase(),
@@ -72,18 +71,47 @@ function isSfApp() {
 function errorTips(obj, $state) {
     if (obj.msg == '连接失效,请重新登录') {
         mui.alert("连接失效,请重新登录", "", function () {
-            $state.go("error", {code: '408'})
+            $state.go("error", {code: '408'});
         });
-    } else {
+    } else if(obj.msg == '系统繁忙,请稍后再试'){
+        //mui.alert("系统繁忙,请稍后再试", "", function () {
+            $state.go("error", {code: '500'});
+       // });
+    }else{
         mui.alert(obj.msg);
     }
 }
 
-
-/*APP设置扫码结果*/
+/**APP设置扫码结果*/
 function setScanResult(str) {
     str = str + "";
-    $("#cno").val(str.replace(/[^0-9]/ig,"").substring(0,16).replace(/\D/g,'').replace(/....(?!$)/g,'$& '));
+    $("#cno").val(str.replace(/[^0-9]/ig, "").substring(0, 16).replace(/\D/g, '').replace(/....(?!$)/g, '$& '));
+}
+
+/**清除cookie*/
+function clearCookie() {
+    var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+    if (keys) {
+        for (var i = keys.length; i--;)
+            document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
+    }
+}
+
+/**返回*/
+function back($cookieStore, $state) {
+    if ($cookieStore.get("system").value == 'SFCARD') {
+        $state.go('sfcard', {cardNo: $cookieStore.get("cardNo").value});
+    } else {
+        $state.go("sfcarScan");
+    }
+}
+
+/**系统繁忙*/
+function systemBusy($rootScope,$state) {
+    $rootScope.loading = false;
+    mui.alert(tipMsg.SYSTEM_BUSY, function () {
+        $state.go("error", {code: '500'});
+    });
 }
 
 
@@ -94,7 +122,7 @@ angular.module('cardApp', [
     'ngCookies',
     'oc.lazyLoad',
     'angular-gestures',
-    // 'ngKeditor',
+    //'ngKeditor',
     //'ngSanitize',
     //'ngTouch',
     //'restangular',

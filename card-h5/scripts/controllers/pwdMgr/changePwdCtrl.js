@@ -3,13 +3,14 @@
  * Created by nieying on 2016/6/3.
  */
 
-angular.module('cardApp').controller('changePwdCtrl',function ($scope, $rootScope, $state, encodeService, dataService, $cookieStore) {
+angular.module('cardApp').controller('changePwdCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'encodeService', 'dataService', '$cookieStore', function ($scope, $rootScope, $state, $stateParams, encodeService, dataService, $cookieStore) {
     $scope.system = $cookieStore.get("system").value;
     $rootScope.loading = false;
+    $scope.mobile = $stateParams.mobile;
     $scope.params = {
         oldPwd: '',
-        newPwd: '',
-        confrimPwd: ''
+        pwd: '',
+        confirmPwd: ''
     };
 
     $scope.pwdDes3Sk = '';
@@ -22,41 +23,48 @@ angular.module('cardApp').controller('changePwdCtrl',function ($scope, $rootScop
     });
 
     /*判断是否绑定了手机号 如果没绑定就跳到绑定手机号页面*/
-    $scope.hasMmobile = $cookieStore.get("mobile").value ? true : false;
+    $scope.hasMmobile = $stateParams.mobile ? true : false;
 
     /*修改密码*/
     $scope.updatePwd = function () {
+        if ($scope.pwdDes3Sk == '') {
+            mui.alert(tipMsg.GET_DES3SK_FAIL);
+            return false;
+        }
+        if (!regular.reg8.test($scope.params.oldPwd)) {
+            mui.alert(tipMsg.COMFIRM_OLD_PWD);
+            return false;
+        }
+        if (!regular.reg6.test($scope.params.pwd)) {
+            mui.alert(tipMsg.COMFIRM_PWD);
+            return false;
+        }
+        if ($scope.params.pwd != $scope.params.confirmPwd) {
+            mui.alert(tipMsg.CONFIRM_PWD_NOT_SAME);
+            return false;
+        }
         if (!$scope.changPwdForm.$invalid) {
-            if ($scope.params.newPwd != $scope.params.confrimPwd) {
-                mui.alert('两次密码输入不一致！');
-                return false;
-            }
-
-            if ($scope.pwdDes3Sk == '') {
-                mui.alert("获取秘钥失败，请刷新重试！");
-                return false;
-            }
-
+            $rootScope.loading = true;
             var params = {
-                pwd: aesEncode($scope.params.oldPwd,$scope.pwdDes3Sk),
-                newPwd: aesEncode($scope.params.newPwd,$scope.pwdDes3Sk)
+                pwd: aesEncode($scope.params.oldPwd, $scope.pwdDes3Sk),
+                newPwd: aesEncode($scope.params.pwd, $scope.pwdDes3Sk)
             };
-
             dataService.changePwd(params).success(function (obj) {
+                $rootScope.loading = false;
                 if (obj.success) {
-                    var url = ($scope.system == 'SFCARD') ? 'sfcard' : 'sfcardscan';
-                    $cookieStore.put("tips", {
-                            title: obj.msg,
-                            content: "请记住您的新密码，使用卡片支付运费时将需使用",
-                            url: url
-                        });
-                    $state.go("pwdSuccess");
+                    mui.alert(tipMsg.UPDATE_PWD_SUCCESS, function () {
+                        if ($scope.system == 'SFCARD') {
+                            $state.go("sfcard", {cardNo: $cookieStore.get("cardNo").value});
+                        } else {
+                            $state.go("sfcardscan");
+                        }
+                    });
                 } else {
-                    errorTips(obj,$state);
+                    errorTips(obj, $state);
                 }
             }).error(function () {
-                mui.alert("系统繁忙，请稍后重试！");
+                systemBusy($rootScope,$state);
             });
         }
     }
-});
+}]);

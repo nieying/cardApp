@@ -6,13 +6,13 @@
 <div class="change-pwd scan-code-pwd">
     <form name="bindCardForm" class="mui-input-group">
         <div class="mui-input-row">
-            <label>密   码</label>
-            <input type="text" maxlength="6" pattern="[0-9]*" ng-model="params.pwd"
-                   required
-                   placeholder="请输入密码">
+            <label>密 码</label>
+            <input class="pwd" type="tel" maxlength="6" pattern="[0-9]*" ng-model="params.pwd" required placeholder="请输入密码">
         </div>
     </form>
     <div class="change-pwd-btn mui-text-center">
-        <div class="mui-btn" ng-class="{'mui-btn-grey':bindCardForm.$invalid,'mui-btn-primary':!bindCardForm.$invalid,}" ng-click="confrim()">绑定</div>
+        <div class="mui-btn" ng-class="{'mui-btn-grey':bindCardForm.$invalid,'mui-btn-primary':!bindCardForm.$invalid,}"
+             ng-click="confrim()">绑定
+        </div>
     </div>
 </div>

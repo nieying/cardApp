@@ -2,7 +2,7 @@
  * 实体卡微信扫码速运回传(设置密码 并绑定(无面额))顺丰卡
  * Created by nieying on 2016/6/2.
  */
-angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl', function ($scope, $rootScope, $stateParams, $state, $interval, $cookieStore, encodeService, dataService) {
+angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl',['$scope', '$rootScope', '$stateParams', '$state', '$interval', '$cookieStore', 'encodeService', 'dataService', function ($scope, $rootScope, $stateParams, $state, $interval, $cookieStore, encodeService, dataService) {
     $rootScope.loading = false;
     $scope.showCode = false;
     $scope.pwdDes3Sk = '';
@@ -20,7 +20,7 @@ angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl', function ($
     $scope.params = {
         cno: $stateParams.cno,
         pwd: '',
-        confrimPwd: '',
+        confirmPwd: '',
         phone: '',
         code: ''
     };
@@ -38,9 +38,8 @@ angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl', function ($
 
     /*获取短信验证码*/
     $scope.sendCode = function () {
-        var phoneReg = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
-        if ($scope.params.phone == '' || !phoneReg.test($scope.params.phone)) {
-            mui.alert("请先输入正确的手机号！");
+        if (!regular.regp.test($scope.params.phone)) {
+            mui.alert(tipMsg.COMFIRM_PHOME);
             return false;
         }
         var params = {
@@ -65,51 +64,54 @@ angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl', function ($
                 $scope.startTimer(obj.msgData);
             }
         }).error(function () {
-            mui.alert("系统繁忙，请稍后重试！");
+            systemBusy($rootScope,$state);
         });
     };
 
     /*确认设置密码*/
     $scope.confrim = function () {
+        if ($scope.pwdDes3Sk == '') {
+            mui.alert(tipMsg.GET_DES3SK_FAIL);
+            return false;
+        }
+        if(!regular.reg6.test($scope.params.pwd)){
+            mui.alert(tipMsg.COMFIRM_PWD);
+            return false;
+        }
+        if ($scope.params.pwd != $scope.params.confirmPwd) {
+            mui.alert(tipMsg.CONFIRM_PWD_NOT_SAME);
+            return false;
+        }
+        if (!regular.regp.test($scope.params.phone)) {
+            mui.alert(tipMsg.COMFIRM_PHOME);
+            return false;
+        }
+        if (!regular.reg6.test($scope.params.code)) {
+            mui.alert(tipMsg.COMFIRM_CODE);
+            return false;
+        }
+
         if (!$scope.scanCodeForm.$invalid) {
-            if ($scope.params.pwd != $scope.params.confrimPwd) {
-                mui.toast("确认密码与设置密码不一致！");
-                return false;
-            }
-
-            if ($scope.pwdDes3Sk == '') {
-                mui.alert("获取秘钥失败，请刷新重试！");
-                return false;
-            }
-
             var params = {
                 cno: encodeService.encode64($stateParams.cno),
                 pwd: aesEncode($scope.params.pwd, $scope.pwdDes3Sk),
                 mobile: encodeService.encode64($scope.params.phone),
                 confirmCode: encodeService.encode64($scope.params.code)
             };
-
-
             dataService.setPwdAndBindNoValueCard(params).success(function (obj) {
                 if (obj.success) {
-                    if($scope.showCno){//绑卡流程
+                    if ($scope.showCno) {//绑卡流程
                         $cookieStore.put("showCno", {value: false});
                         $state.go("sfcards");
-                    }else{
-                        $cookieStore.put("tips", {
-                            title: obj.msg,
-                            content: "请记住您的新密码，使用卡片支付运费时将需使用",
-                            url: 'sfcards'
-                        });
-                        $state.go("pwdSuccess");
+                    } else {
+                        $state.go("sfcards");
                     }
-
                 } else {
                     errorTips(obj, $state);
                 }
             }).error(function () {
-                mui.alert("系统繁忙，请稍后重试！");
+                systemBusy($rootScope,$state);
             });
         }
     }
-});
+}]);

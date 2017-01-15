@@ -1,13 +1,14 @@
 /**
  * Created by nieying on 2016/6/8.
  */
-angular.module('cardApp').controller('telRechargeCtrl', function ($scope, $rootScope,$state,$cookieStore, dataService, encodeService) {
+angular.module('cardApp').controller('telRechargeCtrl', ['$scope', '$rootScope','$state','$cookieStore', 'dataService', 'encodeService',function ($scope, $rootScope,$state,$cookieStore, dataService, encodeService) {
 
     var telParams = {
         mobile: encodeService.encode64($cookieStore.get("telMobile").value),
         reqBusSn: encodeService.encode64($cookieStore.get("reqBusSn").value)
     };
     dataService.telRecharge(telParams).success(function (obj) {
+        $rootScope.loading = false;
         if (obj.success) {
             $rootScope.loading = false;
             $scope.telRechargeInfo = obj.msgData;
@@ -16,7 +17,7 @@ angular.module('cardApp').controller('telRechargeCtrl', function ($scope, $rootS
             $rootScope.loading = false;
         }
     }).error(function () {
-        mui.alert("系统繁忙，请稍后重试！");
+        systemBusy($rootScope,$state);
     });
 
 
@@ -46,7 +47,7 @@ angular.module('cardApp').controller('telRechargeCtrl', function ($scope, $rootS
                 errorTips(obj, $state);
             }
         }).error(function () {
-            mui.alert("系统繁忙，请稍后重试！");
+            systemBusy($rootScope,$state);
         });
     };
 
@@ -73,14 +74,12 @@ angular.module('cardApp').controller('telRechargeCtrl', function ($scope, $rootS
                 $cookieStore.put("businessNo",{value:obj.msgData.businessNo});
                 openModal();
             }
-            console.log("待查询充值信息", obj);
             $rootScope.loading = false;
         } else {
             errorTips(obj, $state);
         }
-    }).error(function (err) {
-        $rootScope.loading = false;
-        mui.alert("系统繁忙，请稍后重试！");
+    }).error(function () {
+        systemBusy($rootScope,$state);
     });
 
     /**移除待查询充值信息*/
@@ -89,17 +88,15 @@ angular.module('cardApp').controller('telRechargeCtrl', function ($scope, $rootS
             businessNo: encodeService.encode64($scope.businessNo)
         };
         dataService.telRcgCheckRmv(params).success(function (obj) {
-            $rootScope.loading = true;
+            $rootScope.loading = false;
             if (obj.success) {
                 $(".mui-popup").remove();
                 $('.mui-popup-backdrop').removeClass('mui-active');
-                $rootScope.loading = false;
             } else {
                 errorTips(obj, $state);
             }
-        }).error(function (err) {
-            $rootScope.loading = false;
-            mui.alert("系统繁忙，请稍后重试！");
+        }).error(function () {
+            systemBusy($rootScope,$state)
         })
     }
 
@@ -118,10 +115,8 @@ angular.module('cardApp').controller('telRechargeCtrl', function ($scope, $rootS
             } else {
                 errorTips(obj, $state);
             }
-        }).error(function (err) {
-            $rootScope.loading = false;
-            mui.alert("系统繁忙，请稍后重试！");
+        }).error(function () {
+            systemBusy($rootScope,$state)
         })
     }
-
-});
+}]);

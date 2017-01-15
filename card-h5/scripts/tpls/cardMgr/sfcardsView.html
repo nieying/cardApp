@@ -6,55 +6,37 @@
     <a class="mui-icon iconfont icon-bangzhu mui-pull-right" ui-sref="problem"></a>
 </header>
 <div ng-if="cardList.cardNum != 0">
-  <!--  <div class="card-tips">
-        顺丰卡方便快捷，优惠省心，充值赠送 5% 哦～
-    </div>-->
-    <div id="slider" class="mui-slider" >
-        <div class="mui-slider-group mui-slider-loop">
-            <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播)
-            <div class="mui-slider-item" ng-repeat="mkt in mktImgs">
+    <div id="slider1" class="mui-slider" ng-if="mktBanners.length != 0">
+        <div class="mui-slider-group" ng-class="{'mui-slider-loop':mktBanners.length>1}">
+            <!--额外增加的一个节点(循环轮播：第一个节点是最后一张轮播)-->
+            <div class="mui-slider-item mui-slider-item-duplicate" ng-if="mktBanners.length>1">
+                <a ui-sref="{{mktBanners[mktBanners.length-1].lnk}}">
+                    <img ng-src="{{mktBanners[mktBanners.length-1].bnr}}">
+                </a>
+            </div>
+            <div class="mui-slider-item" ng-repeat="mkt in mktBanners"
+                 ng-class="{'mui-slider-item-duplicate':lastMktBnr.lnk == mkt.lnk}">
                 <a ui-sref="{{mkt.lnk}}">
                     <img ng-src="{{mkt.bnr}}">
                 </a>
-            </div>-->
-            <!-- 第一张 -->
-            <div class="mui-slider-item">
-                <a href="#">
-                    <img src="images/adbg1080.png">
-                </a>
+                <div class="card-tips" ng-if="!mkt.bnr">
+                    {{mkt.txt}}
+                </div>
             </div>
-            <!-- 第二张 -->
-            <div class="mui-slider-item">
-                <a href="#">
-                    <img src="images/cardicon-card-list.png">
-                </a>
-            </div>
-            <!-- 第三张 -->
-            <div class="mui-slider-item">
-                <a href="#">
-                    <img src="images/adbg1080.png">
-                </a>
-            </div>
-            <!-- 第四张 -->
-            <div class="mui-slider-item">
-                <a href="#">
-                    <img src="images/cardicon-card-list.png">
-                </a>
-            </div>
+
             <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-            <div class="mui-slider-item mui-slider-item-duplicate">
-                <a href="#">
-                    <img src="images/adbg1080.png">
+            <div class="mui-slider-item mui-slider-item-duplicate" ng-if="mktBanners.length>1">
+                <a ui-sref="{{mktBanners[0].lnk}}">
+                    <img ng-src="{{mktBanners[0].bnr}}">
                 </a>
             </div>
         </div>
-        <div class="mui-slider-indicator">
-            <div class="mui-indicator mui-active"></div>
-            <div class="mui-indicator"></div>
-            <div class="mui-indicator"></div>
-            <div class="mui-indicator"></div>
+        <div class="mui-slider-indicator" ng-if="mktBanners.length>1">
+            <div class="mui-indicator" ng-repeat="mkt in mktBanners"
+                 ng-class="{'mui-active':mktBanners.length == 0}"></div>
         </div>
     </div>
+
     <div class="card-info">
         <div class="info-key">
             <span>总余额(元)</span>
@@ -88,7 +70,7 @@
                     <p><i class="mui-icon iconfont icon-yuan"></i><span>{{card.cardBalanceAmt/100|number:2}}</span></p>
                 </div>
                 <div class="elogo" ng-show="card.cardType =='EC'">电子卡</div>
-                <div class="elogo" ng-show="card.cardType =='RSC'">实体卡</div>
+                <div class="elogo" ng-show="card.cardType =='RSC'">实名卡</div>
             </li>
         </ul>
         <a class="bind-sfcard" ui-sref="bindCard">
@@ -105,7 +87,7 @@
     <img src="images/adbg1080.png"/>
 
     <div class="mui-text-center">
-        <a ui-sref="setElectronPwd" class="mui-btn mui-btn-primary mui-btn-outlined">开通电子卡</a>
+        <a ui-sref="ecardRegister" class="mui-btn mui-btn-primary mui-btn-outlined">开通电子卡</a>
 
         <a ui-sref="bindCard" class="e-card">我有顺丰卡？去绑定</a>
     </div>
