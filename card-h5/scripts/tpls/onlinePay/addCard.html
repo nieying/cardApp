@@ -17,12 +17,14 @@
             <div class="mui-input-row">
                 <label>卡&nbsp;&nbsp;&nbsp;号</label>
                 <input type="tel" id="cno" maxlength="19" ng-model="params.cno" placeholder="请输入卡号"/>
+                <span class="mui-icon mui-icon-closeempty" ng-if="!showScanCode && params.pwd != ''" ng-click="params.pwd = ''"></span>
                 <img style="padding-top: 0.2rem;" class="mui-pull-left" src="images/scan.png" ng-if="showScanCode"
                      ng-click="scanCode()"/>
             </div>
             <div class="mui-input-row">
                 <label>密&nbsp;&nbsp;&nbsp;码</label>
                 <input class="pwd" type="tel" maxlength="8" pattern="[0-9]*" ng-model="params.pwd" placeholder="请输入卡密码"/>
+                <span class="mui-icon mui-icon-closeempty" ng-if="params.pwd != ''" ng-click="params.pwd = ''"></span>
             </div>
         </div>
 

@@ -4,7 +4,13 @@
  */
 angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl',['$scope', '$rootScope', '$stateParams', '$state', '$interval', '$cookieStore', 'encodeService', 'dataService', function ($scope, $rootScope, $stateParams, $state, $interval, $cookieStore, encodeService, dataService) {
     $rootScope.loading = false;
-    $scope.showCode = false;
+
+
+    $scope.op = encodeService.encode64('SET_PWD_NOVALUECARD');
+    $scope.showCode = true;
+    $scope.isGetCode = true;
+    $scope.code = '';
+
     $scope.pwdDes3Sk = '';
 
     /*获取密码加密格式*/
@@ -22,50 +28,6 @@ angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl',['$scope', '
         pwd: '',
         confirmPwd: '',
         phone: '',
-        code: ''
-    };
-
-    /*定时器*/
-    $scope.startTimer = function (second) {
-        $scope.second = second;
-        $scope.timer = $interval(function () {
-            $scope.second--;
-            if ($scope.second == 0) {
-                $scope.showCode = true;
-            }
-        }, 1000, second);
-    };
-
-    /*获取短信验证码*/
-    $scope.sendCode = function () {
-        if (!regular.regp.test($scope.params.phone)) {
-            mui.alert(tipMsg.COMFIRM_PHOME);
-            return false;
-        }
-        var params = {
-            mobile: encodeService.encode64($scope.params.phone),
-            op: encodeService.encode64('SET_PWD_NOVALUECARD')
-        };
-        $interval.cancel($scope.timer);
-        dataService.getSmsCode(params).success(function (obj) {
-            if (obj.success) {
-                $scope.showCode = true;
-                $scope.startTimer(60);
-                mui.toast("验证码已发送" + $scope.params.phone);
-            } else {
-                if (obj.code == '01') {
-                    //todo
-                } else if (obj.code == '02') {
-                    //todo
-                } else {
-                    //todo
-                }
-                errorTips(obj, $state);
-                $scope.startTimer(obj.msgData);
-            }
-        }).error(function () {
-            systemBusy($rootScope,$state);
-        });
     };
 
     /*确认设置密码*/
@@ -86,7 +48,7 @@ angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl',['$scope', '
             mui.alert(tipMsg.COMFIRM_PHOME);
             return false;
         }
-        if (!regular.reg6.test($scope.params.code)) {
+        if (!regular.reg6.test($scope.code)) {
             mui.alert(tipMsg.COMFIRM_CODE);
             return false;
         }
@@ -96,7 +58,7 @@ angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl',['$scope', '
                 cno: encodeService.encode64($stateParams.cno),
                 pwd: aesEncode($scope.params.pwd, $scope.pwdDes3Sk),
                 mobile: encodeService.encode64($scope.params.phone),
-                confirmCode: encodeService.encode64($scope.params.code)
+                confirmCode: encodeService.encode64($scope.code)
             };
             dataService.setPwdAndBindNoValueCard(params).success(function (obj) {
                 if (obj.success) {

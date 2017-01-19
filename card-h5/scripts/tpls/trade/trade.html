@@ -9,12 +9,13 @@
             <span class="w-dot"></span>
         </div>
         <div class="mui-table-cell mui-col-xs-11">
-            <div>卡号</div>
-            <div>余额 {{trades.balanceAmt}}元 累计赠送 {{trades.prefAmt|number:2}}元</div>
+            <div>卡号 {{trades.cardNo}}</div>
+            <div>余额 {{trades.balanceAmt}}元
+                <span ng-show="trades.prefAmt != -1"> 累计赠送 {{trades.prefAmt|number:2}}元</span></div>
         </div>
     </div>
 </div>
-<div id="slider" class="mui-slider mui-fullscreen">
+<div id="slider" class="mui-slider mui-fullscreen" ng-show="tradeList.length != 0">
     <div class="mui-slider-group">
         <div class="mui-slider-item mui-control-content">
             <div id="scroll1" class="mui-scroll-wrapper">
@@ -67,4 +68,9 @@
              </div>-->
         </div>
     </div>
+</div>
+
+<div class="trade-list-tips" ng-show="tradeList.length == 0">
+    <img src="images/noCardTrade.png" alt="">
+    <p>暂无交易记录</p>
 </div>

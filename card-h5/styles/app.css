@@ -114,7 +114,7 @@ html, body {
 /*cardList css*/
 
 .mui-slider a img {
-    height: 2.1rem !important;
+    height: 100% !important;
     width: 100%;
 }
 
@@ -336,11 +336,6 @@ div.crossWord {
     font-size: 0.85rem;
 }
 
-.card-rules {
-    padding: 0 0.7rem;
-    margin-top: 2rem;
-}
-
 .card-detail ul {
     margin: 1.5rem 0;
 }
@@ -411,12 +406,12 @@ div.crossWord {
 }
 
 .recharge .recharge-info {
-    margin-top: 3rem;
+    margin-top: 2.5rem;
 }
 
 .recharge-info .recharge-p {
     color: #333;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.4rem;
     margin-top: 0.3rem;
     font-size: 0.75rem;
 }
@@ -489,6 +484,10 @@ div.crossWord {
     font-size: 1rem;
 }
 
+.pay-type input[name=radio1] {
+    right: 0;
+}
+
 /*trade css*/
 
 .trade .mui-table {
@@ -533,6 +532,16 @@ div.crossWord {
     font-size: 0.5rem;
 }
 
+.trade-list-tips {
+    margin-top: 9rem;
+    text-align: center;
+}
+
+.trade-list-tips p {
+    color: #909799;
+    margin-top: 0.7rem;
+}
+
 /*tradeDetail css*/
 .trade-detail .detail-type {
     margin-top: 44px;
@@ -569,6 +578,10 @@ div.crossWord {
 /*changePwd css*/
 .change-pwd {
     margin: 2.4rem 0 1rem 0;
+}
+
+.change-pwd .verify-code input {
+    width: 40% !important;
 }
 
 .change-pwd .mui-input-group .mui-input-row {
@@ -619,40 +632,43 @@ div.crossWord {
     font-size: 0.7rem;
 }
 
-.find-pwd .mui-input-group {
-    margin: 0.5rem 0;
+.find-pwd .mui-input-row {
     border-bottom: 1px solid #eee;
 }
 
-.find-pwd .mui-input-group::before {
-    height: 0;
+.find-pwd .mui-input-row input {
+    width: 78%;
 }
 
-.find-pwd .mui-input-group input {
-    width: 60%;
-    padding: 0.5rem 0;
-    font-size: 0.7rem;
-}
-
-.find-pwd .mui-input-group label {
-    width: 37%;
+.find-pwd label.mui-text-left {
+    width: 20%;
+    padding-left: 0;
     display: inline-block;
     text-align: center;
-    color: #999;
 }
 
-.send-btn {
-    color: #2390ed;
-    border: 1px solid #2390ed;
-    padding: 7px 10px;
+.find-pwd .verify-code label.mui-text-left {
+    float: left;
 }
 
-.find-pwd .mui-input-group::after {
-    height: 0;
+.verify-code input {
+    float: left !important;
+    width: 45% !important;
+}
+
+.find-pwd .verify-code label.mui-text-right {
+    width: 33%;
+    float: right;
+    padding-right: 0;
 }
 
 .find-pwd .c-90 {
     font-size: 0.6rem;
+    margin-top: 0.5rem
+}
+
+.find-pwd .c-59 {
+    margin-bottom: .5rem;
 }
 
 /*phoneNumber css */
@@ -704,7 +720,15 @@ div.crossWord {
 .problem-item h4 i {
     color: #2390ed;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 0.8rem;
+}
+
+.card-rules .problem-item p {
+    text-indent: 1.3rem;
+}
+
+.card-rules .problem-item h4 {
+    margin: 0.6rem 0;
 }
 
 .bbn {
@@ -712,20 +736,22 @@ div.crossWord {
 }
 
 .problem-item h4 {
-    font-size: 0.7rem;
+    margin: 0.3rem 0;
+    font-size: 0.65rem;
     line-height: 1rem;
     color: #5E6C77;
 }
 
 .problem-item p {
-    margin-top: 0.3rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0;
     font-size: 0.65rem;
     color: #999;
-    line-height: 0.9rem;
+    line-height: 1rem;
 }
 
 .problem .mui-text-center {
-    margin: 1rem 0;
+    margin: 0.7rem 0;
 }
 
 /*scan code set pwd css*/
@@ -782,6 +808,7 @@ div.crossWord {
 
 .online-pay .mui-navigate-right p {
     font-size: 0.6rem;
+    margin-top: 0.2rem;
 }
 
 .online-pay .mui-input-group::before,
@@ -964,36 +991,6 @@ div.crossWord {
     -moz-transform: rotate(45deg);
     -o-transform: rotate(45deg);
     transform: rotate(45deg);
-}
-
-/*bind phone css*/
-.bind-phone .mui-input-row label {
-    width: 33% !important;
-}
-
-.bind-phone .mui-input-row input {
-    width: 67% !important;
-}
-
-.bind-phone .mui-input-row input.code-input {
-    width: 40% !important;
-    float: left !important;
-}
-
-.phone-second {
-    padding-right: 0.7rem;
-    font-size: 0.5rem;
-}
-
-.phone-second-btn {
-    font-size: 0.5rem;
-    border: 1px solid;
-    text-align: center;
-    width: 3rem;
-    height: 1.5rem;
-    margin-top: 0.2rem;
-    line-height: 1.5rem;
-    margin-right: 0.7rem;
 }
 
 /*trade*/
@@ -1327,6 +1324,142 @@ div.crossWord {
 
 .span-tips {
     position: absolute;
+    top: 0.15rem;
     right: 0.7rem;
     color: red;
+}
+
+.mui-icon-closeempty {
+    padding-top: 0.2rem;
+    font-size: 1.5rem;
+    position: absolute;
+    right: 0.2rem;
+}
+
+.close-code {
+    right: 4rem;
+}
+
+.close-invioce {
+    right: 1.2rem;
+}
+
+/*mkt css*/
+
+.bao-jia {
+    position: absolute;
+    background: url("/card-h5/images/mkt/mktBaoJia831/advt_bg_baojia_HD.jpg") no-repeat;
+    width: 100%;
+    height: 100%;
+    background-size: 100%;
+}
+
+.mkt-view .intro-detail .mui-icon {
+    color: white;
+    position: absolute;
+    top: -0.8rem;
+    left: 1rem;
+}
+
+.bao-jia .mui-icon{
+    padding: 1rem;
+    color: white;
+    font-size: 1rem;
+    display: block;
+}
+
+.bao-jia .open-elcard {
+    position: absolute;
+    top: 67%;
+    left: 22%;
+    width: 54%;
+    height: 2rem;
+    border: 1px solid #2390ed;
+    border-radius: .3rem;
+    background-color: #fff;
+    color: #2390ed;
+    font-size: 1rem;
+    line-height: 2rem;
+    text-align: center;
+}
+
+.bao-jia .has-sfcard {
+    position: absolute;
+    top: 74%;
+    left: 29%;
+    text-align: center;
+    margin-top: 1rem;
+    display: inline-block;
+    color: #999;
+    font-size: 0.7rem;
+}
+
+.intro-detail h3::before, .intro-detail h3::after {
+    content: '';
+    height: 1px;
+    width: 3rem;
+    border-bottom: 1px solid;
+    position: absolute;
+    top: 0.4rem;
+}
+
+.bao-jia-intro img{
+    width: 100%;
+}
+
+.intro-detail{
+    position: absolute;
+    top: 2rem;
+    color: #fafafa;
+}
+
+.intro-detail h3::before {
+    left: 2.3rem;
+}
+
+.intro-detail h3::after {
+    right: 2.3rem !important;
+}
+
+.intro-detail h3 {
+    margin: 0;
+    padding-bottom: 1rem;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.intro-detail article {
+    font-size: 0.6rem;
+    line-height: 1.3rem;
+    padding: 0 1.3rem;
+}
+
+.intro-detail h4 {
+    font-size: 0.6rem;
+    line-height: 1.3rem;
+    padding: 0 1rem 0 1.3rem;
+}
+
+.intro-detail .mui-text-center {
+    padding: 1rem 0 0 0;
+}
+
+/*mkt-tips css*/
+.mkt-tips img {
+    width: 6rem;
+    margin-top: 5rem;
+}
+
+.mkt-tips section {
+    margin-top: 1.3rem;
+    padding: 0 1rem;
+}
+
+.mkt-tips section div {
+    line-height: 1.2rem;
+}
+
+.mkt-hr {
+    margin: 0.4rem 0;
+    border-top: 1px solid #e0e0e0
 }

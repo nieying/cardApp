@@ -1,0 +1,15 @@
+<div class='mui-input-row verify-code oh'>
+    <label class='mui-text-left'> 验证码</label>
+    <input class='pwd' type='tel' maxlength='6' pattern='[0-9]*' class='mui-input-row'
+           placeholder='请输入短信验证码' ng-model='code'/>
+    <span class='mui-icon mui-icon-closeempty close-code' ng-if='code != ""' ng-click='clearCode()'></span>
+    <span ng-show='!showCode && !isGetCode'>
+        <label class='mui-text-right'> {{second}}秒后重发</label>
+    </span>
+    <label ng-show='!isGetCode && showCode' class='mui-text-right c-23' ng-click='sendCode()'>
+        再次发送
+    </label>
+    <label ng-show='isGetCode && showCode' class='mui-text-right c-23' ng-click='sendCode()'>
+        获取验证码
+    </label>
+</div>

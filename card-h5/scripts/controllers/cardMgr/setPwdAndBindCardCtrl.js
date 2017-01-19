@@ -2,7 +2,7 @@
  * 绑卡
  * Created by nieying on 2016/6/2.
  */
-angular.module('cardApp').controller('setPwdAndBindCardCtrl',['$scope', '$rootScope', '$cookieStore', '$stateParams', '$state', 'encodeService', 'dataService', function ($scope, $rootScope, $cookieStore, $stateParams, $state, encodeService, dataService) {
+angular.module('cardApp').controller('setPwdAndBindCardCtrl', ['$scope', '$rootScope', '$cookieStore', '$stateParams', '$state', 'encodeService', 'dataService', function ($scope, $rootScope, $cookieStore, $stateParams, $state, encodeService, dataService) {
     $rootScope.loading = false;
     $scope.pwdDes3Sk = '';
 
@@ -17,9 +17,9 @@ angular.module('cardApp').controller('setPwdAndBindCardCtrl',['$scope', '$rootSc
 
     $scope.params = {
         cno: $stateParams.cno,
-        coatingCode: '',
         pwd: '',
-        confirmPwd: ''
+        confirmPwd: '',
+        coatingCode:''
     };
 
     /*绑定卡事件*/
@@ -28,7 +28,7 @@ angular.module('cardApp').controller('setPwdAndBindCardCtrl',['$scope', '$rootSc
             mui.alert(tipMsg.GET_DES3SK_FAIL);
             return false;
         }
-        if(!regular.reg6.test($scope.params.pwd)){
+        if (!regular.reg6.test($scope.params.pwd)) {
             mui.alert(tipMsg.COMFIRM_PWD);
             return false;
         }
@@ -36,35 +36,37 @@ angular.module('cardApp').controller('setPwdAndBindCardCtrl',['$scope', '$rootSc
             mui.alert(tipMsg.CONFIRM_PWD_NOT_SAME);
             return false;
         }
-        if (!$scope.setPwdAndBindCardForm.$invalid) {
-            $rootScope.loading = true;
-            var params = {
-                cno: encodeService.encode64($stateParams.cno),
-                coatingCode: encodeService.encode64($scope.params.coatingCode),
-                pwd: aesEncode($scope.params.pwd, $scope.pwdDes3Sk)
-            };
-            dataService.setPwdAndBindCard(params).success(function (obj) {
-                $rootScope.loading = false;
-                if (obj.success) {
-                    $cookieStore.put("showCno", {value: false});
-                    $state.go("sfcards");
-                } else {
-                    if (obj.msg == '连接失效,请重新登录') {
-                        mui.alert(tipMsg.SESSION_INVALID, "", function () {
-                            //todo
-                        });
-                    } else if (obj.msg == '请勿重复绑卡') {
-                        mui.alert(obj.msg, "", function () {
-                            $state.go("sfcards");
-                        });
-
-                    } else {
-                        mui.alert(obj.msg);
-                    }
-                }
-            }).error(function () {
-                systemBusy($rootScope,$state);
-            })
+        if (!regular.reg6.test($scope.params.coatingCode)) {
+            mui.alert(tipMsg.CONFIRM_COATINGCODE);
+            return false;
         }
+        $rootScope.loading = true;
+        var params = {
+            cno: encodeService.encode64($stateParams.cno),
+            pwd: encodeService.encode64($scope.params.pwd + ''),
+            confirmCode: encodeService.encode64($scope.coatingCode + '')
+        };
+        dataService.setPwdAndBindCard(params).success(function (obj) {
+            $rootScope.loading = false;
+            if (obj.success) {
+                $cookieStore.put("showCno", {value: false});
+                $state.go("sfcards");
+            } else {
+                if (obj.msg == '连接失效,请重新登录') {
+                    mui.alert(tipMsg.SESSION_INVALID, function () {
+                        $state.go("error", {code: '408'});
+                    });
+                } else if (obj.msg == '请勿重复绑卡') {
+                    mui.alert(obj.msg, function () {
+                        $state.go("sfcards");
+                    });
+
+                } else {
+                    mui.alert(obj.msg);
+                }
+            }
+        }).error(function () {
+            systemBusy($rootScope, $state);
+        })
     }
 }]);

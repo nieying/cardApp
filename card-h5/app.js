@@ -70,14 +70,12 @@ function isSfApp() {
 /**提示错误信息*/
 function errorTips(obj, $state) {
     if (obj.msg == '连接失效,请重新登录') {
-        mui.alert("连接失效,请重新登录", "", function () {
+        mui.alert("连接失效,请重新登录", function () {
             $state.go("error", {code: '408'});
         });
-    } else if(obj.msg == '系统繁忙,请稍后再试'){
-        //mui.alert("系统繁忙,请稍后再试", "", function () {
-            $state.go("error", {code: '500'});
-       // });
-    }else{
+    } else if (obj.msg == '系统繁忙,请稍后再试') {
+        $state.go("error", {code: '500'});
+    } else {
         mui.alert(obj.msg);
     }
 }
@@ -102,12 +100,12 @@ function back($cookieStore, $state) {
     if ($cookieStore.get("system").value == 'SFCARD') {
         $state.go('sfcard', {cardNo: $cookieStore.get("cardNo").value});
     } else {
-        $state.go("sfcarScan");
+        $state.go("sfcardscan");
     }
 }
 
 /**系统繁忙*/
-function systemBusy($rootScope,$state) {
+function systemBusy($rootScope, $state) {
     $rootScope.loading = false;
     mui.alert(tipMsg.SYSTEM_BUSY, function () {
         $state.go("error", {code: '500'});

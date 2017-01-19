@@ -20,7 +20,7 @@ angular.module('cardApp').controller('bindCardCtrl', ['$scope', '$rootScope', '$
         pwd: '',
     };
 
-    /*confirm card number*/
+    /*确定卡号跳转页面*/
     $scope.confirmCardNo = function () {
         if(!regular.reg16.test($scope.params.cno)){
             mui.alert(tipMsg.COMFIRM_CARDNO);
@@ -59,8 +59,8 @@ angular.module('cardApp').controller('bindCardCtrl', ['$scope', '$rootScope', '$
             mui.alert(tipMsg.GET_DES3SK_FAIL);
             return false;
         }
-        if(!regular.reg6.test($scope.params.pwd)){
-            mui.alert(tipMsg.COMFIRM_PWD);
+        if(!regular.reg8.test($scope.params.pwd)){
+            mui.alert(tipMsg.COMFIRM_OLD_PWD);
             return false;
         }
         if (!$scope.bindCardForm1.$invalid) {

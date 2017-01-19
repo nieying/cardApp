@@ -2,7 +2,8 @@
  * Created by nieying on 2016/6/3.
  */
 
-angular.module('cardApp').controller('invoiceApplyCtrl',['$scope', '$rootScope','$cookieStore', '$state', 'dataService', 'encodeService',function ($scope, $rootScope,$cookieStore, $state, dataService, encodeService) {
+angular.module('cardApp').controller('invoiceApplyCtrl', ['$scope', '$rootScope', '$cookieStore', '$state', 'dataService', 'encodeService', function ($scope, $rootScope, $cookieStore, $state, dataService, encodeService) {
+    $scope.isInvoiceSucc = false;
 
     $scope.params = {
         amt: '',
@@ -18,7 +19,6 @@ angular.module('cardApp').controller('invoiceApplyCtrl',['$scope', '$rootScope',
         address: ''
     };
 
-    // $scope.cardNo = $cookieStore.get("cardNo").value;
     $scope.showMoreInfo = false;
 
     dataService.invoiceApplyInfo().success(function (obj) {
@@ -29,8 +29,7 @@ angular.module('cardApp').controller('invoiceApplyCtrl',['$scope', '$rootScope',
             errorTips(obj, $state)
         }
     }).error(function () {
-        $rootScope.loading = false;
-        mui.alert(tipMsg.SYSTEM_BUSY);
+        systemBusy($rootScope, $state);
     });
 
     /*申请发票*/
@@ -79,9 +78,9 @@ angular.module('cardApp').controller('invoiceApplyCtrl',['$scope', '$rootScope',
             var params = {
                 amt: encodeService.encode64($scope.params.amt),
                 title: $scope.params.title,
-                taxpayerNumber: $scope.params.taxpayerId,
-                taxpayerAddrPhone: $scope.params.taxpayerAddrMob,
-                taxpayerBankAccount: $scope.params.taxpaerBank,
+                taxpayerNumber: $scope.params.taxpayerNumber,
+                taxpayerAddrPhone: $scope.params.taxpayerAddrPhone,
+                taxpayerBankAccount: $scope.params.taxpayerBankAccount,
                 addressee: $scope.params.addressee,
                 mobile: encodeService.encode64($scope.params.mobile),
                 province: $("#province").val(),
@@ -93,16 +92,18 @@ angular.module('cardApp').controller('invoiceApplyCtrl',['$scope', '$rootScope',
                 $rootScope.loading = false;
                 if (obj.success) {
                     getServiceTel();
-                    mui.alert(obj.msg, function () {
-                        $state.go("invoiceApplySuccess");
-                    });
+                    $scope.isInvoiceSucc = true;
                 } else {
                     errorTips(obj, $state);
                 }
             }).error(function () {
-               systemBusy($rootScope,$state)
+                systemBusy($rootScope, $state)
             })
         }
+    };
+
+    $scope.goBack = function () {
+        back($cookieStore,$state);
     };
 
     /*获取电话*/
@@ -114,7 +115,7 @@ angular.module('cardApp').controller('invoiceApplyCtrl',['$scope', '$rootScope',
                 errorTips(obj, $state)
             }
         }).error(function () {
-            systemBusy($rootScope,$state)
+            systemBusy($rootScope, $state)
         })
     }
 }]);

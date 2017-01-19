@@ -3,64 +3,19 @@
 
     <h1 class="mui-title">我要充值</h1>
 </header>
-<!--<div id="slider" class="mui-slider">-->
-    <!--<div class="mui-slider-group mui-slider-loop">-->
-        <!--&lt;!&ndash; 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) &ndash;&gt;-->
-        <!--<div class="mui-slider-item mui-slider-item-duplicate">-->
-            <!--<a href="#">-->
-                <!--<img src="images/adbg1080.png">-->
-            <!--</a>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; 第一张 &ndash;&gt;-->
-        <!--<div class="mui-slider-item">-->
-            <!--<a href="#">-->
-                <!--<img src="images/cardicon-card-list.png">-->
-            <!--</a>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; 第二张 &ndash;&gt;-->
-        <!--<div class="mui-slider-item">-->
-            <!--<a href="#">-->
-                <!--<img src="images/adbg1080.png">-->
-            <!--</a>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; 第三张 &ndash;&gt;-->
-        <!--<div class="mui-slider-item">-->
-            <!--<a href="#">-->
-                <!--<img src="images/cardicon-card-list.png">-->
-            <!--</a>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; 第四张 &ndash;&gt;-->
-        <!--<div class="mui-slider-item">-->
-            <!--<a href="#">-->
-                <!--<img src="images/adbg1080.png">-->
-            <!--</a>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) &ndash;&gt;-->
-        <!--<div class="mui-slider-item mui-slider-item-duplicate">-->
-            <!--<a href="#">-->
-                <!--<img src="images/cardicon-card-list.png">-->
-            <!--</a>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="mui-slider-indicator">-->
-        <!--<div class="mui-indicator mui-active"></div>-->
-        <!--<div class="mui-indicator"></div>-->
-        <!--<div class="mui-indicator"></div>-->
-        <!--<div class="mui-indicator"></div>-->
-    <!--</div>-->
-<!--</div>-->
 
-<div id="slider" class="mui-slider" >
-    <div class="mui-slider-group" ng-class="{'mui-slider-loop':mktBanners.length>1}">
+<div class="mui-slider">
+    <div class="mui-slider-group" ng-class="{'mui-slider-loop':mktBanners.length > 1}">
         <!--额外增加的一个节点(循环轮播：第一个节点是最后一张轮播)-->
-        <div class="mui-slider-item mui-slider-item-duplicate"  ng-show="mktBanners.length > 1">
-            <a ui-sref="{{lastMktBnr.lnk}}" ng-if="lastMktBnr.lnk">
-                <img ng-src="{{lastMktBnr.bnr}}">
+        <div class="mui-slider-item mui-slider-item-duplicate" ng-if="mktBanners.length > 1">
+            <a href="javascript:void(0)"
+               ng-click="goMkt(mktBanners[mktBanners.length-1].name,mktBanners[mktBanners.length-1].op)">
+                <img ng-src="{{mktBanners[mktBanners.length-1].bnr}}">
             </a>
         </div>
-        <div class="mui-slider-item" ng-repeat="mkt in mktBanners"
-             ng-class="{'mui-slider-item-duplicate':lastMktBnr.lnk == mkt.lnk}">
-            <a ui-sref="{{mkt.lnk}}">
+
+        <div class="mui-slider-item" ng-repeat="mkt in mktBanners">
+            <a href="javascript:void(0)" ng-click="goMkt(mkt.name,mkt.op)">
                 <img ng-src="{{mkt.bnr}}">
             </a>
             <div class="card-tips" ng-if="!mkt.bnr">
@@ -69,17 +24,24 @@
         </div>
 
         <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-        <div class="mui-slider-item mui-slider-item-duplicate" ng-show="mktBanners.length > 1">
-            <a ui-sref="{{fristMktBnr.lnk}}" ng-if="fristMktBnr.lnk">
-                <img ng-src="{{fristMktBnr.bnr}}">
+        <div class="mui-slider-item mui-slider-item-duplicate" ng-if="mktBanners.length > 1">
+            <a href="javascript:void(0)" ng-click="goMkt(mktBanners[0].name,mktBanners[0].op)">
+                <img ng-src="{{mktBanners[0].bnr}}">
             </a>
         </div>
     </div>
-    <div class="mui-slider-indicator"  ng-show="mktBanners.length>1">
+
+    <div class="mui-slider-indicator" ng-if="mktBanners.length>1">
         <div class="mui-indicator" ng-repeat="mkt in mktBanners"
              ng-class="{'mui-active':mktBanners.length == 0}"></div>
     </div>
+    <script>
+        mui(".mui-slider").slider({
+            interval: 5000
+        });
+    </script>
 </div>
+
 <div class="recharge">
     <div class="oh recharge-info">
         <div class="mui-pull-left">
@@ -104,7 +66,8 @@
         <li ng-repeat="recharge in rechargeList"
             ng-class="{'active':$index == rechargeIndex}" ng-click="checkItem(recharge,$index)">
             <div> <!--<i class="mui-icon iconfont icon-yuan"></i>--> {{recharge}}元</div>
-            <div class="mui-ellipsis" ng-show="rechargeInfo.giveScale != 0">( 赠送{{recharge*rechargeInfo.giveScale/100}}元
+            <div class="mui-ellipsis" ng-show="rechargeInfo.giveScale != 0">(
+                赠送{{recharge*rechargeInfo.giveScale/100}}元
                 )
             </div>
             <div class="mui-ellipsis" ng-show="rechargeInfo.giveScale == 0"></div>
@@ -128,7 +91,8 @@
     </div>
     <div class="pay-type">
         <div class="mui-input-row mui-radio" ng-click="selectPayType(0)">
-            <label><img style="width: 1rem;vertical-align: middle;" src="images/menu-payment-ssf.png" alt=""> 顺首付支付</label>
+            <label><img style="width: 1rem;vertical-align: middle;" src="images/menu-payment-ssf.png" alt="">
+                顺首付支付</label>
             <input name="radio1" type="radio">
         </div>
         <div class="mui-input-row mui-radio" ng-click="selectPayType(1)">

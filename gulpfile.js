@@ -19,19 +19,19 @@ var config = {
     proxyUrl: 'http://localhost:8080/'
 };
 
-//编译sass文件
-gulp.task('sass', function () {
-    return gulp.src('app/scss/*.scss')
-        .pipe($.plumber())//gulp-plumber错误管理
-        .pipe($.sourcemaps.init())//当scss有各种引入关系时，编译后不容易找到对应scss文件，所以需要生成sourcemap文件，方便修改
-        .pipe($.sass.sync({
-            outputStyle: 'expanded',
-            precision: 10,
-            includePaths: ['.']
-        })).pipe($.sourcemaps.write())
-        .pipe(gulp.dest('card-h5/styles'))
-        .pipe(reload({stream: true}));
-});
+// //编译sass文件
+// gulp.task('sass', function () {
+//     return gulp.src('app/scss/*.scss')
+//         .pipe($.plumber())//gulp-plumber错误管理
+//         .pipe($.sourcemaps.init())//当scss有各种引入关系时，编译后不容易找到对应scss文件，所以需要生成sourcemap文件，方便修改
+//         .pipe($.sass.sync({
+//             outputStyle: 'expanded',
+//             precision: 10,
+//             includePaths: ['.']
+//         })).pipe($.sourcemaps.write())
+//         .pipe(gulp.dest('card-h5/styles'))
+//         .pipe(reload({stream: true}));
+// });
 
 gulp.task('css', function () {
     return gulp.src('card-h5/styles/*.css').pipe(gulp.dest(config.dist + '/styles'));
@@ -40,7 +40,6 @@ gulp.task('css', function () {
 gulp.task('fonts', function () {
     return gulp.src(['card-h5/fonts/*.ttf', 'card-h5/fonts/*.eot', 'card-h5/fonts/*.svg', 'card-h5/fonts/*.woff'])
         .pipe(gulp.dest(config.dist + '/fonts'));
-
 });
 
 function lint(files, options) {

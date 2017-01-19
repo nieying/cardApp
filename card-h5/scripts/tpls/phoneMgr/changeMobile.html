@@ -1,46 +1,18 @@
-<div ng-show="!showChangeMobile">
-    <header id="header" class="mui-bar mui-bar-nav">
-        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 
-        <h1 class="mui-title">手机号码</h1>
-    </header>
-    <div class="phoneNumber">
-        <div class="mui-text-center">
-            <div class="c-59">当前绑定的手机号</div>
+    <h1 class="mui-title">手机号码</h1>
+</header>
+<div class="phoneNumber">
+    <div class="mui-text-center">
+        <div class="c-59">当前绑定的手机号</div>
 
-            <div class="c-28">{{mobile|phoneFilter}}</div>
-
-            <div class="change-pwd-btn mui-text-center">
-                <button class="mui-btn mui-btn-primary" ng-click="mobileValidateView()">更 换</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div ng-show="showChangeMobile">
-    <header id="header" class="mui-bar mui-bar-nav">
-        <a class="mui-icon mui-icon-left-nav mui-pull-left" ng-click="showChangeMobile = false"></a>
-
-        <h1 class="mui-title">手机号码</h1>
-    </header>
-    <div class="find-pwd">
-        <div class="c-59" ng-show="!showCode">
-            验证码已发送至您的 <span class="c-28">{{mobile|phoneFilter}}</span>
-        </div>
-        <form name="phoneForm" class="mui-input-group oh">
-            <input type="tel" maxlength="6" pattern="[0-9]*" class="mui-input-row"
-                   placeholder="请输入短信验证码" ng-model="params.code" required/>
-            <label ng-show="!showCode">{{second}} 秒后重发</label>
-            <label ng-show="showCode" class="mui-pull-right send-btn c-23" ng-click="sendCode()">再次发送</label>
-        </form>
-        <div class="c-90">
-            如您已经变更了手机号码，请先更换手机绑定信息。
-        </div>
+        <div class="c-28">{{mobile|phoneFilter}}</div>
 
         <div class="change-pwd-btn mui-text-center">
-            <button class="mui-btn"
-                    ng-class="{'mui-btn-grey':phoneForm.$invalid,'mui-btn-primary':!phoneForm.$invalid}"
-                    ng-click="next()">下一步</button>
+            <a class="mui-btn mui-btn-primary" ui-sref="verifyMobile({mobile:mobile})">更 换</a>
         </div>
     </div>
 </div>
+
+

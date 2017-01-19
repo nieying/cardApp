@@ -2,7 +2,6 @@
  * 交易详细
  * Created by nieying on 2016/6/3.
  */
-
 angular.module('cardApp').controller('tradeDetailCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'encodeService', 'dataService', function ($scope, $rootScope, $state, $stateParams, encodeService, dataService) {
     $rootScope.loading = true;
 

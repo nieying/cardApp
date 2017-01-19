@@ -385,5 +385,15 @@ angular.module("cardApp").service('dataService', ['$http', function ($http) {
                 responeType:'string'
             });
         },
+
+        /*参加指定的活动*/
+        getParticipateIn: function (params) {
+            return $http({
+                method: "GET",
+                url: "mkt/participateIn/"+params,
+            });
+        },
+
+
     }
 }]);

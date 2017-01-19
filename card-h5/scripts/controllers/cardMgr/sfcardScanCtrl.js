@@ -9,6 +9,11 @@ angular.module('cardApp').controller('sfcardScanCtrl', ['$scope', '$rootScope', 
     clearCookie();
     $cookieStore.put("system", {value: 'SFCARDSCAN'});
 
+    $scope.params = {
+        pwd:''
+    };
+
+
     /*交易明細------>输入密码*/
     $scope.showPwdView = function () {
         $scope.showPwd = true;
@@ -26,7 +31,7 @@ angular.module('cardApp').controller('sfcardScanCtrl', ['$scope', '$rootScope', 
         if ($scope.cardInfo.mobile == null) {
             $state.go("bindPhone", {mobile: ''});
         } else {
-            $state.go("findPwd");
+            $state.go("findPwd",{mobile: $scope.cardInfo.mobile});
         }
     };
 
@@ -57,6 +62,10 @@ angular.module('cardApp').controller('sfcardScanCtrl', ['$scope', '$rootScope', 
     $scope.confirmPwd = function () {
         if ($scope.pwdDes3Sk == '') {
             mui.alert(tipMsg.GET_DES3SK_FAIL);
+            return false;
+        }
+        if (!regular.reg8.test($scope.params.pwd)) {
+            mui.alert(tipMsg.COMFIRM_OLD_PWD);
             return false;
         }
         if (!$scope.pwdForm.$invalid) {

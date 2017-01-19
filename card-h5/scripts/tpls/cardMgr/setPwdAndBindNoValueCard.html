@@ -3,42 +3,35 @@
 
     <h1 class="mui-title">修改密码</h1>
 </header>
-<div class="change-pwd bind-phone">
+<div class="change-pwd">
     <form name="scanCodeForm" class="mui-input-group">
         <div class="mui-input-row" ng-if="showCno">
-            <label>卡   号</label>
+            <label>卡 号</label>
             <input type="text" readonly maxlength="16" pattern="[0-9]*" ng-model="params.cno">
         </div>
         <div class="mui-input-row">
             <label>设置密码</label>
-            <input class="pwd" type="tel" maxlength="6" pattern="[0-9]*" ng-model="params.pwd"
-                   required placeholder="请输入6位数字密码">
+            <input class="pwd" type="tel" maxlength="6" pattern="[0-9]*" ng-model="params.pwd" placeholder="请输入6位数字密码">
+            <span class="mui-icon mui-icon-closeempty" ng-if="params.pwd != ''" ng-click="params.pwd = ''"></span>
         </div>
         <div class="mui-input-row">
             <label>确定密码</label>
             <input class="pwd" type="tel" maxlength="6" pattern="[0-9]*" ng-model="params.confirmPwd"
-                   required placeholder="请再次输入密码">
+                   placeholder="请再次输入密码">
+            <span class="mui-icon mui-icon-closeempty" ng-if="params.confirmPwd != ''"
+                  ng-click="params.confirmPwd = ''"></span>
         </div>
 
         <div class="mui-input-row">
             <label>手 机 号</label>
-            <input type="text" maxlength="11" pattern="[0-9]*" ng-model="params.phone"
-                   required
-                   placeholder="请输入您的手机号码">
+            <input type="text" maxlength="11" pattern="[0-9]*" ng-model="params.phone" placeholder="请输入您的手机号码">
+            <span class="mui-icon mui-icon-closeempty" ng-if="params.phone != ''" ng-click="params.phone = ''"></span>
         </div>
-        <div class="mui-input-row">
-            <label>验 证 码</label>
-            <input type="password" maxlength="6" class="code-input" ng-model="params.code"
-                   required
-                   placeholder="请输入手机验证码"/>
-            <span class="mui-pull-right phone-second" ng-show="showCode">{{second}} 秒后重发</span>
-            <span class="mui-pull-right phone-second c-23" ng-show="!showCode" ng-click="sendCode()">
-                获取验证码
-            </span>
-        </div>
+        <verify-code code="code" is-get-code="isGetCode" phone="params.phone" op="op" show-Code="showCode"></verify-code>
     </form>
     <div class="change-pwd-btn mui-text-center">
-        <div class="mui-btn" ng-class="{'mui-btn-grey':scanCodeForm.$invalid,'mui-btn-primary':!scanCodeForm.$invalid,}" ng-click="confrim()">确认</div>
+        <div class="mui-btn mui-btn-primary" ng-click="confrim()">确认
+        </div>
     </div>
 </div>
 

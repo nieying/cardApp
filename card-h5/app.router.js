@@ -1,8 +1,5 @@
-angular.module('cardApp').config(['$stateProvider',function ($stateProvider) {
-    $stateProvider.state('/', {  //默认页面
-        url: '/',
-        templateUrl: 'scripts/tpls/cardMgr/home.html'
-    }).state('sfcards', {  //顺丰卡列表
+angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
+    $stateProvider.state('sfcards', {  //顺丰卡列表
         url: '/sfcards',
         templateUrl: 'scripts/tpls/cardMgr/sfcardsView.html',
         controller: 'sfcardsCtrl',
@@ -64,6 +61,7 @@ angular.module('cardApp').config(['$stateProvider',function ($stateProvider) {
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
+                    'scripts/directives/verifyCode.js',
                     'scripts/controllers/cardMgr/setPwdAndBindNoValueCardCtrl.js',
                 ]);
             }]
@@ -90,25 +88,15 @@ angular.module('cardApp').config(['$stateProvider',function ($stateProvider) {
                 ]);
             }]
         }
-    }).state('pwdSetNoValueCard', {  //无面额卡设置密码
+    }).state('pwdSetNoValueCard', {  //扫码无面额卡设置密码
         url: '/pwdSetNoValueCard',
         templateUrl: 'scripts/tpls/pwdMgr/pwdSetNoValueCard.html',
         controller: 'pwdSetNoValueCardCtrl',
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
+                    'scripts/directives/verifyCode.js',
                     'scripts/controllers/pwdMgr/pwdSetNoValueCardCtrl.js',
-                ]);
-            }]
-        }
-    }).state('pwdSuccess', {  //密码成功
-        url: '/pwdSuccess',
-        templateUrl: 'scripts/tpls/pwdMgr/pwdSuccess.html',
-        controller: 'pwdSuccessCtrl',
-        resolve: {
-            deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                return $ocLazyLoad.load([
-                    'scripts/controllers/pwdMgr/pwdSuccessCtrl.js'
                 ]);
             }]
         }
@@ -136,7 +124,7 @@ angular.module('cardApp').config(['$stateProvider',function ($stateProvider) {
             }]
         }
     }).state('rechargeSuccess', {  //充值成功頁面
-        url: '/rechargeSuccess',
+        url: '/rechargeSuccess/:businessNo',
         templateUrl: 'scripts/tpls/recharge/rechargeSuccess.html',
         controller: 'rechargeSuccessCtrl',
         resolve: {
@@ -182,17 +170,6 @@ angular.module('cardApp').config(['$stateProvider',function ($stateProvider) {
                 ]);
             }]
         }
-    }).state('invoiceApplySuccess', {  //发票申请成功
-        url: '/invoiceApplySuccess',
-        templateUrl: 'scripts/tpls/invoiceMgr/invoiceTips.html',
-        controller: 'invoiceApplyCtrl',
-        resolve: {
-            deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                return $ocLazyLoad.load([
-                    'scripts/controllers/invoiceMgr/invoiceApplyCtrl.js',
-                ]);
-            }]
-        }
     }).state('changePwd', {  //修改密码
         url: '/changePwd/:mobile',
         templateUrl: 'scripts/tpls/pwdMgr/changePwd.html',
@@ -222,6 +199,7 @@ angular.module('cardApp').config(['$stateProvider',function ($stateProvider) {
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
+                    'scripts/directives/verifyCode.js',
                     'scripts/controllers/pwdMgr/findPwdCtrl.js',
                 ]);
             }]
@@ -233,6 +211,7 @@ angular.module('cardApp').config(['$stateProvider',function ($stateProvider) {
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
+                    'scripts/directives/verifyCode.js',
                     'scripts/controllers/phoneMgr/bindPhoneCtrl.js',
                 ]);
             }]
@@ -245,6 +224,18 @@ angular.module('cardApp').config(['$stateProvider',function ($stateProvider) {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
                     'scripts/controllers/phoneMgr/changeMobileCtrl.js',
+                ]);
+            }]
+        }
+    }).state('verifyMobile', {  //手机号码-----更换手机
+        url: '/verifyMobile/:mobile',
+        templateUrl: 'scripts/tpls/phoneMgr/verifyMobile.html',
+        controller: 'verifyMobileCtrl',
+        resolve: {
+            deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                return $ocLazyLoad.load([
+                    'scripts/directives/verifyCode.js',
+                    'scripts/controllers/phoneMgr/verifyMobileCtrl.js',
                 ]);
             }]
         }
@@ -325,7 +316,7 @@ angular.module('cardApp').config(['$stateProvider',function ($stateProvider) {
                 ]);
             }]
         }
-    })/*.state('teleSale/rechargeSuccessSetPwd', {  // 电销购卡充值下单请求成功设置密码頁面
+    }).state('teleSale/rechargeSuccessSetPwd', {  // 电销购卡充值下单请求成功设置密码頁面
         url: '/teleSale/rechargeSuccessSetPwd',
         templateUrl: 'scripts/tpls/telemkt/telRechargeSuccessSetPwd.html',
         controller: 'telRechargeSuccessSetPwdCtrl',
@@ -336,7 +327,7 @@ angular.module('cardApp').config(['$stateProvider',function ($stateProvider) {
                 ]);
             }]
         }
-    })*/.state('telSetPwd', {  // 电销购卡设置密码
+    }).state('telSetPwd', {  // 电销购卡设置密码
         url: '/telSetPwd',
         templateUrl: 'scripts/tpls/telemkt/telSetPwdView.html',
         controller: 'telSetPwdCtrl',
@@ -386,7 +377,7 @@ angular.module('cardApp').config(['$stateProvider',function ($stateProvider) {
             }]
         }
     }).state('error', {  //异常页面
-        url: '/error/:code',
+        url: '/error/:code?msg',
         templateUrl: 'scripts/tpls/infoMgr/error.html',
         controller: 'errorCtrl',
         resolve: {
@@ -409,6 +400,48 @@ angular.module('cardApp').config(['$stateProvider',function ($stateProvider) {
                 ]);
             }]
         }
+    }).state('mkt', {  //活动首页
+        url: '/mkt/:mktName',
+        templateUrl:function ($stateParams) {
+            return 'scripts/tpls/mkt/' + $stateParams.mktName + 'Index.html'
+        },
+        controller:function ($rootScope) {
+            $rootScope.loading = false;
+        },
+        resolve: {
+            deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                return $ocLazyLoad.load([]);
+            }]
+        }
+    })/*.state('mkt/advt', {  //活动广告页
+        url: '/mkt/:mktName/advt',
+        templateUrl: function ($stateParams) {
+            return 'scripts/tpls/mkt/' + $stateParams.mktName + 'Advt.html';
+        },
+        controller: $stateParams.mktName + 'Ctrl',
+        resolve: {
+            deps: ['$ocLazyLoad', '$stateParams', function ($ocLazyLoad, $stateParams) {
+                return $ocLazyLoad.load([
+                    'scripts/controllers/mkt/' + $stateParams.mktName + 'Ctrl.js'
+                ]);
+            }]
+        }
+    })*/.state('mkt/intro', {  //活动介绍页
+        url: '/mkt/:mktName/intro',
+        templateUrl: function ($stateParams) {
+            return 'scripts/tpls/mkt/' + $stateParams.mktName + 'Intro.html';
+        },
+        controller:function ($rootScope) {
+            $rootScope.loading = false;
+        },
+        resolve: {
+            deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                return $ocLazyLoad.load([]);
+            }]
+        }
+    }).state('mkt/mktips', {  //活动介绍页
+        url: '/mkt/mktips',
+        templateUrl:'scripts/tpls/mkt/mktipsIndex.html',
     });
 }]);
 

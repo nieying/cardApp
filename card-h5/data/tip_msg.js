@@ -18,16 +18,15 @@ var tipMsg = {
     "TITLE_NOT_NULL": "抬头不能为空！",
     "ADDRESSEE_NOT_NULL": "收件人不能为空！",
     "ADDRESS_NOT_NULL": "地址不能为空！",
-    "CODE_NOT_NULL": "验证码不能为空！",
     "REMARK_NOT_NULL": "卡备注不能为空！",
     "SET_PWD_SUCCESS":"密码设置成功！",
     "UPDATE_PWD_SUCCESS": "密码修改成功！",
     "UPDATE_REMARK_SUCCESS": "备注修改成功！",
     "BIND_PHONE_SUCCESS": "绑定手机成功！",
     "UPDATE_PHONE_SUCCESS": "修改手机成功！",
-    "COMFIRM_OLD_PWD": "请输入6位或8位的原密码！",
+    "COMFIRM_OLD_PWD": "请输入6位或8位的密码！",
     "COMFIRM_PWD": "请输入6位数字的密码！",
-    "COMFIRM_CODE": "请输入验证码！",
+    "COMFIRM_CODE": "请输入6位数字的验证码！",
     "COMFIRM_CARDNO":"请输入正确的卡号！"
 };
 

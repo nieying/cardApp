@@ -1,0 +1,51 @@
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+
+    <h1 class="mui-title">顺丰卡</h1>
+</header>
+<div class="mkt-tips mui-text-center">
+    <!-- 无首充记录 -->
+    <div><img src="images/sfboy.png" alt=""></div>
+    <section ng-if="showMktTips == 1">
+        <div class="mkt-msg">
+            请在活动期间，完成对会员账户下<br/>
+            <span class="c-f1">任意一张</span>顺丰实体卡（无面值卡）或电子卡的<span class="c-f1">首次充值</span>，<br/>
+            再回来点击查看首充礼包领取资格！
+        </div>
+        <div class="mkt-hr"></div>
+        <div class="mkt-msg">
+            每位会员用户活动期间总计只能领取<span class="c-f1">1</span>次首充礼包，<br/>
+            即使同一会员用户在活动期间完成多张顺丰卡的首次充值，<br/>
+            也只能领取1次首充礼包哦。
+        </div>
+    </section>
+
+    <!-- 已领取 -->
+    <section ng-if="showMktTips == 2">
+        <div class="mkt-msg">
+            活动期间，每位会员用户总计只能<br/>
+            领取<span class="c-f1">1</span>次首充礼包哦！<br/>
+            您已成功领取一个首充礼包。
+        </div>
+        <div class="mkt-hr"></div>
+        <div class="mkt-msg">
+            请至“顺丰速运”微信服务号<br/>
+            “我”-“我的顺丰”-“我”-“优惠券”中查看支付券<br/>
+            <span class="tip-b3">（或至“顺丰速运”APP-“我”-“优惠券”中查看）</span>
+        </div>
+    </section>
+
+    <!-- 逾期未领取 -->
+    <section ng-if="showMktTips == 3">
+        <div class="mkt-msg">
+            首充礼包的领取时效为<span class="c-f1">30</span>天。<br/><br/>
+            非常抱歉，您的礼包已失效，感谢您对本次首充活动的支持！<br/>
+        </div>
+        <div class="mkt-hr"></div>
+        <div class="mkt-msg">
+            顺丰卡充值活动将不定期举行，<br/>
+            敬请关注。
+        </div>
+    </section>
+
+</div>

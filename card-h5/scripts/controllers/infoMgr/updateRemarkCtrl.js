@@ -5,18 +5,20 @@
 angular.module('cardApp').controller('updateRemarkCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$cookieStore', 'dataService', function ($scope, $rootScope, $state, $stateParams, $cookieStore, dataService) {
 
     $rootScope.loading = false;
-    $scope.remark = $stateParams.remarkName;
+    $scope.params = {
+        remark: $stateParams.remarkName ? $stateParams.remarkName : ''
+    };
 
     /*修改卡备注*/
     $scope.comfirm = function () {
-        if ($scope.remark == '') {
+        if ($scope.params.remark == '') {
             mui.alert(tipMsg.REMARK_NOT_NULL);
             return false
         }
         if (!$scope.remarkForm.$invalid) {
             $rootScope.loading = true;
             var params = {
-                remark: $scope.remark
+                remark: $scope.params.remark
             };
             dataService.updateRemark(params).success(function (obj) {
                 $rootScope.loading = false;

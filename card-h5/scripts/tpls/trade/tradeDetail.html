@@ -5,12 +5,12 @@
 </header>
 <div class="trade-detail">
     <div class="detail-type">{{tradeDetailInfo.bizTName|tradeType}}</div>
-    <div class="mui-text-center">
+    <div class="mui-text-center" style="margin-bottom: 1rem;">
         <p class="c-23" ng-if="tradeDetailInfo.businessType !='OFF_PAY'">+{{tradeDetailInfo.tradeAmt/100|number:2}}</p>
 
         <p class="c-f1" ng-if="tradeDetailInfo.businessType =='OFF_PAY'">-{{tradeDetailInfo.tradeAmt/100|number:2}}</p>
 
-        <p class="c-fb">赠送{{tradeDetailInfo.prefAmt/100|number:2}}</p>
+        <p class="c-fb" ng-show="tradeDetailInfo.prefAmt">赠送{{tradeDetailInfo.prefAmt/100|number:2}}</p>
     </div>
     <div class="detail-card-info">
         <div class="oh mui-table-view-cell">
@@ -31,7 +31,7 @@
         <ul>
             <li class="oh" ng-repeat="item in orderList.cardTradeDetails">
                 <span class="mui-pull-left c-59">{{item.businessSn}}</span>
-                <span class="mui-pull-right c-28">{{item.amt|number:2}}元</span>
+                <span class="mui-pull-right c-28">{{item.amt/100|number:2}}元</span>
             </li>
         </ul>
     </div>

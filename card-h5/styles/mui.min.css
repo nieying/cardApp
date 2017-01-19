@@ -2184,13 +2184,13 @@ select:focus {
     font-family: 'Helvetica Neue', Helvetica, sans-serif;
     line-height: 1.1;
     float: left;
-    width: 35%;
+    width: 30%;
     padding: 11px 12px
 }
 
 .mui-input-row label ~ input, .mui-input-row label ~ select, .mui-input-row label ~ textarea {
     float: right;
-    width: 65%;
+    width: 70%;
     margin-bottom: 0;
     padding-left: 0;
     border: 0
@@ -3164,8 +3164,8 @@ select:focus {
     z-index: 1;
     overflow: hidden;
     width: 100%;
-    top: 2.1rem;
-    height: 2.5rem;
+    top: 2.2rem;
+    height: 100%;
 }
 
 .mui-slider .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {

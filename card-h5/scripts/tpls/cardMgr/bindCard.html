@@ -9,7 +9,7 @@
         <div class="mui-input-row">
             <label>卡&nbsp;&nbsp;&nbsp;&nbsp;号</label>
             <input type="tel" id="cno"  maxlength="19" ng-model="params.cno" placeholder="请输入卡号" required/>
-            <span class="mui-pull-left mui-icon mui-icon-closeempty" ng-if="!showScanCode && params.cno != ''" ng-click="params.cno = ''"></span>
+            <span class="mui-icon mui-icon-closeempty" ng-if="!showScanCode && params.cno != ''" ng-click="params.cno = ''"></span>
             <img class="mui-pull-left" src="images/scan.png" ng-if="showScanCode" ng-click="scanCode()"/>
         </div>
     </form>

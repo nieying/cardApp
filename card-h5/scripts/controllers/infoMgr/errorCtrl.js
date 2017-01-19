@@ -7,7 +7,11 @@ angular.module('cardApp').controller('errorCtrl', ['$scope', '$rootScope', '$sta
     $scope.showGoBackBtn = true;//判断是否显示返回按钮
 
     if (codeMsg) {
-        $scope.msg = codeMsg[$stateParams.code];
+        if($stateParams.code==90000){
+            $scope.msg = $stateParams.msg;
+        }else{
+            $scope.msg = codeMsg[$stateParams.code];
+        }
     }
 
     if (isWeiXin()) {//微信

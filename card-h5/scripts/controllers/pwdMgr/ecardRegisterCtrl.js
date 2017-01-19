@@ -3,7 +3,7 @@
  * Created by nieying on 2016/6/6.
  */
 
-angular.module('cardApp').controller('ecardRegisterCtrl',['$scope', '$rootScope', '$state', '$cookieStore', 'encodeService', 'dataService', function ($scope, $rootScope, $state, $cookieStore, encodeService, dataService) {
+angular.module('cardApp').controller('ecardRegisterCtrl',['$scope', '$rootScope', '$state', 'encodeService', 'dataService', function ($scope, $rootScope, $state, encodeService, dataService) {
     $rootScope.loading = false;
     $scope.pwdDes3Sk = '';
 

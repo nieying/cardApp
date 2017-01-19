@@ -18,7 +18,12 @@ angular.module('cardApp').controller('sfcardsCtrl',['$scope', '$rootScope', '$st
             });
             $scope.cardList = obj.msgData;
         } else {
-            errorTips(obj, $state)
+            if(obj.code == '302'){
+                //去活动页面
+                $state.go("mkt",{mtkName:'mtkBaoJia831'});
+            }else{
+                errorTips(obj, $state)
+            }
         }
         //卡背景颜色
         $scope.cardColor = ['bg-23', 'bg-fb', 'bg-5e', 'bg-e6'];
@@ -36,16 +41,46 @@ angular.module('cardApp').controller('sfcardsCtrl',['$scope', '$rootScope', '$st
                     $scope.mktBanners.push(mtkbnr);
                 }
             });
-            $scope.lastMktBnr = $scope.mktBanners[$scope.mktBanners.length - 1];
         }
-    }).error(function () {
-        systemBusy($rootScope,$state);
-    });;
+    })
+
+    /**活动*/
+    $scope.goMkt = function (mktName, op) {
+        $rootScope.loading = true;
+        if (op == 'intro') {
+            $state.go("mkt/intro", {mktName: mktName});
+        } else if (op == 'participateIn') {
+            dataService.getParticipateIn(mktName).success(function (obj) {
+                $rootScope.loading = false;
+                if (obj.success) {
+                    if (obj.msgData == 1) {//无首充记录
+                        $rootScope.showMktTips =1 ;
+                        $state.go("mkt/mktips")
+                    } else if (obj.msgData == 2) {//已领取
+                        $rootScope.showMktTips =2 ;
+                        $state.go("mkt/mktips")
+                    } else if (obj.msgData == 3) {//逾期未领取
+                        $rootScope.showMktTips =3 ;
+                        $state.go("mkt/mktips")
+                    }else{
+                        systemBusy($rootScope, $state);
+                    }
+                } else {
+                    if (obj.code == '302') {
+                        window.location.href = obj.msgData;
+                    } else {
+                        errorTips(obj, $state)
+                    }
+                }
+            }).error(function () {
+                systemBusy($rootScope, $state);
+            })
+        }
+    };
 
     $scope.goCardDetail = function (card) {
         $state.go("sfcard", {cardNo: card.cardNo});
     };
-
 
     if (isWeiXin()) {//微信
         if (typeof WeixinJSBridge == "undefined") {

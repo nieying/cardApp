@@ -2,8 +2,7 @@
  * 交易明细
  * Created by nieying on 2016/6/3.
  */
-
-angular.module('cardApp').controller('tradeCtrl',['$scope','$rootScope', '$state', '$window', '$stateParams', '$filter', '$cookieStore', 'dataService', function ($scope, $rootScope, $state, $window, $stateParams, $filter, $cookieStore, dataService) {
+angular.module('cardApp').controller('tradeCtrl', ['$scope', '$rootScope', '$state', '$window', '$stateParams', '$filter', '$cookieStore', 'dataService', function ($scope, $rootScope, $state, $window, $stateParams, $filter, $cookieStore, dataService) {
     $rootScope.loading = false;
     $scope.tradeList = [];
 
@@ -46,7 +45,7 @@ angular.module('cardApp').controller('tradeCtrl',['$scope','$rootScope', '$state
         var self = this;
         setTimeout(function () {
             getTradeList(0);
-            if ($scope.trades.list.length == 0 || $scope.trades.list.length == 1) {
+            if ($scope.trades.list.length <= 10) {
                 self.endPullUpToRefresh(true);
             } else {
                 self.endPullUpToRefresh(false);
@@ -57,7 +56,7 @@ angular.module('cardApp').controller('tradeCtrl',['$scope','$rootScope', '$state
     /*跳到交易详情页*/
     $scope.goTradeDetail = function (item) {
         $state.go("tradeDetail", {businessSn: item.businessSn});
-        dataService.tradeParams= {
+        dataService.tradeParams = {
             businessSn: item.businessSn,
             businessTypeName: item.businessType,
             prefAmt: item.prefAmt,
@@ -75,25 +74,28 @@ angular.module('cardApp').controller('tradeCtrl',['$scope','$rootScope', '$state
         };
 
         dataService.getTradeList(params).success(function (obj) {
-           if(obj.success){
-               $scope.trades = obj.msgData;
-               if (pull == 1) {
-                   $scope.tradeList = [];
-               }
-               $scope.tradeList = $scope.tradeList.concat($scope.trades.list);
+            if (obj.success) {
+                $scope.trades = obj.msgData;
+                if ($scope.trades.list.length < 10) {
+                    mui(".mui-pull-bottom-tips").display = "none";
+                }
+                if (pull == 1) {
+                    $scope.tradeList = [];
+                }
+                $scope.tradeList = $scope.tradeList.concat($scope.trades.list);
 
-               if (typeof ($scope.trades.list) == 'null') {
-                   mui.alert(tipMsg.SYSTEM_BUSY);
-               } else {
-                   $scope.lastTime = _.min(_.map($scope.trades.list, function (trade) {
-                       return trade.tradeTime;
-                   }));
-               }
-           }else{
-               errorTips(obj,$state)
-           }
+                if (typeof ($scope.trades.list) == 'null') {
+                    mui.alert(tipMsg.SYSTEM_BUSY);
+                } else {
+                    $scope.lastTime = _.min(_.map($scope.trades.list, function (trade) {
+                        return trade.tradeTime;
+                    }));
+                }
+            } else {
+                errorTips(obj, $state)
+            }
         }).error(function () {
-            mui.alert(tipMsg.SYSTEM_BUSY);
+            systemBusy($rootScope, $state);
         });
     }
 }]);

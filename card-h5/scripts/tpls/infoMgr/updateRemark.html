@@ -6,8 +6,9 @@
 <div class="change-pwd mt3rem">
     <form name="remarkForm" class="mui-input-group">
         <div class="mui-input-row">
-            <label>卡备注</label>
-            <input type="text" maxlength="8" ng-model="remark"  placeholder="请输入8个字以内的信息" required>
+            <label style="width: 25%">卡备注</label>
+            <input style="width: 75%" type="text" maxlength="8" ng-model="params.remark"  placeholder="请输入8个字以内的信息">
+            <span class="mui-icon mui-icon-closeempty" ng-if="params.remark != ''" ng-click="params.remark = ''"></span>
         </div>
     </form>
     <div class="change-pwd-btn mui-text-center">
