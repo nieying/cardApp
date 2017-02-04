@@ -2,7 +2,7 @@
  * 充值回调页面Ctrl
  * Created by nieying on 2016/6/2.
  */
-angular.module('cardApp').controller('rechargeSuccessCtrl',['$scope', '$rootScope', '$stateParams', '$cookieStore','$state','dataService', 'encodeService',function ($scope, $rootScope, $stateParams, $cookieStore,$state,dataService, encodeService) {
+angular.module('cardApp').controller('rechargeSuccessCtrl',['$scope', '$rootScope', '$stateParams', '$cookieStore','$state','dataService',function ($scope, $rootScope, $stateParams, $cookieStore,$state,dataService) {
 
     /**查询[成功的]充值交易信息详情*/
     var params = {

@@ -17,7 +17,7 @@ angular.module('cardApp').controller('bindCardCtrl', ['$scope', '$rootScope', '$
 
     $scope.params = {
         cno: '',
-        pwd: '',
+        pwd: ''
     };
 
     /*确定卡号跳转页面*/
@@ -98,13 +98,13 @@ angular.module('cardApp').controller('bindCardCtrl', ['$scope', '$rootScope', '$
                     jsApiList: ['scanQRCode']
                 });
 
-                wx.error(function (res) {
+                wx.error(function () {
                     $scope.showScanCode = false;
                 });
             } else {
                 $scope.showScanCode = false;
             }
-        }).error(function (err) {
+        }).error(function () {
             $scope.showScanCode = false;
         })
     } else if (isSfApp()) {

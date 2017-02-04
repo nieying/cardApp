@@ -16,7 +16,7 @@ angular.module('cardApp').controller('bindPhoneCtrl', ['$scope', '$rootScope', '
 
     /*初始化参数*/
     $scope.params = {
-        phone: '',
+        phone: ''
     };
 
     /*绑定手机号*/
@@ -31,7 +31,7 @@ angular.module('cardApp').controller('bindPhoneCtrl', ['$scope', '$rootScope', '
         }
         $rootScope.loading = true;
         var params = {
-            confirmCode: encodeService.encode64($scope.code + "")
+            confirmCode: encodeService.encode64($scope.code)
         };
         $scope.hasMmobile ? params.newMobile = encodeService.encode64($scope.params.phone) : params.mobile = encodeService.encode64($scope.params.phone);
         if ($scope.hasMmobile) {

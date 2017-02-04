@@ -13,7 +13,6 @@ angular.module('cardApp').controller('sfcardScanCtrl', ['$scope', '$rootScope', 
         pwd:''
     };
 
-
     /*交易明細------>输入密码*/
     $scope.showPwdView = function () {
         $scope.showPwd = true;

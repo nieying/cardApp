@@ -118,9 +118,9 @@ angular.module('cardApp').controller('rechargeCtrl', ['$scope', '$rootScope', '$
         }
         var params = {
             // cno: $cookieStore.get("cardNo").value,
-            rcgAmt: encodeService.encode64($scope.rechargeItem * 100 + ""),
-            payChannel: encodeService.encode64($scope.payType + ""),
-            isWxBrowser: encodeService.encode64(isWeiXin() + "")
+            rcgAmt: encodeService.encode64($scope.rechargeItem * 100),
+            payChannel: encodeService.encode64($scope.payType),
+            isWxBrowser: encodeService.encode64(isWeiXin())
         };
 
         dataService.rechargeReq(params).success(function (obj) {

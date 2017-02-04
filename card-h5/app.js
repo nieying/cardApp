@@ -42,7 +42,7 @@ function getBrowser(n) {
     }
 
     return (n == 'n' ? name : (n == 'v' ? ver : name + ver));
-};
+}
 
 /**判断是否是微信浏览器*/
 function isWeiXin() {

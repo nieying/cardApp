@@ -39,36 +39,40 @@ angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '
 
     /*获取支付信息*/
     dataService.onlinePay().success(function (obj) {
-        $scope.onlineInfo = obj.msgData;
-        if ($scope.onlineInfo.cardOptionList.length == 0) {//判断该会员号有没有绑卡，没有绑卡跳到支付并绑卡页面
-            $state.go("addCard");
+        if(obj.success){
+            $scope.onlineInfo = obj.msgData;
+            if ($scope.onlineInfo.cardOptionList.length == 0) {//判断该会员号有没有绑卡，没有绑卡跳到支付并绑卡页面
+                $state.go("addCard");
+            }
+
+            $scope.cardList = _.filter($scope.onlineInfo.cardOptionList, function (card) {
+                return card.cardBalanceAmt >= $scope.onlineInfo.payAmt;
+            });
+
+            /*默认选择金额最大的一张卡支付*/
+            _.filter($scope.cardList, function (card) {
+                $scope.balanceAmt.push(card.cardBalanceAmt);
+            });
+            $scope.defaultPayCard = _.filter($scope.cardList, function (card) {
+                if (card.cardBalanceAmt == _.max($scope.balanceAmt)) {
+                    return card;
+                }
+            });
+
+            $scope.balanceCardList = _.filter($scope.onlineInfo.cardOptionList, function (card) {
+                return card.cardBalanceAmt < $scope.onlineInfo.payAmt;
+            });
+
+            _.each($scope.cardList, function (card) {
+                if ($scope.defaultPayCard[0].cardNo == card.cardNo) {
+                    return card.checked = true;
+                } else {
+                    card.checked = false;
+                }
+            });
+        }else{
+            errorTips(obj,$rootScope)
         }
-
-        $scope.cardList = _.filter($scope.onlineInfo.cardOptionList, function (card) {
-            return card.cardBalanceAmt >= $scope.onlineInfo.payAmt;
-        });
-
-        /*默认选择金额最大的一张卡支付*/
-        _.filter($scope.cardList, function (card) {
-            $scope.balanceAmt.push(card.cardBalanceAmt);
-        });
-        $scope.defaultPayCard = _.filter($scope.cardList, function (card) {
-            if (card.cardBalanceAmt == _.max($scope.balanceAmt)) {
-                return card;
-            }
-        });
-
-        $scope.balanceCardList = _.filter($scope.onlineInfo.cardOptionList, function (card) {
-            return card.cardBalanceAmt < $scope.onlineInfo.payAmt;
-        });
-
-        _.each($scope.cardList, function (card) {
-            if ($scope.defaultPayCard[0].cardNo == card.cardNo) {
-                return card.checked = true;
-            } else {
-                card.checked = false;
-            }
-        });
     }).error(function () {
        systemBusy($rootScope,$state);
     });
@@ -105,7 +109,7 @@ angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '
         var params = {
             bizSn: $scope.onlineInfo.bizSn,
             outOrderNo: $scope.onlineInfo.outOrderNo,
-            cno: encodeService.encode64($scope.defaultPayCard[0].cardNo + ''),
+            cno: encodeService.encode64($scope.defaultPayCard[0].cardNo),
             pwd: aesEncode($scope.params.password, $scope.pwdDes3Sk)
 
         };
@@ -142,7 +146,7 @@ angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '
             var params = {
                 bizSn: $scope.onlineInfo.bizSn,
                 outOrderNo: $scope.onlineInfo.outOrderNo,
-                cno: encodeService.encode64($scope.params.cno + ''),
+                cno: encodeService.encode64($scope.params.cno),
                 pwd: aesEncode($scope.params.pwd, $scope.pwdDes3Sk)
             };
             dataService.bindAndPay(params).success(function (obj) {
@@ -175,13 +179,13 @@ angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '
                     jsApiList: ['scanQRCode']
                 });
 
-                wx.error(function (res) {
+                wx.error(function () {
                     $scope.showScanCode = false;
                 });
             } else {
                 $scope.showScanCode = false;
             }
-        }).error(function (err) {
+        }).error(function () {
             $scope.showScanCode = false;
         })
     } else if (isSfApp()) {

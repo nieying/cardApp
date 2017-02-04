@@ -533,7 +533,7 @@ p {
 .mui-scroll-wrapper {
     position: absolute;
     z-index: 2;
-    top: 0;
+    top: 0.7rem;
     bottom: 0;
     left: 0;
     /*overflow: hidden;*/
@@ -2909,13 +2909,13 @@ select:focus {
 }
 
 .mui-popup-title {
-    font-size: 0.72rem;
+    font-size: 0.8rem;
     font-weight: 500;
     text-align: center
 }
 
 .mui-popup-title + .mui-popup-text {
-    font-size: 0.6rem;
+    font-size: 0.75rem;
     margin-top: 5px
 }
 

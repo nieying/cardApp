@@ -42,7 +42,7 @@ angular.module('cardApp').controller('sfcardsCtrl',['$scope', '$rootScope', '$st
                 }
             });
         }
-    })
+    });
 
     /**活动*/
     $scope.goMkt = function (mktName, op) {

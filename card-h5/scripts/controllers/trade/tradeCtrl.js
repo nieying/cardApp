@@ -58,7 +58,8 @@ angular.module('cardApp').controller('tradeCtrl', ['$scope', '$rootScope', '$sta
         $state.go("tradeDetail", {businessSn: item.businessSn});
         dataService.tradeParams = {
             businessSn: item.businessSn,
-            businessTypeName: item.businessType,
+            ccy:item.ccy,
+            businessType: item.businessType,
             prefAmt: item.prefAmt,
             tradeAmt: item.tradeAmt,
             tradeTime: item.tradeTime
@@ -76,14 +77,6 @@ angular.module('cardApp').controller('tradeCtrl', ['$scope', '$rootScope', '$sta
         dataService.getTradeList(params).success(function (obj) {
             if (obj.success) {
                 $scope.trades = obj.msgData;
-                if ($scope.trades.list.length < 10) {
-                    mui(".mui-pull-bottom-tips").display = "none";
-                }
-                if (pull == 1) {
-                    $scope.tradeList = [];
-                }
-                $scope.tradeList = $scope.tradeList.concat($scope.trades.list);
-
                 if (typeof ($scope.trades.list) == 'null') {
                     mui.alert(tipMsg.SYSTEM_BUSY);
                 } else {
@@ -91,6 +84,13 @@ angular.module('cardApp').controller('tradeCtrl', ['$scope', '$rootScope', '$sta
                         return trade.tradeTime;
                     }));
                 }
+                if ($scope.trades.list.length < 10) {
+                    $(".mui-pull-bottom-tips").hide();
+                }
+                if (pull == 1) {
+                    $scope.tradeList = [];
+                }
+                $scope.tradeList = $scope.tradeList.concat($scope.trades.list);
             } else {
                 errorTips(obj, $state)
             }

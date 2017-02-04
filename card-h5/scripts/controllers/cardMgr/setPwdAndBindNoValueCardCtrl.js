@@ -27,7 +27,7 @@ angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl',['$scope', '
         cno: $stateParams.cno,
         pwd: '',
         confirmPwd: '',
-        phone: '',
+        phone: ''
     };
 
     /*确认设置密码*/

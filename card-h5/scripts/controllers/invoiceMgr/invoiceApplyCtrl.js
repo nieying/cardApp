@@ -57,7 +57,7 @@ angular.module('cardApp').controller('invoiceApplyCtrl', ['$scope', '$rootScope'
             mui.alert(tipMsg.ADDRESSEE_NOT_NULL);
             return false;
         }
-        if (!(/^1[34578]\d{9}$/.test($scope.params.mobile))) {
+        if (!regular.regp.test($scope.params.mobile)) {
             mui.alert(tipMsg.COMFIRM_PHOME);
             return false;
         }
@@ -73,37 +73,35 @@ angular.module('cardApp').controller('invoiceApplyCtrl', ['$scope', '$rootScope'
             mui.alert(tipMsg.INVOICE_ATM_MORE);
             return false;
         }
-        if (!$scope.invoiceApplyForm.$invalid) {
-            $rootScope.loading = true;
-            var params = {
-                amt: encodeService.encode64($scope.params.amt),
-                title: $scope.params.title,
-                taxpayerNumber: $scope.params.taxpayerNumber,
-                taxpayerAddrPhone: $scope.params.taxpayerAddrPhone,
-                taxpayerBankAccount: $scope.params.taxpayerBankAccount,
-                addressee: $scope.params.addressee,
-                mobile: encodeService.encode64($scope.params.mobile),
-                province: $("#province").val(),
-                city: $("#city").val(),
-                area: $("#area").val(),
-                address: $scope.params.address
-            };
-            dataService.invoiceApply(params).success(function (obj) {
-                $rootScope.loading = false;
-                if (obj.success) {
-                    getServiceTel();
-                    $scope.isInvoiceSucc = true;
-                } else {
-                    errorTips(obj, $state);
-                }
-            }).error(function () {
-                systemBusy($rootScope, $state)
-            })
-        }
+        $rootScope.loading = true;
+        var params = {
+            amt: encodeService.encode64($scope.params.amt),
+            title: $scope.params.title,
+            taxpayerNumber: $scope.params.taxpayerNumber,
+            taxpayerAddrPhone: $scope.params.taxpayerAddrPhone,
+            taxpayerBankAccount: $scope.params.taxpayerBankAccount,
+            addressee: $scope.params.addressee,
+            mobile: encodeService.encode64($scope.params.mobile),
+            province: $("#province").val(),
+            city: $("#city").val(),
+            area: $("#area").val(),
+            address: $scope.params.address
+        };
+        dataService.invoiceApply(params).success(function (obj) {
+            $rootScope.loading = false;
+            if (obj.success) {
+                getServiceTel();
+                $scope.isInvoiceSucc = true;
+            } else {
+                errorTips(obj, $state);
+            }
+        }).error(function () {
+            systemBusy($rootScope, $state)
+        })
     };
 
     $scope.goBack = function () {
-        back($cookieStore,$state);
+        back($cookieStore, $state);
     };
 
     /*获取电话*/

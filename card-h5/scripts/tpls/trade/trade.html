@@ -9,9 +9,11 @@
             <span class="w-dot"></span>
         </div>
         <div class="mui-table-cell mui-col-xs-11">
-            <div>卡号 {{trades.cardNo}}</div>
-            <div>余额 {{trades.balanceAmt}}元
-                <span ng-show="trades.prefAmt != -1"> 累计赠送 {{trades.prefAmt|number:2}}元</span></div>
+            <div style="padding-bottom: 0.2rem">卡号 {{trades.cardNo}}</div>
+            <div>
+                余额 {{trades.balanceAmt}}元&nbsp;&nbsp;&nbsp;&nbsp;
+                <span ng-show="trades.prefAmt != -1"> 累计赠送 {{trades.prefAmt|number:2}}元</span>
+            </div>
         </div>
     </div>
 </div>
@@ -25,21 +27,12 @@
                             hm-tap="goTradeDetail(tradeItem)">
                             <div class='trade-consume oh'>
                                 <span class='mui-pull-left c-59'>{{tradeItem.businessType|tradeType}}</span>
-                                <span class='mui-pull-right c-23'>{{tradeItem.tradeAmt/100|number:2}}</span>
+                                <span class='mui-pull-right' ng-show="(tradeItem.businessType|businessCode)==0">-{{tradeItem.tradeAmt/100|number:2}}</span>
+                                <span class='mui-pull-right c-23' ng-show="(tradeItem.businessType|businessCode)==1">+{{tradeItem.tradeAmt/100|number:2}}</span>
                             </div>
                             <div class='trade-time oh'>
                                 <span class='mui-pull-left c-c4'>{{tradeItem.tradeTime|date:'yyyy-MM-dd'}}</span>
-                                <span ng-if="tradeItem.giftAmt != 0">
-                                     <span class='mui-pull-right c-fb'
-                                           ng-show="tradeItem.businessType != 'OFF_PAY'||
-                                           tradeItem.businessType != 'OFF_CANCEL'||
-                                           tradeItem.businessType != 'OFF_REFUND'||
-                                           tradeItem.businessType != 'RGE_WEBREFUND'||
-                                           tradeItem.businessType != 'RGE_CASHCANCEL'||
-                                           tradeItem.businessType != 'HHT_CZCANCEL'">
-                                           赠送 {{tradeItem.giftAmt/100|number:2}}
-                                     </span>
-                                </span>
+                                <span ng-if="tradeItem.giftAmt > 0" class='mui-pull-right c-fb'> 赠送 {{tradeItem.giftAmt/100|number:2}}</span>
                             </div>
                         </li>
                     </ul>

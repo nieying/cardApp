@@ -9,13 +9,6 @@ angular.module('cardApp').controller('sfcardCtrl',['$scope', '$rootScope', '$sta
         pwd: ''
     };
 
-    /*获取密码加密格式*/
-    dataService.getDes3Sk().success(function (obj) {
-        if (obj.success) {
-            $scope.pwdDes3Sk = obj.msgData.des3Sk;
-        }
-    });
-
     $cookieStore.put("cardNo", {value: $stateParams.cardNo});
 
     /*获取单卡信息*/
@@ -36,6 +29,12 @@ angular.module('cardApp').controller('sfcardCtrl',['$scope', '$rootScope', '$sta
 
     /*显示输入密码页面 解除绑定*/
     $scope.showPwdView = function (data) {
+        /*获取密码加密格式*/
+        dataService.getDes3Sk().success(function (obj) {
+            if (obj.success) {
+                $scope.pwdDes3Sk = obj.msgData.des3Sk;
+            }
+        });
         $scope.isUnbind = data == 0 ? true : false;    //$scope.isUnbind为true ====>解除绑定  false ====>交易详情
         $scope.showPwd = true;
     };

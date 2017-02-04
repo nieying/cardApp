@@ -2,16 +2,14 @@
  * Created by nieying on 2016/6/6.
  */
 
-angular.module('cardApp').controller('telSetPwdCtrl',['$scope', '$rootScope', 'dataService', function ($scope, $rootScope, dataService) {
+angular.module('cardApp').controller('telSetPwdCtrl', ['$scope', '$rootScope', 'dataService', function ($scope, $rootScope, dataService) {
     $rootScope.loading = false;
+    $scope.pwdDes3Sk = '';
     $scope.params = {
         pwd: '',
-        confirmPwd: '',
+        confirmPwd: ''
     };
 
-    $scope.pwdDes3Sk = '';
-
-    /*获取密码加密格式*/
     dataService.getDes3Sk().success(function (obj) {
         if (obj.success) {
             $scope.pwdDes3Sk = obj.msgData.des3Sk;
@@ -41,12 +39,12 @@ angular.module('cardApp').controller('telSetPwdCtrl',['$scope', '$rootScope', 'd
                 $rootScope.loading = false;
                 if (obj.success) {
                     mui.toast(obj.msg);
-                    $state.go('sfcard',{cardNo:$cookieStore.get("cno").value});
+                    $state.go('sfcard', {cardNo: $cookieStore.get("cno").value});
                 } else {
-                    errorTips(obj,$state);
+                    errorTips(obj, $state);
                 }
             }).error(function () {
-                systemBusy($rootScope,$state);
+                systemBusy($rootScope, $state);
             })
         }
     }

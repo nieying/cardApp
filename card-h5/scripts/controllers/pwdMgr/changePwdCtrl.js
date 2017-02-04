@@ -3,7 +3,7 @@
  * Created by nieying on 2016/6/3.
  */
 
-angular.module('cardApp').controller('changePwdCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'encodeService', 'dataService', '$cookieStore', function ($scope, $rootScope, $state, $stateParams, encodeService, dataService, $cookieStore) {
+angular.module('cardApp').controller('changePwdCtrl', ['$scope', '$rootScope', '$state', '$stateParams', 'dataService', '$cookieStore', function ($scope, $rootScope, $state, $stateParams, dataService, $cookieStore) {
     $scope.system = $cookieStore.get("system").value;
     $rootScope.loading = false;
     $scope.mobile = $stateParams.mobile;

@@ -11,12 +11,11 @@ angular.module('cardApp').directive('verifyCode', ['$rootScope', '$interval', '$
             isGetCode: '=?',
             phone: '=',
             op: '=',
-            code: '=',
+            code: '='
         },
 
         link: function (scope) {
 
-            console.log("directive params=======>", scope);
             if (!scope.showCode && !scope.isGetCode) {//进入页面获取验证码
                 getMsgCode();
             }
@@ -33,7 +32,7 @@ angular.module('cardApp').directive('verifyCode', ['$rootScope', '$interval', '$
                 var params = {
                     op: scope.op
                 };
-                scope.isGetCode ? params.mobile = encodeService.encode64(scope.phone + '') : '';
+                scope.isGetCode ? params.mobile = encodeService.encode64(scope.phone) : '';
                 $interval.cancel(scope.timer);
                 dataService.getSmsCode(params).success(function (obj) {
                     if (obj.success) {

@@ -6,7 +6,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
-                    'scripts/controllers/cardMgr/sfcardsCtrl.js',
+                    'scripts/controllers/cardMgr/sfcardsCtrl.js'
                 ]);
             }]
         }
@@ -17,7 +17,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
-                    'scripts/controllers/cardMgr/sfcardCtrl.js',
+                    'scripts/controllers/cardMgr/sfcardCtrl.js'
                 ]);
             }]
         }
@@ -28,7 +28,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
-                    'scripts/controllers/cardMgr/sfcardScanCtrl.js',
+                    'scripts/controllers/cardMgr/sfcardScanCtrl.js'
                 ]);
             }]
         }
@@ -39,7 +39,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
-                    'scripts/controllers/cardMgr/bindUsingCardCtrl.js',
+                    'scripts/controllers/cardMgr/bindUsingCardCtrl.js'
                 ]);
             }]
         }
@@ -50,7 +50,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
-                    'scripts/controllers/cardMgr/setPwdAndBindCardCtrl.js',
+                    'scripts/controllers/cardMgr/setPwdAndBindCardCtrl.js'
                 ]);
             }]
         }
@@ -62,7 +62,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
                     'scripts/directives/verifyCode.js',
-                    'scripts/controllers/cardMgr/setPwdAndBindNoValueCardCtrl.js',
+                    'scripts/controllers/cardMgr/setPwdAndBindNoValueCardCtrl.js'
                 ]);
             }]
         }
@@ -73,7 +73,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
-                    'scripts/controllers/pwdMgr/ecardRegisterCtrl.js',
+                    'scripts/controllers/pwdMgr/ecardRegisterCtrl.js'
                 ]);
             }]
         }
@@ -84,7 +84,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
-                    'scripts/controllers/pwdMgr/pwdSetCtrl.js',
+                    'scripts/controllers/pwdMgr/pwdSetCtrl.js'
                 ]);
             }]
         }
@@ -96,7 +96,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
                     'scripts/directives/verifyCode.js',
-                    'scripts/controllers/pwdMgr/pwdSetNoValueCardCtrl.js',
+                    'scripts/controllers/pwdMgr/pwdSetNoValueCardCtrl.js'
                 ]);
             }]
         }
@@ -108,7 +108,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
                     'data/jweixin-1.1.0.js',
-                    'scripts/controllers/cardMgr/bindCardCtrl.js',
+                    'scripts/controllers/cardMgr/bindCardCtrl.js'
                 ]);
             }]
         }
@@ -119,7 +119,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
-                    'scripts/controllers/recharge/rechargeCtrl.js',
+                    'scripts/controllers/recharge/rechargeCtrl.js'
                 ]);
             }]
         }
@@ -130,7 +130,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
-                    'scripts/controllers/recharge/rechargeSuccessCtrl.js',
+                    'scripts/controllers/recharge/rechargeSuccessCtrl.js'
                 ]);
             }]
         }
@@ -142,7 +142,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
                     'scripts/controllers/trade/tradeCtrl.js',
-                    'scripts/filters/tradeType.js',
+                    'scripts/filters/tradeType.js'
                 ]);
             }]
         }
@@ -166,7 +166,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
-                    'scripts/controllers/invoiceMgr/invoiceApplyCtrl.js',
+                    'scripts/controllers/invoiceMgr/invoiceApplyCtrl.js'
                 ]);
             }]
         }
@@ -177,7 +177,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
-                    'scripts/controllers/pwdMgr/changePwdCtrl.js',
+                    'scripts/controllers/pwdMgr/changePwdCtrl.js'
                 ]);
             }]
         }
@@ -188,7 +188,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
-                    'scripts/controllers/pwdMgr/setPwdCtrl.js',
+                    'scripts/controllers/pwdMgr/setPwdCtrl.js'
                 ]);
             }]
         }
@@ -200,7 +200,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
                     'scripts/directives/verifyCode.js',
-                    'scripts/controllers/pwdMgr/findPwdCtrl.js',
+                    'scripts/controllers/pwdMgr/findPwdCtrl.js'
                 ]);
             }]
         }
@@ -212,7 +212,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
                     'scripts/directives/verifyCode.js',
-                    'scripts/controllers/phoneMgr/bindPhoneCtrl.js',
+                    'scripts/controllers/phoneMgr/bindPhoneCtrl.js'
                 ]);
             }]
         }
@@ -223,7 +223,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
-                    'scripts/controllers/phoneMgr/changeMobileCtrl.js',
+                    'scripts/controllers/phoneMgr/changeMobileCtrl.js'
                 ]);
             }]
         }
@@ -235,7 +235,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
                     'scripts/directives/verifyCode.js',
-                    'scripts/controllers/phoneMgr/verifyMobileCtrl.js',
+                    'scripts/controllers/phoneMgr/verifyMobileCtrl.js'
                 ]);
             }]
         }
@@ -246,7 +246,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
         resolve: {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
-                    'scripts/controllers/infoMgr/updateRemarkCtrl.js',
+                    'scripts/controllers/infoMgr/updateRemarkCtrl.js'
                 ]);
             }]
         }
@@ -261,28 +261,13 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
                 ]);
             }]
         }
-    }).state('cardRule', {  //用卡规则
-        url: '/cardRule',
-        templateUrl: 'scripts/tpls/infoMgr/cardRules.html',
-        controller: 'problemCtrl',
-        resolve: {
-            deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                return $ocLazyLoad.load([
-                    'scripts/controllers/infoMgr/problemCtrl.js'
-                ]);
-            }]
-        }
     }).state('cardRuleDetail', {  //用卡规则详细
         url: '/cardRuleDetail',
         templateUrl: 'scripts/tpls/infoMgr/cardRuleDetail.html',
-        controller: 'problemCtrl',
-        resolve: {
-            deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                return $ocLazyLoad.load([
-                    'scripts/controllers/infoMgr/problemCtrl.js'
-                ]);
-            }]
+        controller:function($rootScope){
+            $rootScope.loading = false;
         }
+
     }).state('teleSale/mobile', {  // 电销查询手机号码
         url: '/teleSale/mobile',
         templateUrl: 'scripts/tpls/telemkt/confirmMobile.html',
@@ -384,7 +369,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
             deps: ['$ocLazyLoad', function ($ocLazyLoad) {
                 return $ocLazyLoad.load([
                     'data/code_msg.js',
-                    'scripts/controllers/infoMgr/errorCtrl.js',
+                    'scripts/controllers/infoMgr/errorCtrl.js'
                 ]);
             }]
         }
@@ -441,7 +426,7 @@ angular.module('cardApp').config(['$stateProvider', function ($stateProvider) {
         }
     }).state('mkt/mktips', {  //活动介绍页
         url: '/mkt/mktips',
-        templateUrl:'scripts/tpls/mkt/mktipsIndex.html',
+        templateUrl:'scripts/tpls/mkt/mktipsIndex.html'
     });
 }]);
 

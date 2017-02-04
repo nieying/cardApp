@@ -2,7 +2,7 @@
  * 绑卡
  * Created by nieying on 2016/6/2.
  */
-angular.module('cardApp').controller('bindUsingCardCtrl',['$scope', '$rootScope', '$state', 'encodeService', 'dataService', function ($scope, $rootScope, $state, encodeService, dataService) {
+angular.module('cardApp').controller('bindUsingCardCtrl',['$scope', '$rootScope', '$state', 'dataService', function ($scope, $rootScope, $state, dataService) {
     $rootScope.loading = false;
     $scope.pwdDes3Sk = '';
 

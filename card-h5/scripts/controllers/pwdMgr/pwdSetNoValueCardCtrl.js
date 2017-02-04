@@ -23,7 +23,7 @@ angular.module('cardApp').controller('pwdSetNoValueCardCtrl',['$scope', '$rootSc
     $scope.params = {
         pwd: '',
         confirmPwd: '',
-        phone: '',
+        phone: ''
     };
 
     /*确认设置密码*/

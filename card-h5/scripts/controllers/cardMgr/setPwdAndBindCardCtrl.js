@@ -43,8 +43,8 @@ angular.module('cardApp').controller('setPwdAndBindCardCtrl', ['$scope', '$rootS
         $rootScope.loading = true;
         var params = {
             cno: encodeService.encode64($stateParams.cno),
-            pwd: encodeService.encode64($scope.params.pwd + ''),
-            confirmCode: encodeService.encode64($scope.coatingCode + '')
+            pwd: aesEncode($scope.params.pwd,$scope.pwdDes3Sk),
+            confirmCode: encodeService.encode64($scope.coatingCode)
         };
         dataService.setPwdAndBindCard(params).success(function (obj) {
             $rootScope.loading = false;

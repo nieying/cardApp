@@ -4,6 +4,10 @@
 angular.module("cardApp").factory("encodeService", [function () {
     return {
         encode64: function (input) {
+            if(!input){
+                return '';
+            }
+            input = input + '';
             var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
             var output = "";
             var chr1, chr2, chr3 = "";

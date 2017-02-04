@@ -4,26 +4,29 @@
     <h1 class="mui-title">交易详情</h1>
 </header>
 <div class="trade-detail">
-    <div class="detail-type">{{tradeDetailInfo.bizTName|tradeType}}</div>
-    <div class="mui-text-center" style="margin-bottom: 1rem;">
-        <p class="c-23" ng-if="tradeDetailInfo.businessType !='OFF_PAY'">+{{tradeDetailInfo.tradeAmt/100|number:2}}</p>
-
-        <p class="c-f1" ng-if="tradeDetailInfo.businessType =='OFF_PAY'">-{{tradeDetailInfo.tradeAmt/100|number:2}}</p>
-
-        <p class="c-fb" ng-show="tradeDetailInfo.prefAmt">赠送{{tradeDetailInfo.prefAmt/100|number:2}}</p>
+    <div class="detail-type">{{tradeDetailInfo.businessType|tradeType}}
+        <span ng-if="tradeDetailInfo.ccy == 'SFP'">(积分)</span>
+        <span ng-if="tradeDetailInfo.ccy != 'SFP'">(元)</span>
+    </div>
+    <div class="mui-text-center">
+        <p class="c-28" ng-show="(tradeDetailInfo.businessType|businessCode)==0">
+            -{{tradeDetailInfo.tradeAmt/100|number:2}}</p>
+        <p class="c-23" ng-show="(tradeDetailInfo.businessType|businessCode)==1">
+            +{{tradeDetailInfo.tradeAmt/100|number:2}}</p>
+        <p class="c-fb" ng-show="tradeDetailInfo.prefAmt > 0">赠送{{tradeDetailInfo.prefAmt/100|number:2}}</p>
     </div>
     <div class="detail-card-info">
-        <div class="oh mui-table-view-cell">
+        <div class="oh">
             <span class="mui-pull-left c-90">卡号信息</span>
             <span class="mui-pull-right c-28">{{orderList.cardNo}}</span>
         </div>
-        <div class="oh mui-table-view-cell">
+        <div class="oh">
             <span class="mui-pull-left c-90">交易时间</span>
             <span class="mui-pull-right c-28">{{tradeDetailInfo.tradeTime|date:'yyyy-MM-dd HH:mm:ss'}}</span>
         </div>
     </div>
 
-    <div class="trade-detail-list">
+    <div class="trade-detail-list" ng-show="orderList.cardTradeDetails.length > 0">
         <div class="oh">
             <span class="mui-pull-left">运单票数</span>
             <span class="mui-pull-right">{{orderList.cardTradeDetails.length}}</span>
