@@ -8,7 +8,7 @@ angular.module('cardApp').controller('bindCardCtrl', ['$scope', '$rootScope', '$
     $scope.pwdDes3Sk = '';
     $scope.showScanCode = true;
 
-    /*获取密码加密格式*/
+    /**获取密码加密格式*/
     dataService.getDes3Sk().success(function (obj) {
         if (obj.success) {
             $scope.pwdDes3Sk = obj.msgData.des3Sk;
@@ -20,7 +20,7 @@ angular.module('cardApp').controller('bindCardCtrl', ['$scope', '$rootScope', '$
         pwd: ''
     };
 
-    /*确定卡号跳转页面*/
+    /**确定卡号跳转页面*/
     $scope.confirmCardNo = function () {
         if(!regular.reg16.test($scope.params.cno)){
             mui.alert(tipMsg.COMFIRM_CARDNO);
@@ -53,7 +53,7 @@ angular.module('cardApp').controller('bindCardCtrl', ['$scope', '$rootScope', '$
         }
     };
 
-    /*绑定当前顺丰卡*/
+    /**绑定当前顺丰卡*/
     $scope.bindCard = function () {
         if ($scope.pwdDes3Sk == '') {
             mui.alert(tipMsg.GET_DES3SK_FAIL);
@@ -82,7 +82,7 @@ angular.module('cardApp').controller('bindCardCtrl', ['$scope', '$rootScope', '$
         }
     };
 
-    /*设置微信扫码*/
+    /**设置微信扫码*/
     if (isWeiXin()) {
         var params = {
             locationUrl: window.location.href
@@ -113,7 +113,7 @@ angular.module('cardApp').controller('bindCardCtrl', ['$scope', '$rootScope', '$
         $scope.showScanCode = false;
     }
 
-    /*点击扫码操作*/
+    /**点击扫码操作*/
     $scope.scanCode = function () {
         if (isWeiXin()) {
             mui.prompt('模拟微信扫码', '请输入卡号', '卡号', ['确定', '取消'], function (res) {

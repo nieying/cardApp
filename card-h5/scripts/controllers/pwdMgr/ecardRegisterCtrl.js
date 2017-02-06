@@ -7,20 +7,20 @@ angular.module('cardApp').controller('ecardRegisterCtrl',['$scope', '$rootScope'
     $rootScope.loading = false;
     $scope.pwdDes3Sk = '';
 
-    /*获取密码加密格式*/
+    /**初始化参数*/
+    $scope.params = {
+        pwd: '',
+        confirmPwd: ''
+    };
+
+    /**获取密码加密格式*/
     dataService.getDes3Sk().success(function (obj) {
         if (obj.success) {
             $scope.pwdDes3Sk = obj.msgData.des3Sk;
         }
     });
 
-    /*初始化参数*/
-    $scope.params = {
-        pwd: '',
-        confirmPwd: ''
-    };
-
-    /*确认设置密码*/
+    /**确认设置密码*/
     $scope.confrim = function () {
         if ($scope.pwdDes3Sk == '') {
             mui.alert(tipMsg.GET_DES3SK_FAIL);

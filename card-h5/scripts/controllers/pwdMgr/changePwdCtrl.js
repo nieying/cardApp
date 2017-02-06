@@ -15,17 +15,17 @@ angular.module('cardApp').controller('changePwdCtrl', ['$scope', '$rootScope', '
 
     $scope.pwdDes3Sk = '';
 
-    /*获取密码加密格式*/
+    /**获取密码加密格式*/
     dataService.getDes3Sk().success(function (obj) {
         if (obj.success) {
             $scope.pwdDes3Sk = obj.msgData.des3Sk;
         }
     });
 
-    /*判断是否绑定了手机号 如果没绑定就跳到绑定手机号页面*/
+    /**判断是否绑定了手机号 如果没绑定就跳到绑定手机号页面*/
     $scope.hasMmobile = $stateParams.mobile ? true : false;
 
-    /*修改密码*/
+    /**修改密码*/
     $scope.updatePwd = function () {
         if ($scope.pwdDes3Sk == '') {
             mui.alert(tipMsg.GET_DES3SK_FAIL);

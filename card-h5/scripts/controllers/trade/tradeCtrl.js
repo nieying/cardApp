@@ -6,7 +6,7 @@ angular.module('cardApp').controller('tradeCtrl', ['$scope', '$rootScope', '$sta
     $rootScope.loading = false;
     $scope.tradeList = [];
 
-    //循环初始化所有下拉刷新，上拉加载。
+    /**循环初始化所有下拉刷新，上拉加载。*/
     function init() {
         //阻尼系数
         var deceleration = mui.os.ios ? 0.003 : 0.0009;
@@ -30,7 +30,7 @@ angular.module('cardApp').controller('tradeCtrl', ['$scope', '$rootScope', '$sta
 
     init();
 
-    //下拉刷新执行函数
+    /**下拉刷新执行函数*/
     function refreshCallback() {
         var self = this;
         self.pullUpLoading();
@@ -40,7 +40,7 @@ angular.module('cardApp').controller('tradeCtrl', ['$scope', '$rootScope', '$sta
         }, 1500);
     }
 
-    //上拉加载执行函数
+    /**上拉加载执行函数*/
     function loadMoreCallback() {
         var self = this;
         setTimeout(function () {
@@ -53,7 +53,7 @@ angular.module('cardApp').controller('tradeCtrl', ['$scope', '$rootScope', '$sta
         }, 1500);
     }
 
-    /*跳到交易详情页*/
+    /**跳到交易详情页*/
     $scope.goTradeDetail = function (item) {
         $state.go("tradeDetail", {businessSn: item.businessSn});
         dataService.tradeParams = {
@@ -68,7 +68,7 @@ angular.module('cardApp').controller('tradeCtrl', ['$scope', '$rootScope', '$sta
 
     getTradeList(0);
 
-    /*获取数据*/
+    /**获取数据*/
     function getTradeList(pull) {
         var params = {
             endTime: (pull == 0) && ($scope.lastTime) ? (($scope.lastTime - 1) + '') : ''

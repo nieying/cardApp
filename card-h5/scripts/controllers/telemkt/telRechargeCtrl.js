@@ -7,6 +7,7 @@ angular.module('cardApp').controller('telRechargeCtrl', ['$scope', '$rootScope',
         mobile: encodeService.encode64($cookieStore.get("telMobile").value),
         reqBusSn: encodeService.encode64($cookieStore.get("reqBusSn").value)
     };
+
     dataService.telRecharge(telParams).success(function (obj) {
         $rootScope.loading = false;
         if (obj.success) {
@@ -20,8 +21,7 @@ angular.module('cardApp').controller('telRechargeCtrl', ['$scope', '$rootScope',
         systemBusy($rootScope,$state);
     });
 
-
-    /*选择哪种付款方式*/
+    /**选择哪种付款方式*/
     $scope.payType = "WXPAY";//默认充值方式
     $scope.selectPayType = function (data) {
         if (data == 0) {
@@ -51,13 +51,12 @@ angular.module('cardApp').controller('telRechargeCtrl', ['$scope', '$rootScope',
         });
     };
 
-
     /**判断是否弹窗*/
     function openModal() {
         var btnArray = ['关闭', '刷新支付结果'];
         mui.confirm('交易正在进行中.....', '支付结果', btnArray, function (e) {
             if (e.index == 1) {
-                //  document.getElementsByClassName(".mui-popup").removeChild();
+                //document.getElementsByClassName(".mui-popup").removeChild();
                 queryRechargeResult();
             } else {
                 rcgCheckRmv();

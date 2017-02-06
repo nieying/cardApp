@@ -10,10 +10,9 @@ angular.module('cardApp').controller('setPwdCtrl', ['$scope', '$rootScope', '$st
         pwd: '',
         confirmPwd: ''
     };
-
     $scope.pwdDes3Sk = '';
 
-    /*获取密码加密格式*/
+    /**获取密码加密格式*/
     dataService.getDes3Sk().success(function (obj) {
         if (obj.success) {
             $scope.pwdDes3Sk = obj.msgData.des3Sk;

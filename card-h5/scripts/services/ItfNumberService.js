@@ -1,3 +1,7 @@
+/**
+ *生成条形码services
+ */
+
 angular.module("cardApp").factory('ItfNumberService', [function () {
     'use strict';
 

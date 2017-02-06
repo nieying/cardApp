@@ -8,13 +8,6 @@ angular.module('cardApp').controller('setPwdAndBindCardCtrl', ['$scope', '$rootS
 
     $scope.showCno = $cookieStore.get("showCno") ? $cookieStore.get("showCno") : false;
 
-    /*获取密码加密格式*/
-    dataService.getDes3Sk().success(function (obj) {
-        if (obj.success) {
-            $scope.pwdDes3Sk = obj.msgData.des3Sk;
-        }
-    });
-
     $scope.params = {
         cno: $stateParams.cno,
         pwd: '',
@@ -22,7 +15,14 @@ angular.module('cardApp').controller('setPwdAndBindCardCtrl', ['$scope', '$rootS
         coatingCode:''
     };
 
-    /*绑定卡事件*/
+    /**获取密码加密格式*/
+    dataService.getDes3Sk().success(function (obj) {
+        if (obj.success) {
+            $scope.pwdDes3Sk = obj.msgData.des3Sk;
+        }
+    });
+
+    /**绑定卡事件*/
     $scope.confrim = function () {
         if ($scope.pwdDes3Sk == '') {
             mui.alert(tipMsg.GET_DES3SK_FAIL);

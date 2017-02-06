@@ -1,7 +1,6 @@
 <div ng-show="!showPwd == 1">
     <header id="header" class="mui-bar mui-bar-nav">
         <a class="mui-icon mui-icon-left-nav mui-pull-left" href="javascript:void(0)" ng-click="goBack()"></a>
-
         <h1 class="mui-title">顺丰卡</h1>
     </header>
 
@@ -10,7 +9,6 @@
         <div class="mui-card scan-code">
             <div class="span-div">
                 <i class="mui-icon iconfont icon-yinxingqia mui-pull-left"></i>
-
                 <div class="mui-pull-left">
                     <div class="card-no">
                         <span ng-show="singCardInfo.remark">{{singCardInfo.remark}}</span>
@@ -26,7 +24,6 @@
                 <div class="scan-img">
                     <div barcode type="itf" render="img" string="{{singCardInfo.cardNo}}"></div>
                 </div>
-
                 <p class="c-28">{{singCardInfo.cardNo|cardNoFilter1}}</p>
             </div>
         </div>
@@ -52,7 +49,8 @@
             <li class="mui-table-view-cell" ng-if="singCardInfo.invoiceSwitch">
                 <a class="mui-navigate-right" ui-sref="invoiceApply">
                     <!--<i class="mui-icon iconfont icon-edit"></i>-->
-                    <img style="width: 1rem;height: 1rem;vertical-align: bottom;" src="images/menu-invoice-apply.png" alt="">
+                    <img style="width: 1rem;height: 1rem;vertical-align: bottom;" src="images/menu-invoice-apply.png"
+                         alt="">
                     发票申请
                 </a>
             </li>
@@ -61,16 +59,17 @@
                     <i class="mui-icon iconfont icon-shouji"></i> 手机号码
                     <span class="mui-pull-right">去绑定</span>
                 </a>
-                <a class="mui-navigate-right" ng-if="singCardInfo.mobile !=null" ui-sref="changeMobile({mobile:singCardInfo.mobile})">
+                <a class="mui-navigate-right" ng-if="singCardInfo.mobile !=null"
+                   ui-sref="changeMobile({mobile:singCardInfo.mobile})">
                     <i class="mui-icon iconfont icon-shouji"></i> 手机号码
                     <span class="mui-pull-right">{{singCardInfo.mobile}}</span>
                 </a>
             </li>
-          <!--  <li class="mui-table-view-cell">
-                <a class="mui-navigate-right" ui-sref="cardRule">
-                    <i class="mui-icon iconfont icon-bangzhu"></i> 常见问题
-                </a>
-            </li>-->
+            <!--  <li class="mui-table-view-cell">
+                  <a class="mui-navigate-right" ui-sref="cardRule">
+                      <i class="mui-icon iconfont icon-bangzhu"></i> 常见问题
+                  </a>
+              </li>-->
             <li class="mui-table-view-cell">
                 <a class="mui-navigate-right" ui-sref="updateRemark({remarkName:singCardInfo.remark})">
                     <i class="mui-icon iconfont icon-beizhu"></i> 备注
@@ -93,7 +92,6 @@
 <div ng-show="showPwd">
     <header id="header" class="mui-bar mui-bar-nav">
         <a ng-click="showPwd =false" class="mui-icon mui-icon-left-nav mui-pull-left"></a>
-
         <h1 class="mui-title">输入密码</h1>
     </header>
     <div class="change-pwd">
@@ -109,7 +107,8 @@
             <button class="mui-btn " ng-class="{'mui-btn-grey':pwdForm.$invalid,'mui-btn-primary':!pwdForm.$invalid}"
                     ng-click="confirm()">确认
             </button>
-            <a class="forget-Pwd c-23" ng-if="singCardInfo.mobile" ui-sref="findPwd({mobile:singCardInfo.mobile})">忘记密码？</a>
+            <a class="forget-Pwd c-23" ng-if="singCardInfo.mobile"
+               ui-sref="findPwd({mobile:singCardInfo.mobile})">忘记密码？</a>
             <a class="forget-Pwd c-23" ng-if="!singCardInfo.mobile" ui-sref="bindPhone({mobile:''})">忘记密码？</a>
         </div>
     </div>

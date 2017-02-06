@@ -1,7 +1,6 @@
 <div ng-show="!showPwd">
     <header id="header" class="mui-bar mui-bar-nav">
         <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-
         <h1 class="mui-title">顺丰卡</h1>
     </header>
 
@@ -13,9 +12,7 @@
             </div>
             <div class="scan-pwd mui-text-center" ng-if="!cardInfo.setPwd">
                 <p>{{cardInfo.cardNo}}</p>
-
                 <p>卡片未设置密码</p>
-
                 <a href="javascript:void(0)" class="mui-btn mui-btn-primary" ng-click="goSetPwd()">设置密码</a>
             </div>
         </div>
@@ -49,18 +46,19 @@
                         <i class="mui-icon iconfont icon-shouji"></i> 手机号码
                         <span class="mui-pull-right">去绑定</span>
                     </a>
-                    <a class="mui-navigate-right" ng-if="cardInfo.mobile !=null" ui-sref="changeMobile({mobile:cardInfo.mobile})">
+                    <a class="mui-navigate-right" ng-if="cardInfo.mobile !=null"
+                       ui-sref="changeMobile({mobile:cardInfo.mobile})">
                         <i class="mui-icon iconfont icon-shouji"></i> 手机号码
                         <span class="mui-pull-right">{{cardInfo.mobile}}</span>
                     </a>
                 </li>
-                <li class="mui-table-view-cell">   <!---->
+                <li class="mui-table-view-cell">
                     <a class="mui-navigate-right" ui-sref="problem">
                         <i class="mui-icon iconfont icon-bangzhu"></i> 常见问题
                     </a>
                 </li>
                 <li class="mui-table-view-cell">
-                    <a class="mui-navigate-right" ui-sref="updateRemark({remarkName:cardInfo.remark})"  >
+                    <a class="mui-navigate-right" ui-sref="updateRemark({remarkName:cardInfo.remark})">
                         <i class="mui-icon iconfont icon-beizhu"></i> 备注
                         <span class="mui-pull-right">{{cardInfo.remark}}</span>
                     </a>
@@ -96,14 +94,14 @@
 <div ng-show="showPwd">
     <header id="header" class="mui-bar mui-bar-nav">
         <a ng-click="showPwd = false" class="mui-icon mui-icon-left-nav mui-pull-left"></a>
-
         <h1 class="mui-title">输入密码</h1>
     </header>
     <div class="change-pwd">
         <form name="pwdForm" class="mui-input-group">
             <div class="mui-input-row">
                 <label class="mui-text-center">密&nbsp;&nbsp;&nbsp;&nbsp; 码</label>
-                <input class="pwd" type="tel" maxlength="8" pattern="[0-9]*" ng-model="params.pwd" placeholder="请输入您的密码">
+                <input class="pwd" type="tel" maxlength="8" pattern="[0-9]*" ng-model="params.pwd"
+                       placeholder="请输入您的密码">
                 <span class="mui-icon mui-icon-closeempty" ng-if="params.pwd != ''" ng-click="params.pwd = ''"></span>
             </div>
         </form>

@@ -6,7 +6,7 @@ angular.module('cardApp').controller('bindUsingCardCtrl',['$scope', '$rootScope'
     $rootScope.loading = false;
     $scope.pwdDes3Sk = '';
 
-    /*获取密码加密格式*/
+    /**获取密码加密格式*/
     dataService.getDes3Sk().success(function (obj) {
         if (obj.success) {
             $scope.pwdDes3Sk = obj.msgData.des3Sk;
@@ -17,7 +17,7 @@ angular.module('cardApp').controller('bindUsingCardCtrl',['$scope', '$rootScope'
         pwd: ''
     };
 
-    /*绑定卡事件*/
+    /**绑定卡事件*/
     $scope.confrim = function () {
         if ($scope.pwdDes3Sk == '') {
             mui.alert(tisMsg.GET_DES3SK_FAIL);

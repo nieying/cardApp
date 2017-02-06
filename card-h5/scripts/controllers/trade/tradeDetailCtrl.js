@@ -10,6 +10,7 @@ angular.module('cardApp').controller('tradeDetailCtrl', ['$scope', '$rootScope',
     $scope.params = {
         businessSn: encodeService.encode64($stateParams.businessSn)
     };
+
     dataService.getTradeDetail($scope.params).success(function (obj) {
         $rootScope.loading = false;
         if (obj.success) {

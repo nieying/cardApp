@@ -13,7 +13,7 @@ angular.module('cardApp').controller('sfcardScanCtrl', ['$scope', '$rootScope', 
         pwd:''
     };
 
-    /*交易明細------>输入密码*/
+    /**交易明細------>输入密码*/
     $scope.showPwdView = function () {
         $scope.showPwd = true;
         $scope.pwdDes3Sk = '';
@@ -34,7 +34,7 @@ angular.module('cardApp').controller('sfcardScanCtrl', ['$scope', '$rootScope', 
         }
     };
 
-    /*扫码进来获取卡信息*/
+    /**扫码进来获取卡信息*/
     dataService.getSfcardCardInfo().success(function (obj) {
         $scope.showView = true;
         $rootScope.loading = false;
@@ -48,7 +48,7 @@ angular.module('cardApp').controller('sfcardScanCtrl', ['$scope', '$rootScope', 
     });
 
 
-    /*判断是否为无面额卡*/
+    /**判断是否为无面额卡*/
     $scope.goSetPwd = function () {
         if ($scope.cardInfo.noValueCardPwdNotSet) {
             $state.go("pwdSetNoValueCard");
@@ -57,7 +57,7 @@ angular.module('cardApp').controller('sfcardScanCtrl', ['$scope', '$rootScope', 
         }
     };
 
-    /*输入密码操作*/
+    /**输入密码操作*/
     $scope.confirmPwd = function () {
         if ($scope.pwdDes3Sk == '') {
             mui.alert(tipMsg.GET_DES3SK_FAIL);
@@ -85,7 +85,7 @@ angular.module('cardApp').controller('sfcardScanCtrl', ['$scope', '$rootScope', 
         }
     };
 
-    /*获取电话*/
+    /**获取电话*/
     dataService.getServiceTel().success(function (obj) {
         if (obj.success) {
             $scope.tel = obj.msgData;

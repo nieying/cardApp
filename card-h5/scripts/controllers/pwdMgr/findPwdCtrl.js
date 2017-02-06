@@ -11,7 +11,7 @@ angular.module('cardApp').controller('findPwdCtrl', ['$scope', '$rootScope', '$i
     $scope.mobile = $stateParams.mobile;
     $scope.op = encodeService.encode64("RESET_PWD");
 
-    /*下一步*/
+    /**下一步*/
     $scope.next = function () {
         if (!regular.reg6.test($scope.code)) {
             mui.alert(tipMsg.COMFIRM_CODE);

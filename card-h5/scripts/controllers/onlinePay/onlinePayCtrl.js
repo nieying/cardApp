@@ -12,21 +12,21 @@ angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '
     $scope.balanceAmt = []; //卡可用余额；
     $scope.showScanCode = true;
 
-    /*获取密码加密格式*/
-    dataService.getDes3Sk().success(function (obj) {
-        if (obj.success) {
-            $scope.pwdDes3Sk = obj.msgData.des3Sk;
-        }
-    });
-
-    //初始化支付并绑卡页面的参数
+    /**初始化支付并绑卡页面的参数*/
     $scope.params = {
         password: '',//支付密码
         cno: '',
         pwd: ''
     };
 
-    /*取消支付*/
+    /**获取密码加密格式*/
+    dataService.getDes3Sk().success(function (obj) {
+        if (obj.success) {
+            $scope.pwdDes3Sk = obj.msgData.des3Sk;
+        }
+    });
+
+    /**取消支付*/
     $scope.cancelPay = function () {
         mui.confirm("是否放弃支付?","",["取消","确定"],function (e) {
             if(e.index == 1){
@@ -37,7 +37,7 @@ angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '
         })
     };
 
-    /*获取支付信息*/
+    /**获取支付信息*/
     dataService.onlinePay().success(function (obj) {
         if(obj.success){
             $scope.onlineInfo = obj.msgData;
@@ -81,7 +81,7 @@ angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '
         $scope.showOnline = false;
     };
 
-    /*选择支付卡*/
+    /**选择支付卡*/
     $scope.selectCard = function (chooseCard) {
         $scope.defaultPayCard = [chooseCard];
         _.each($scope.cardList, function (card) {
@@ -94,7 +94,7 @@ angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '
         $scope.showOnline = true;
     };
 
-    /*立即支付*/
+    /**立即支付*/
     $scope.repay = function () {
         if ($scope.pwdDes3Sk == '') {
             mui.alert(tipMsg.GET_DES3SK_FAIL);
@@ -126,7 +126,7 @@ angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '
         })
     };
 
-    /*支付并綁定*/
+    /**支付并綁定*/
     $scope.payBindCard = function () {
         if ($scope.pwdDes3Sk == '') {
             mui.alert(tipMsg.GET_DES3SK_FAIL);
@@ -163,7 +163,7 @@ angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '
         }
     };
 
-    /*设置微信扫码*/
+    /**设置微信扫码*/
     if (isWeiXin()) {
         var params = {
             locationUrl: window.location.href
@@ -194,7 +194,7 @@ angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '
         $scope.showScanCode = false;
     }
 
-    /*点击扫码操作*/
+    /**点击扫码操作*/
     $scope.scanCode = function () {
         if (isWeiXin()) {
             alert("wechat scan code"); //console;

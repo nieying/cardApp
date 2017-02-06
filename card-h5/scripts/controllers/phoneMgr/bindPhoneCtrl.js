@@ -6,7 +6,7 @@
 angular.module('cardApp').controller('bindPhoneCtrl', ['$scope', '$rootScope', '$interval', '$state', '$stateParams', '$cookieStore', 'encodeService', 'dataService', function ($scope, $rootScope, $interval, $state, $stateParams, $cookieStore, encodeService, dataService) {
     $rootScope.loading = false;
 
-    /*判断是否绑定了手机号 true --- 修改手机号码  false --- 绑定手机号码*/
+    /**判断是否绑定了手机号 true --- 修改手机号码  false --- 绑定手机号码*/
     $scope.hasMmobile = $stateParams.mobile ? true : false;
 
     $scope.op = $scope.hasMmobile ? encodeService.encode64('UPDATE_PHONE') : encodeService.encode64('BIND_PHONE');
@@ -14,12 +14,12 @@ angular.module('cardApp').controller('bindPhoneCtrl', ['$scope', '$rootScope', '
     $scope.isGetCode = true;
     $scope.code = '';
 
-    /*初始化参数*/
+    /**初始化参数*/
     $scope.params = {
         phone: ''
     };
 
-    /*绑定手机号*/
+    /**绑定手机号*/
     $scope.confrim = function () {
         if (!regular.regp.test($scope.params.phone)) {
             mui.alert(tipMsg.COMFIRM_PHOME);

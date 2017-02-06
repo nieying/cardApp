@@ -9,7 +9,7 @@ angular.module('cardApp').controller('verifyMobileCtrl', ['$scope', '$rootScope'
     $scope.op = encodeService.encode64("UPDATE_PHONE");
     $scope.showCode = false;
 
-    /*下一步*/
+    /**下一步*/
     $scope.next = function () {
         console.log("$scope.code",$scope.code);
         if (!regular.reg6.test($scope.code)) {

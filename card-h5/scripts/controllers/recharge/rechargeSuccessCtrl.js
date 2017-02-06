@@ -8,6 +8,7 @@ angular.module('cardApp').controller('rechargeSuccessCtrl',['$scope', '$rootScop
     var params = {
         businessNo:$stateParams.businessNo
     };
+
     dataService.queryBusinessInfo(params).success(function (obj) {
         $rootScope.loading = false;
         if (obj.success) {

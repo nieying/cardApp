@@ -9,7 +9,7 @@ angular.module('cardApp').controller('updateRemarkCtrl', ['$scope', '$rootScope'
         remark: $stateParams.remarkName ? $stateParams.remarkName : ''
     };
 
-    /*修改卡备注*/
+    /**修改卡备注*/
     $scope.comfirm = function () {
         if ($scope.params.remark == '') {
             mui.alert(tipMsg.REMARK_NOT_NULL);

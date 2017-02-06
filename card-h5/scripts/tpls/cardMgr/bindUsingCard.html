@@ -1,10 +1,13 @@
-<header id=header class="mui-bar mui-bar-nav"><a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+<header id=header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
     <h1 class=mui-title>绑定顺丰卡</h1></header>
 <div class="change-pwd scan-code-pwd">
     <form name=bindCardForm class=mui-input-group>
-        <div class=mui-input-row><label>密 码</label> <input class=pwd type=tel maxlength=6 pattern=[0-9]*
-                                                           ng-model=params.pwd required placeholder=请输入密码> <span
-                class="mui-icon mui-icon-closeempty" ng-if="params.pwd != ''" ng-click="params.pwd = ''"></span></div>
+        <div class=mui-input-row
+        ><label>密 码</label>
+            <input class=pwd type=tel maxlength=6 pattern=[0-9]* ng-model=params.pwd required placeholder=请输入密码>
+            <span class="mui-icon mui-icon-closeempty" ng-if="params.pwd != ''" ng-click="params.pwd = ''"></span>
+        </div>
     </form>
     <div class="change-pwd-btn mui-text-center">
         <div class=mui-btn ng-class="{'mui-btn-grey':bindCardForm.$invalid,'mui-btn-primary':!bindCardForm.$invalid,}"

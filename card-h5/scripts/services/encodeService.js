@@ -1,4 +1,5 @@
 /**
+ * encode 加密字符串
  * Created by nieying on 2016/6/17.
  */
 angular.module("cardApp").factory("encodeService", [function () {

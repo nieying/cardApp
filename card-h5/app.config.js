@@ -13,7 +13,8 @@ angular.module('cardApp').run(['$rootScope',function ($rootScope) {
     //        mui.alert('横屏内容太少啦，请使用竖屏观看！');
     //    }
     //};
-    /*这里可以监听到路由跳转*/
+
+    /**这里可以监听到路由跳转*/
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
         //mui('#pullrefresh').pullRefresh().destroy();
     });

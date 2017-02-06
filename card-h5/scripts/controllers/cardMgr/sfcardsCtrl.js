@@ -2,13 +2,13 @@
  * 卡列表
  * Created by nieying on 2016/6/2.
  */
-angular.module('cardApp').controller('sfcardsCtrl',['$scope', '$rootScope', '$state', '$stateParams', '$cookieStore', 'dataService', function ($scope, $rootScope, $state, $stateParams, $cookieStore, dataService) {
+angular.module('cardApp').controller('sfcardsCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$cookieStore', 'dataService', function ($scope, $rootScope, $state, $stateParams, $cookieStore, dataService) {
     $rootScope.loading = true;
     $scope.showGoBackBtn = true;//判断是否显示返回按钮
     clearCookie();
     $cookieStore.put("system", {value: 'SFCARD'});
 
-    /*获取卡列表*/
+    /**获取卡列表*/
     dataService.getCardList().success(function (obj) {
         $rootScope.loading = false;
         if (obj.success) {
@@ -18,20 +18,20 @@ angular.module('cardApp').controller('sfcardsCtrl',['$scope', '$rootScope', '$st
             });
             $scope.cardList = obj.msgData;
         } else {
-            if(obj.code == '302'){
+            if (obj.code == '302') {
                 //去活动页面
-                $state.go("mkt",{mtkName:'mtkBaoJia831'});
-            }else{
+                $state.go("mkt", {mtkName: 'mtkBaoJia831'});
+            } else {
                 errorTips(obj, $state)
             }
         }
         //卡背景颜色
         $scope.cardColor = ['bg-23', 'bg-fb', 'bg-5e', 'bg-e6'];
     }).error(function () {
-        systemBusy($rootScope,$state);
+        systemBusy($rootScope, $state);
     });
 
-    /*获取市场活动Banners广告信息*/
+    /**获取市场活动Banners广告信息*/
     dataService.getMktBanners().success(function (obj) {
         if (obj.success) {
             $scope.mktBanners = [];
@@ -44,7 +44,7 @@ angular.module('cardApp').controller('sfcardsCtrl',['$scope', '$rootScope', '$st
         }
     });
 
-    /**活动*/
+    /**去活动页面*/
     $scope.goMkt = function (mktName, op) {
         $rootScope.loading = true;
         if (op == 'intro') {
@@ -54,15 +54,15 @@ angular.module('cardApp').controller('sfcardsCtrl',['$scope', '$rootScope', '$st
                 $rootScope.loading = false;
                 if (obj.success) {
                     if (obj.msgData == 1) {//无首充记录
-                        $rootScope.showMktTips =1 ;
+                        $rootScope.showMktTips = 1;
                         $state.go("mkt/mktips")
                     } else if (obj.msgData == 2) {//已领取
-                        $rootScope.showMktTips =2 ;
+                        $rootScope.showMktTips = 2;
                         $state.go("mkt/mktips")
                     } else if (obj.msgData == 3) {//逾期未领取
-                        $rootScope.showMktTips =3 ;
+                        $rootScope.showMktTips = 3;
                         $state.go("mkt/mktips")
-                    }else{
+                    } else {
                         systemBusy($rootScope, $state);
                     }
                 } else {

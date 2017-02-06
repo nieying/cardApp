@@ -11,7 +11,7 @@ angular.module('cardApp').controller('sfcardCtrl',['$scope', '$rootScope', '$sta
 
     $cookieStore.put("cardNo", {value: $stateParams.cardNo});
 
-    /*获取单卡信息*/
+    /**获取单卡信息*/
     dataService.getCardDetail($stateParams.cardNo).success(function (obj) {
         $rootScope.loading = false;
         if (obj.success) {
@@ -27,7 +27,7 @@ angular.module('cardApp').controller('sfcardCtrl',['$scope', '$rootScope', '$sta
         $state.go("sfcards");
     };
 
-    /*显示输入密码页面 解除绑定*/
+    /**显示输入密码页面 解除绑定*/
     $scope.showPwdView = function (data) {
         /*获取密码加密格式*/
         dataService.getDes3Sk().success(function (obj) {
@@ -39,7 +39,7 @@ angular.module('cardApp').controller('sfcardCtrl',['$scope', '$rootScope', '$sta
         $scope.showPwd = true;
     };
 
-    /*输入密码操作 解除绑定*/
+    /**输入密码操作 解除绑定*/
     $scope.confirm = function () {
         if ($scope.pwdDes3Sk == '') {
             mui.alert(tipMsg.GET_DES3SK_FAIL);
@@ -72,7 +72,7 @@ angular.module('cardApp').controller('sfcardCtrl',['$scope', '$rootScope', '$sta
         }
     };
 
-    /*获取电话*/
+    /**获取电话*/
     dataService.getServiceTel().success(function (obj) {
         if (obj.success) {
             $scope.tel = obj.msgData;

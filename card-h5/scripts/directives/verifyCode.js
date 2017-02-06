@@ -34,6 +34,7 @@ angular.module('cardApp').directive('verifyCode', ['$rootScope', '$interval', '$
                 };
                 scope.isGetCode ? params.mobile = encodeService.encode64(scope.phone) : '';
                 $interval.cancel(scope.timer);
+                /**获取验证码*/
                 dataService.getSmsCode(params).success(function (obj) {
                     if (obj.success) {
                         scope.startTimer(60);
@@ -54,7 +55,7 @@ angular.module('cardApp').directive('verifyCode', ['$rootScope', '$interval', '$
             }
 
 
-            /*再次发送*/
+            /**再次发送*/
             scope.sendCode = function () {
                 getMsgCode();
             };
@@ -63,7 +64,7 @@ angular.module('cardApp').directive('verifyCode', ['$rootScope', '$interval', '$
                 scope.code = '';
             };
 
-            /*定时器*/
+            /**定时器*/
             scope.startTimer = function (second) {
                 scope.second = second;
                 scope.timer = $interval(function () {

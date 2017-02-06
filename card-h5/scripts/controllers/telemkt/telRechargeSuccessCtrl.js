@@ -7,6 +7,7 @@ angular.module('cardApp').controller('telRechargeSuccessCtrl',['$scope', '$rootS
     var params = {
         businessNo:encodeService.encode64($cookieStore.get("businessNo").value)
     };
+
     dataService.queryBusinessInfo(params).success(function (obj) {
         $rootScope.loading = false;
         if (obj.success) {

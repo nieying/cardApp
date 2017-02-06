@@ -32,7 +32,7 @@ angular.module('cardApp').controller('invoiceApplyCtrl', ['$scope', '$rootScope'
         systemBusy($rootScope, $state);
     });
 
-    /*申请发票*/
+    /**申请发票*/
     $scope.confirm = function () {
         if ($scope.params.amt) {
             if (!isNaN(Number($scope.params.amt))) {
@@ -100,11 +100,12 @@ angular.module('cardApp').controller('invoiceApplyCtrl', ['$scope', '$rootScope'
         })
     };
 
+    /**返回*/
     $scope.goBack = function () {
         back($cookieStore, $state);
     };
 
-    /*获取电话*/
+    /**获取电话*/
     function getServiceTel() {
         dataService.getServiceTel().success(function (obj) {
             if (obj.success) {

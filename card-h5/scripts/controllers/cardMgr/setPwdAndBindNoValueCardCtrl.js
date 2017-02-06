@@ -13,7 +13,15 @@ angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl',['$scope', '
 
     $scope.pwdDes3Sk = '';
 
-    /*获取密码加密格式*/
+    /**初始化参数*/
+    $scope.params = {
+        cno: $stateParams.cno,
+        pwd: '',
+        confirmPwd: '',
+        phone: ''
+    };
+
+    /**获取密码加密格式*/
     dataService.getDes3Sk().success(function (obj) {
         if (obj.success) {
             $scope.pwdDes3Sk = obj.msgData.des3Sk;
@@ -22,15 +30,7 @@ angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl',['$scope', '
 
     $scope.showCno = $cookieStore.get("showCno") ? $cookieStore.get("showCno") : false;
 
-    /*初始化参数*/
-    $scope.params = {
-        cno: $stateParams.cno,
-        pwd: '',
-        confirmPwd: '',
-        phone: ''
-    };
-
-    /*确认设置密码*/
+    /**确认设置密码*/
     $scope.confrim = function () {
         if ($scope.pwdDes3Sk == '') {
             mui.alert(tipMsg.GET_DES3SK_FAIL);
