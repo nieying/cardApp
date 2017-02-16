@@ -6,19 +6,33 @@
 angular.module('cardApp').controller('rechargeCtrl', ['$scope', '$rootScope', '$cookieStore', '$state', '$stateParams','$timeout', 'dataService', 'encodeService', function ($scope, $rootScope, $cookieStore, $state, $stateParams,$timeout, dataService, encodeService) {
     $rootScope.loading = true;
     $scope.mktBanners = [];
+    $scope.rechargeDisable = [];
+    $scope.rechargeList = [];
+
+    /**获取市场活动Banners广告信息*/
+    dataService.getMktBanners().success(function (obj) {
+        if (obj.success) {
+            _.each(obj.msgData.mktBanners, function (data) {
+                var mtkbnr = JSON.parse(data);
+                if (mtkbnr.pos == 1) {
+                    $scope.mktBanners.push(mtkbnr);
+                }
+            });
+        }
+    });
 
     /**获取充值信息*/
     dataService.getRechargeInfo().success(function (obj) {
         if (obj.success) {
             $rootScope.loading = false;
             $scope.rechargeInfo = obj.msgData;
-            /*充值金额大于卡内金额*/
-            $scope.rechargeDisable = _.filter($scope.rechargeInfo.amtList, function (data) {
-                return $scope.rechargeInfo.maxRcgAmt / 100 < data;
-            });
-
-            $scope.rechargeList = _.filter($scope.rechargeInfo.amtList, function (data) {
-                return $scope.rechargeInfo.maxRcgAmt / 100 >= data;
+            /**充值金额大于卡内金额*/
+            _.filter($scope.rechargeInfo.amtList, function (data) {
+                if($scope.rechargeInfo.maxRcgAmt / 100 < data){
+                    $scope.rechargeDisable.push(data)
+                }else{
+                    $scope.rechargeList.push(data)
+                }
             });
         } else {
             errorTips(obj, $state);
@@ -40,18 +54,6 @@ angular.module('cardApp').controller('rechargeCtrl', ['$scope', '$rootScope', '$
         }
     }).error(function () {
         systemBusy($rootScope, $state);
-    });
-
-    /**获取市场活动Banners广告信息*/
-    dataService.getMktBanners().success(function (obj) {
-        if (obj.success) {
-            _.each(obj.msgData.mktBanners, function (data) {
-                var mtkbnr = JSON.parse(data);
-                if (mtkbnr.pos == 1) {
-                    $scope.mktBanners.push(mtkbnr);
-                }
-            });
-        }
     });
 
     /**选择充值金额*/

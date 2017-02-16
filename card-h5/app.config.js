@@ -1,4 +1,4 @@
-angular.module('cardApp').run(['$rootScope',function ($rootScope) {
+angular.module('cardApp').run(['$rootScope', function ($rootScope) {
     $rootScope.loading = true;
 
     /*判断手机横屏还是竖屏*/
@@ -20,8 +20,7 @@ angular.module('cardApp').run(['$rootScope',function ($rootScope) {
     });
 }]);
 
-
-var app = angular.module('cardApp').config(['$controllerProvider', '$compileProvider', '$filterProvider', '$provide',function ($controllerProvider, $compileProvider, $filterProvider, $provide) {      //配置懒加载
+var app = angular.module('cardApp').config(['$controllerProvider', '$compileProvider', '$filterProvider', '$provide', function ($controllerProvider, $compileProvider, $filterProvider, $provide) {      //配置懒加载
     // lazy controller, directive and service
     app.controller = $controllerProvider.register;
     app.directive = $compileProvider.directive;
@@ -30,33 +29,33 @@ var app = angular.module('cardApp').config(['$controllerProvider', '$compileProv
     app.service = $provide.service;
     app.constant = $provide.constant;
     app.value = $provide.value;
-}]).config(['hammerDefaultOptsProvider',function (hammerDefaultOptsProvider) {  //这里是配置一个手势的操作用到了hammer这和插件
+}]).config(['hammerDefaultOptsProvider', function (hammerDefaultOptsProvider) {  //这里是配置一个手势的操作用到了hammer这和插件
     hammerDefaultOptsProvider.set({
         recognizers: [
             [Hammer.Tap, {time: 250, event: 'tap'}]
         ]
     });
-
-}]).config(['$httpProvider',function ($httpProvider) {
-    /*$httpProvider.interceptors.push(function ($q, $rootScope) {
-     return {
-     request: function (config) {
-     console.log("request---------->",config);
-     return config || $q.when(config);
-     },
-
-     response: function (response) {
-     console.log("----全局拦截器-----", response);
-     return response;
-     /!*if (response.data.message == "您尚未登录或登录时间过长,请重新登录!") {
-     alert("您尚未登录或登录时间过长,请重新登录!");
-     } else {
-     return response;
-     }*!/
-     }
-     }
-     });*/
 }]);
+/*.config(['$httpProvider',function ($httpProvider) {
+ $httpProvider.interceptors.push(function ($q, $rootScope) {
+ return {
+ request: function (config) {
+ console.log("request---------->",config);
+ return config || $q.when(config);
+ },
+
+ response: function (response) {
+ console.log("----全局拦截器-----", response);
+ return response;
+ /!*if (response.data.message == "您尚未登录或登录时间过长,请重新登录!") {
+ alert("您尚未登录或登录时间过长,请重新登录!");
+ } else {
+ return response;
+ }*!/
+ }
+ }
+ });
+ }]);*/
 
 
 

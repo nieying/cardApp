@@ -3,7 +3,7 @@
  * Created by nieying on 2016/6/3.
  */
 
-angular.module('cardApp').controller('setPwdCtrl', ['$scope', '$rootScope', '$state', '$interval', '$cookieStore', 'dataService', function ($scope, $rootScope, $state, $interval, $cookieStore, dataService) {
+angular.module('cardApp').controller('resetPwdCtrl', ['$scope', '$rootScope', '$state', '$interval', '$cookieStore', 'dataService', function ($scope, $rootScope, $state, $interval, $cookieStore, dataService) {
     $rootScope.loading = false;
 
     $scope.params = {

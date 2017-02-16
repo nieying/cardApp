@@ -6,15 +6,6 @@
      <div class="c-59" ng-show="!showCode">
          验证码已发送至您的 <span class="c-28">{{mobile|phoneFilter}}</span>
      </div>
-    <!--<form name="findPwdForm" class="mui-input-group oh">-->
-        <!--<input class="pwd" type="tel" maxlength="6" pattern="[0-9]*" class="mui-input-row"-->
-               <!--placeholder="请输入短信验证码" ng-model="params.code" required/>-->
-        <!--<span class="mui-icon mui-icon-closeempty close-code" ng-if="params.code != ''" ng-click="params.code = ''"></span>-->
-        <!--<label class="mui-text-right" ng-show="!showCode"> {{second}} 秒后重发</label>-->
-        <!--<label ng-show="showCode" class="mui-text-right c-23" ng-click="sendCode()">-->
-            <!--再次发送-->
-        <!--</label>-->
-    <!--</form>-->
     <verify-code code="code" phone="mobile" op="op" show-Code="showCode"></verify-code>
     <div class="c-90 phone-tips">
         请验证绑定手机 {{mobile|phoneFilter}}

@@ -24,7 +24,7 @@ angular.module('cardApp').directive('verifyCode', ['$rootScope', '$interval', '$
                 if (scope.isGetCode) {
                     if (!regular.regp.test(scope.phone)) {
                         mui.alert(tipMsg.COMFIRM_PHOME, function () {
-                            console.log(scope);
+                            //todo;
                         });
                         return false;
                     }
@@ -53,7 +53,6 @@ angular.module('cardApp').directive('verifyCode', ['$rootScope', '$interval', '$
                     systemBusy($rootScope, $state)
                 });
             }
-
 
             /**再次发送*/
             scope.sendCode = function () {

@@ -1,7 +1,7 @@
 <div ng-show="!showPwd == 1">
     <header id="header" class="mui-bar mui-bar-nav">
         <a class="mui-icon mui-icon-left-nav mui-pull-left" href="javascript:void(0)" ng-click="goBack()"></a>
-        <h1 class="mui-title">顺丰卡</h1>
+        <h1 class="mui-title">顺丰卡详情</h1>
     </header>
 
     <div class="card-code">
@@ -32,18 +32,18 @@
         <ul class="mui-table-view">
             <li class="mui-table-view-cell" ng-show="singCardInfo.allowRecharge">
                 <a class="mui-navigate-right" ui-sref="recharge">
-                    <i class="mui-icon iconfont icon-chongzhi"></i> 我要充值
+                    <i class="mui-icon iconfont icon-chongzhi"></i> <span>我要充值</span>
                     <!--<span class="mui-pull-right c-fb">赠送5%</span>-->
                 </a>
             </li>
             <li class="mui-table-view-cell">
                 <a class="mui-navigate-right" ui-sref="trade">
-                    <i class="mui-icon iconfont icon-bimaiqingdan"></i> 交易查询
+                    <i class="mui-icon iconfont icon-bimaiqingdan"></i> <span>交易查询</span>
                 </a>
             </li>
             <li class="mui-table-view-cell">
                 <a class="mui-navigate-right" ui-sref="changePwd({mobile:singCardInfo.mobile})">
-                    <i class="mui-icon iconfont icon-edit"></i> 密码修改
+                    <i class="mui-icon iconfont icon-edit"></i> <span>密码修改</span>
                 </a>
             </li>
             <li class="mui-table-view-cell" ng-if="singCardInfo.invoiceSwitch">
@@ -51,17 +51,19 @@
                     <!--<i class="mui-icon iconfont icon-edit"></i>-->
                     <img style="width: 1rem;height: 1rem;vertical-align: bottom;" src="images/menu-invoice-apply.png"
                          alt="">
-                    发票申请
+                    &nbsp;<span>发票申请</span>
                 </a>
             </li>
             <li class="mui-table-view-cell">
                 <a class="mui-navigate-right" ng-if="singCardInfo.mobile==null" ui-sref="bindPhone({mobile:''})">
-                    <i class="mui-icon iconfont icon-shouji"></i> 手机号码
+                    <i class="mui-icon iconfont icon-shouji"></i>
+                    <span>手机号码</span>
                     <span class="mui-pull-right">去绑定</span>
                 </a>
                 <a class="mui-navigate-right" ng-if="singCardInfo.mobile !=null"
                    ui-sref="changeMobile({mobile:singCardInfo.mobile})">
-                    <i class="mui-icon iconfont icon-shouji"></i> 手机号码
+                    <i class="mui-icon iconfont icon-shouji"></i>
+                    <span>手机号码</span>
                     <span class="mui-pull-right">{{singCardInfo.mobile}}</span>
                 </a>
             </li>
@@ -72,13 +74,15 @@
               </li>-->
             <li class="mui-table-view-cell">
                 <a class="mui-navigate-right" ui-sref="updateRemark({remarkName:singCardInfo.remark})">
-                    <i class="mui-icon iconfont icon-beizhu"></i> 备注
+                    <i class="mui-icon iconfont icon-beizhu"></i>
+                    <span>备注</span>
                     <span class="mui-pull-right">{{singCardInfo.remark}}</span>
                 </a>
             </li>
             <li class="mui-table-view-cell">
                 <a class="mui-navigate-right" href="tel:{{tel}}">
-                    <i class="mui-icon iconfont icon-dianhua-copy"></i> 联系客服
+                    <i class="mui-icon iconfont icon-dianhua-copy"></i>
+                    <span class="customer-service">联系客服</span>
                     <span class="mui-pull-right">{{tel}}</span>
                 </a>
             </li>
@@ -94,7 +98,7 @@
         <a ng-click="showPwd =false" class="mui-icon mui-icon-left-nav mui-pull-left"></a>
         <h1 class="mui-title">输入密码</h1>
     </header>
-    <div class="change-pwd">
+    <div class="change-pwd mt3rem">
         <form name="pwdForm" class="mui-input-group">
             <div class="mui-input-row">
                 <label class="mui-text-center">密&nbsp;&nbsp;&nbsp;&nbsp; 码</label>

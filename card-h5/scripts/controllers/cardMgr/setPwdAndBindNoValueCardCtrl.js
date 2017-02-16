@@ -4,7 +4,9 @@
  */
 angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl',['$scope', '$rootScope', '$stateParams', '$state', '$interval', '$cookieStore', 'encodeService', 'dataService', function ($scope, $rootScope, $stateParams, $state, $interval, $cookieStore, encodeService, dataService) {
     $rootScope.loading = false;
-
+    clearCookie();
+    $cookieStore.put("system", {value: 'SFCARD'});
+    $cookieStore.put("cardNo", {value: $stateParams.cno});
 
     $scope.op = encodeService.encode64('SET_PWD_NOVALUECARD');
     $scope.showCode = true;
@@ -12,6 +14,7 @@ angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl',['$scope', '
     $scope.code = '';
 
     $scope.pwdDes3Sk = '';
+    $scope.showCno = $cookieStore.get("showCno") ? $cookieStore.get("showCno") : false;
 
     /**初始化参数*/
     $scope.params = {
@@ -27,8 +30,6 @@ angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl',['$scope', '
             $scope.pwdDes3Sk = obj.msgData.des3Sk;
         }
     });
-
-    $scope.showCno = $cookieStore.get("showCno") ? $cookieStore.get("showCno") : false;
 
     /**确认设置密码*/
     $scope.confrim = function () {
@@ -64,9 +65,9 @@ angular.module('cardApp').controller('setPwdAndBindNoValueCardCtrl',['$scope', '
                 if (obj.success) {
                     if ($scope.showCno) {//绑卡流程
                         $cookieStore.put("showCno", {value: false});
-                        $state.go("sfcards");
+                        $state.go("recharge");
                     } else {
-                        $state.go("sfcards");
+                        $state.go("recharge");
                     }
                 } else {
                     errorTips(obj, $state);

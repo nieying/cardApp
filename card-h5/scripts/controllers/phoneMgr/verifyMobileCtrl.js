@@ -11,7 +11,6 @@ angular.module('cardApp').controller('verifyMobileCtrl', ['$scope', '$rootScope'
 
     /**下一步*/
     $scope.next = function () {
-        console.log("$scope.code",$scope.code);
         if (!regular.reg6.test($scope.code)) {
             mui.alert(tipMsg.COMFIRM_CODE);
             return false;

@@ -112,6 +112,21 @@ function systemBusy($rootScope, $state) {
     });
 }
 
+/**卡备注显示*/
+function cardRemarkName(card) {
+    if (card.remark) {
+        card.remarkName = card.remark;
+    } else {
+        if (card.cardType == 'EC') {
+            card.remarkName = '电子卡'
+        } else if (card.cardType == 'RSC') {
+            card.remarkName = '实名卡'
+        } else {
+            card.remarkName = '顺丰卡'
+        }
+    }
+}
+
 
 /**依赖的插件*/
 angular.module('cardApp', [

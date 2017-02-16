@@ -10,15 +10,28 @@ angular.module('cardApp').controller('sfcardScanCtrl', ['$scope', '$rootScope', 
     $cookieStore.put("system", {value: 'SFCARDSCAN'});
 
     $scope.params = {
-        pwd:''
+        pwd: ''
     };
+
+    /**扫码进来获取卡信息*/
+    dataService.getSfcardCardInfo().success(function (obj) {
+        $scope.showView = true;
+        $rootScope.loading = false;
+        if (obj.success) {
+            $scope.cardInfo = obj.msgData;
+        } else {
+            $state.go("error", {code: 90000, msg: obj.title});
+        }
+    }).error(function () {
+        systemBusy($rootScope, $state);
+    });
 
     /**交易明細------>输入密码*/
     $scope.showPwdView = function () {
         $scope.showPwd = true;
         $scope.pwdDes3Sk = '';
 
-        /*获取密码加密格式*/
+        /**获取密码加密格式*/
         dataService.getDes3Sk().success(function (obj) {
             if (obj.success) {
                 $scope.pwdDes3Sk = obj.msgData.des3Sk;
@@ -30,30 +43,16 @@ angular.module('cardApp').controller('sfcardScanCtrl', ['$scope', '$rootScope', 
         if ($scope.cardInfo.mobile == null) {
             $state.go("bindPhone", {mobile: ''});
         } else {
-            $state.go("findPwd",{mobile: $scope.cardInfo.mobile});
+            $state.go("findPwd", {mobile: $scope.cardInfo.mobile});
         }
     };
-
-    /**扫码进来获取卡信息*/
-    dataService.getSfcardCardInfo().success(function (obj) {
-        $scope.showView = true;
-        $rootScope.loading = false;
-        if (obj.success) {
-            $scope.cardInfo = obj.msgData;
-        } else {
-          errorTips(obj,$state);
-        }
-    }).error(function () {
-       systemBusy($rootScope,$state);
-    });
-
 
     /**判断是否为无面额卡*/
     $scope.goSetPwd = function () {
         if ($scope.cardInfo.noValueCardPwdNotSet) {
             $state.go("pwdSetNoValueCard");
         } else {
-            $state.go("pwdSet");
+            $state.go("scanSetPwd");
         }
     };
 
@@ -80,7 +79,7 @@ angular.module('cardApp').controller('sfcardScanCtrl', ['$scope', '$rootScope', 
                     errorTips(obj, $state);
                 }
             }).error(function () {
-                systemBusy($rootScope,$state);
+                systemBusy($rootScope, $state);
             })
         }
     };
@@ -93,6 +92,6 @@ angular.module('cardApp').controller('sfcardScanCtrl', ['$scope', '$rootScope', 
             errorTips(obj, $state)
         }
     }).error(function () {
-        systemBusy($rootScope,$state);
+        systemBusy($rootScope, $state);
     })
 }]);

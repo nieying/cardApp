@@ -25,7 +25,7 @@ angular.module('cardApp').controller('findPwdCtrl', ['$scope', '$rootScope', '$i
         dataService.mobileValidate(params).success(function (obj) {
             $rootScope.loading = false;
             if (obj.success) {
-                $state.go("setPwd");
+                $state.go("resetPwd");
             } else {
                 errorTips(obj, $state);
             }

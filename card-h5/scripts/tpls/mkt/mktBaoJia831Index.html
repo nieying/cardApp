@@ -1,7 +1,7 @@
 <!-- create by jeff ying on 2017/1/17.-->
 <div class="mkt-view bao-jia">
-    <a href=""><i class="mui-icon mui-icon-back"></i></a>
+    <a href="javascript:void(0)" ng-click="goBack()" ng-show="showBackBtn"><i class="mui-icon mui-icon-back"></i></a>
     <!--<img src="images/mkt/mktBaoJia831/advt_bg_baojia_HD.jpg" alt="">-->
-    <a class="open-elcard" href="">开通电子卡</a>
-   <a class="has-sfcard" href="">我有顺丰卡？去绑定</a>
+    <a class="open-elcard" ui-sref="ecardRegister">开通电子卡</a>
+   <a class="has-sfcard" ui-sref="verifyCard">我有顺丰卡？去绑定</a>
 </div>

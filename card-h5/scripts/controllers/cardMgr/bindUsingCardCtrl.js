@@ -2,9 +2,12 @@
  * 绑卡
  * Created by nieying on 2016/6/2.
  */
-angular.module('cardApp').controller('bindUsingCardCtrl',['$scope', '$rootScope', '$state', 'dataService', function ($scope, $rootScope, $state, dataService) {
+angular.module('cardApp').controller('bindUsingCardCtrl',['$scope', '$rootScope', '$state', '$stateParams','dataService', function ($scope, $rootScope, $state,$stateParams, dataService) {
     $rootScope.loading = false;
     $scope.pwdDes3Sk = '';
+    $scope.parmas = {
+        pwd: ''
+    };
 
     /**获取密码加密格式*/
     dataService.getDes3Sk().success(function (obj) {
@@ -12,10 +15,6 @@ angular.module('cardApp').controller('bindUsingCardCtrl',['$scope', '$rootScope'
             $scope.pwdDes3Sk = obj.msgData.des3Sk;
         }
     });
-
-    $scope.parmas = {
-        pwd: ''
-    };
 
     /**绑定卡事件*/
     $scope.confrim = function () {

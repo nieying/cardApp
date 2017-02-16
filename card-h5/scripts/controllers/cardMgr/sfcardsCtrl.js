@@ -17,10 +17,14 @@ angular.module('cardApp').controller('sfcardsCtrl', ['$scope', '$rootScope', '$s
                 interval: 5000//自动轮播周期，若为0则不自动播放，默认为0；
             });
             $scope.cardList = obj.msgData;
+            _.each($scope.cardList.outsideMemberCardInfoList,function (card) {
+                cardRemarkName(card);
+            })
         } else {
             if (obj.code == '302') {
                 //去活动页面
-                $state.go("mkt", {mtkName: 'mtkBaoJia831'});
+                console.log(obj.msgData.hash.split('/')[1]);
+                $state.go("mkt", {mktName: obj.msgData.hash.split('/')[1]});
             } else {
                 errorTips(obj, $state)
             }
@@ -103,7 +107,7 @@ angular.module('cardApp').controller('sfcardsCtrl', ['$scope', '$rootScope', '$s
     function onBridgeReady() {
         $scope.goBack = function () {
             if (isWeiXin()) {
-                alert("wechat return back close"); //console;
+                // alert("wechat return back close"); //console;
                 WeixinJSBridge.invoke('closeWindow', {}, function (resp) {
                 });
             } else {

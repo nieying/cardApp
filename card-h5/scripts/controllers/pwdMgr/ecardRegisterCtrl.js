@@ -3,7 +3,7 @@
  * Created by nieying on 2016/6/6.
  */
 
-angular.module('cardApp').controller('ecardRegisterCtrl',['$scope', '$rootScope', '$state', 'dataService', function ($scope, $rootScope, $state, dataService) {
+angular.module('cardApp').controller('ecardRegisterCtrl',['$scope', '$rootScope','$cookieStore', '$state', 'dataService', function ($scope, $rootScope,$cookieStore, $state, dataService) {
     $rootScope.loading = false;
     $scope.pwdDes3Sk = '';
 
@@ -40,10 +40,11 @@ angular.module('cardApp').controller('ecardRegisterCtrl',['$scope', '$rootScope'
                 pwd: aesEncode($scope.params.pwd, $scope.pwdDes3Sk)
             };
             dataService.ecardRegister(params).success(function (obj) {
-                $rootScope.loading = true;
+                $rootScope.loading = false;
                 if (obj.success) {
                     mui.toast(tipMsg.OPEN_ECARD_SUCCESS);
-                    $state.go("sfcards");
+                    $cookieStore.put("cardNo", {value: obj.msgData});
+                    $state.go("recharge");
                 } else {
                     errorTips(obj, $state);
                 }

@@ -3,8 +3,11 @@
  * Created by nieying on 2016/6/7.
  */
 
-angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '$state', 'dataService', 'encodeService', function ($scope, $rootScope, $state, dataService, encodeService) {
+angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '$state', '$cookieStore', 'dataService', 'encodeService', function ($scope, $rootScope, $state, $cookieStore, dataService, encodeService) {
     $rootScope.loading = false;
+    clearCookie();
+    $cookieStore.put("system", {value: 'SFCARD'});
+
     $scope.showOnline = true;//判断显示选卡页面
     $scope.balanceCardList = []; //余额不足卡列表；
     $scope.cardList = []; //余额足够卡列表
@@ -28,10 +31,10 @@ angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '
 
     /**取消支付*/
     $scope.cancelPay = function () {
-        mui.confirm("是否放弃支付?","",["取消","确定"],function (e) {
-            if(e.index == 1){
+        mui.confirm("是否放弃支付?", "", ["取消", "确定"], function (e) {
+            if (e.index == 1) {
                 window.location.href = $scope.onlineInfo.cancelUrl
-            }else{
+            } else {
                 //todo
             }
         })
@@ -39,42 +42,44 @@ angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '
 
     /**获取支付信息*/
     dataService.onlinePay().success(function (obj) {
-        if(obj.success){
+        if (obj.success) {
             $scope.onlineInfo = obj.msgData;
+            $scope.showEleLink = $scope.onlineInfo.noEleCard;
             if ($scope.onlineInfo.cardOptionList.length == 0) {//判断该会员号有没有绑卡，没有绑卡跳到支付并绑卡页面
                 $state.go("addCard");
+            } else {
+                _.filter($scope.onlineInfo.cardOptionList, function (card) {
+                    cardRemarkName(card);
+                    if ((card.cardBalanceAmt >= $scope.onlineInfo.payAmt) && card.cardType != 'RSC') {
+                        $scope.cardList.push(card);
+                    } else {
+                        $scope.balanceCardList.push(card);
+                    }
+                });
+
+                /**默认选择金额最大的一张卡支付*/
+                _.filter($scope.cardList, function (card) {
+                    $scope.balanceAmt.push(card.cardBalanceAmt);
+                });
+                $scope.defaultPayCard = _.filter($scope.cardList, function (card) {
+                    if (card.cardBalanceAmt == _.max($scope.balanceAmt)) {
+                        return card;
+                    }
+                });
+
+                _.each($scope.cardList, function (card) {
+                    if ($scope.defaultPayCard[0].cardNo == card.cardNo) {
+                        return card.checked = true;
+                    } else {
+                        card.checked = false;
+                    }
+                });
             }
-
-            $scope.cardList = _.filter($scope.onlineInfo.cardOptionList, function (card) {
-                return card.cardBalanceAmt >= $scope.onlineInfo.payAmt;
-            });
-
-            /*默认选择金额最大的一张卡支付*/
-            _.filter($scope.cardList, function (card) {
-                $scope.balanceAmt.push(card.cardBalanceAmt);
-            });
-            $scope.defaultPayCard = _.filter($scope.cardList, function (card) {
-                if (card.cardBalanceAmt == _.max($scope.balanceAmt)) {
-                    return card;
-                }
-            });
-
-            $scope.balanceCardList = _.filter($scope.onlineInfo.cardOptionList, function (card) {
-                return card.cardBalanceAmt < $scope.onlineInfo.payAmt;
-            });
-
-            _.each($scope.cardList, function (card) {
-                if ($scope.defaultPayCard[0].cardNo == card.cardNo) {
-                    return card.checked = true;
-                } else {
-                    card.checked = false;
-                }
-            });
-        }else{
-            errorTips(obj,$rootScope)
+        } else {
+            errorTips(obj, $rootScope)
         }
     }).error(function () {
-       systemBusy($rootScope,$state);
+        systemBusy($rootScope, $state);
     });
 
     $scope.showSelectCard = function () {
@@ -111,7 +116,6 @@ angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '
             outOrderNo: $scope.onlineInfo.outOrderNo,
             cno: encodeService.encode64($scope.defaultPayCard[0].cardNo),
             pwd: aesEncode($scope.params.password, $scope.pwdDes3Sk)
-
         };
         dataService.repay(params).success(function (obj) {
             if (obj.success) {
@@ -122,17 +126,18 @@ angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '
                 errorTips(obj, $state);
             }
         }).error(function () {
-            systemBusy($rootScope,$state);
+            systemBusy($rootScope, $state);
         })
     };
 
     /**支付并綁定*/
     $scope.payBindCard = function () {
+        var cardNo = $scope.params.cno.replace(/\s/ig,"");
         if ($scope.pwdDes3Sk == '') {
             mui.alert(tipMsg.GET_DES3SK_FAIL);
             return false;
         }
-        if (!regular.reg16.test($scope.params.cno)) {
+        if(cardNo.length != 16){
             mui.alert(tipMsg.COMFIRM_CARDNO);
             return false;
         }
@@ -142,7 +147,7 @@ angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '
         }
         if (!$scope.addCardForm.$invalid) {
             $rootScope.loading = true;
-            $rootScope.loadingText = "支付中...";
+            // $rootScope.loadingText = "支付中...";
             var params = {
                 bizSn: $scope.onlineInfo.bizSn,
                 outOrderNo: $scope.onlineInfo.outOrderNo,
@@ -158,7 +163,7 @@ angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '
                     errorTips(obj, $state);
                 }
             }).error(function () {
-                systemBusy($rootScope,$state);
+                systemBusy($rootScope, $state);
             })
         }
     };
@@ -197,7 +202,7 @@ angular.module('cardApp').controller('onlinePayCtrl', ['$scope', '$rootScope', '
     /**点击扫码操作*/
     $scope.scanCode = function () {
         if (isWeiXin()) {
-            alert("wechat scan code"); //console;
+            // alert("wechat scan code"); //console;
             wx.scanQRCode({
                 needResult: 1,
                 desc: 'scanQRCode desc',

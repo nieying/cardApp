@@ -7,7 +7,6 @@ angular.module('cardApp').controller('setPwdAndBindCardCtrl', ['$scope', '$rootS
     $scope.pwdDes3Sk = '';
 
     $scope.showCno = $cookieStore.get("showCno") ? $cookieStore.get("showCno") : false;
-
     $scope.params = {
         cno: $stateParams.cno,
         pwd: '',
@@ -28,6 +27,10 @@ angular.module('cardApp').controller('setPwdAndBindCardCtrl', ['$scope', '$rootS
             mui.alert(tipMsg.GET_DES3SK_FAIL);
             return false;
         }
+        if (!regular.reg6.test($scope.params.coatingCode)) {
+            mui.alert(tipMsg.CONFIRM_COATINGCODE);
+            return false;
+        }
         if (!regular.reg6.test($scope.params.pwd)) {
             mui.alert(tipMsg.COMFIRM_PWD);
             return false;
@@ -36,15 +39,11 @@ angular.module('cardApp').controller('setPwdAndBindCardCtrl', ['$scope', '$rootS
             mui.alert(tipMsg.CONFIRM_PWD_NOT_SAME);
             return false;
         }
-        if (!regular.reg6.test($scope.params.coatingCode)) {
-            mui.alert(tipMsg.CONFIRM_COATINGCODE);
-            return false;
-        }
         $rootScope.loading = true;
         var params = {
             cno: encodeService.encode64($stateParams.cno),
             pwd: aesEncode($scope.params.pwd,$scope.pwdDes3Sk),
-            confirmCode: encodeService.encode64($scope.coatingCode)
+            coatingCode: encodeService.encode64($scope.params.coatingCode)
         };
         dataService.setPwdAndBindCard(params).success(function (obj) {
             $rootScope.loading = false;
@@ -60,7 +59,6 @@ angular.module('cardApp').controller('setPwdAndBindCardCtrl', ['$scope', '$rootS
                     mui.alert(obj.msg, function () {
                         $state.go("sfcards");
                     });
-
                 } else {
                     mui.alert(obj.msg);
                 }

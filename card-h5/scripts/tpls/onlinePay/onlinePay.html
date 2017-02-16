@@ -3,7 +3,7 @@
         <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
         <h1 class="mui-title" style="width: 73%">在线支付</h1>
         <a ng-if="onlineInfo.cardOptionList.length != 0" href="javascript:void(0)"
-           ng-click="cancelPay()"class="mui-pull-right header-cancel">取消</a>
+           ng-click="cancelPay()" class="mui-pull-right header-cancel">取消</a>
     </header>
 
     <div class="online-pay">
@@ -16,21 +16,24 @@
         <div ng-if="onlineInfo.cardOptionList.length != 0">
             <div class="mui-table-view-cell mui-media">
                 <a class="mui-navigate-right" href="javascript:void(0)" ng-click="showSelectCard()">
-                    <div class="mui-media-body">
-                        {{defaultPayCard[0].remark}} 尾号{{defaultPayCard[0].cardNo|subStrLast4}}
+                    <div class="mui-media-body" ng-if="cardList.length != 0">
+                        {{defaultPayCard[0].remarkName}} 尾号{{defaultPayCard[0].cardNo|subStrLast4}}
                         <p>可用余额 {{defaultPayCard[0].cardBalanceAmt/100|number:2}}</p>
+                    </div>
+                    <div class="mui-media-body" style="line-height: 1.2rem;" ng-if="cardList.length == 0">
+                        请选择要支付的卡
                     </div>
                 </a>
             </div>
             <div class="mui-input-group">
                 <div class="mui-input-row">
-                    <label>密  码</label>
+                    <label>密 码</label>
                     <input class="pwd" type="tel" maxlength="6" ng-model="params.password" placeholder="请输入您的顺丰卡密码">
                 </div>
             </div>
-            <div class="mui-text-center mtb1">
-                <a class="mui-btn mui-btn-primary mui-col-xs-6" href="javascript:void(0)" ng-click="repay()">立即支付</a>
-                <a ng-show="onlineInfo.noEleCard" ui-sref="setElectronPwd" class="mui-btn mui-btn-primary mui-btn-outlined">还没顺丰电子卡?点击开通</a>
+            <div class="mui-text-center mtb1 online-btn">
+                <a class="mui-btn mui-btn-primary" href="javascript:void(0)" ng-click="repay()">立即支付</a>
+                <a ng-show="showEleLink" ui-sref="ecardRegister" class="">还没顺丰电子卡?点击开通</a>
             </div>
         </div>
     </div>
@@ -48,13 +51,14 @@
                 ng-class="{'mui-selected':card.checked}"
                 ng-click="selectCard(card)">
                 <a class="mui-navigate-right">
-                    <h5>{{card.remark}} 尾号{{card.cardNo|subStrLast4}}</h5>
+                    <h5><span>{{card.remarkName}}</span>尾号{{card.cardNo|subStrLast4}}</h5>
 
                     <p>可用余额 {{card.cardBalanceAmt/100|number:2}}元</p>
                 </a>
             </li>
             <li class="mui-view-cell li-disable" ng-repeat="card1 in balanceCardList">
-                <h5>{{card1.remark}} 尾号{{card1.cardNo|subStrLast4}}</h5>
+                <h5><span>{{card1.remarkName}}</span>
+                    尾号{{card1.cardNo|subStrLast4}}</h5>
 
                 <p>可用余额 {{card1.cardBalanceAmt/100|number:2}}元</p>
             </li>

@@ -15,7 +15,7 @@
             <div class="mui-input-row">
                 <label>卡&nbsp;&nbsp;&nbsp;号</label>
                 <input type="tel" id="cno" maxlength="19" ng-model="params.cno" placeholder="请输入卡号"/>
-                <span class="mui-icon mui-icon-closeempty" ng-if="!showScanCode && params.pwd != ''" ng-click="params.pwd = ''"></span>
+                <span class="mui-icon mui-icon-closeempty" ng-if="!showScanCode && params.cno != ''" ng-click="params.cno = ''"></span>
                 <img style="padding-top: 0.2rem;" class="mui-pull-left" src="images/scan.png" ng-if="showScanCode"
                      ng-click="scanCode()"/>
             </div>
@@ -26,10 +26,9 @@
             </div>
         </div>
 
-        <div class="mui-text-center mtb1">
-            <button class="mui-btn mui-col-xs-6" ng-click="payBindCard()"
-                    ng-class="{'mui-btn-grey':addCardForm.$invalid,'mui-btn-primary':!addCardForm.$invalid}">支付并绑定
-            </button>
+        <div class="mui-text-center mtb1 online-btn">
+            <a class="mui-btn mui-btn-primary" href="javascript:void(0)" ng-click="payBindCard()">支付并绑定</a>
+            <a ng-show="showEleLink" ui-sref="ecardRegister" class="">还没顺丰电子卡?点击开通</a>
         </div>
     </form>
 </div>

@@ -106,7 +106,7 @@ html, body {
 
 /*header*/
 #header a.mui-pull-right {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     line-height: 2.2rem;
     padding-right: 0.7rem;
 }
@@ -130,23 +130,23 @@ html, body {
 .card-info {
     padding: 0 0.7rem;
     text-align: center;
-    margin-top: 3rem;
+    margin-top: 4rem;
 }
 
 .card-info div span {
     display: inline-block;
-    height: 1.5rem;
+    height: 1rem;
     width: 32%;
     text-align: center;
 }
 
 .info-key span {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: #a7b0b8;
 }
 
 .info-value span {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: #2390ed;
 }
 
@@ -160,10 +160,10 @@ div.crossWord {
     display: block;
     width: 6rem;
     padding: 0 0.7rem;
-    margin: 1.2rem auto;
+    margin: 1.3rem auto;
     background-color: #fff;
     color: #c2c8cc;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     text-align: center;
 }
 
@@ -187,13 +187,20 @@ div.crossWord {
     margin-bottom: 0;
 }
 
-.card-list .mui-card-info p span {
+.card-list .mui-card-info p em{
+    font-size: 0.65rem;
+    font-style: normal;
+    padding-right:1.5rem;
+}
+
+.card-list .mui-card-info p span ,
+.card-list .mui-card-info p i.icon-yuan{
     font-size: 0.85rem;
 }
 
 .card-list .mui-card-info p.remark-name {
-    margin: 0.1rem 0;
-    font-size: 0.7rem;
+    margin: 0.2rem 0;
+    font-size: 0.65rem;
 }
 
 .card-list img.mui-media-object {
@@ -201,31 +208,39 @@ div.crossWord {
     margin-right: 0.5rem;
 }
 
+.sfcard-list-tips{
+    font-size: 0.5rem;
+    text-align: center;
+}
+
 .bind-sfcard {
     display: inline-block;
     width: 91%;
     background: white;
     color: #2390ed;
-    font-size: 1rem;
+    font-size: 0.8rem;
     text-align: center;
     border: 2px dashed #c2c8cc;
     margin: 0 0.7rem 1rem 0.7rem;
     border-radius: 10px;
-    height: 2.2rem;
+    height: 2.1rem;
     line-height: 2rem;
 }
 
 .bind-sfcard .mui-icon-plusempty {
     padding-top: 0.15rem;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: #2390ed;
     font-weight: 700;
 }
 
-.no-eccard a {
-    font-size: 0.7rem;
+.no-ecard{
+    margin-bottom: 1rem;
+}
+
+.no-ecard a {
+    font-size: 0.65rem;
     color: #f1484f;
-    padding-bottom: 1rem;
 }
 
 /*card detail css*/
@@ -245,6 +260,7 @@ div.crossWord {
     left: 2rem;
     font-size: 0.75rem;
 }
+
 
 .scan-card-detail ul {
     margin: 1rem 0 !important;
@@ -340,8 +356,14 @@ div.crossWord {
     margin: 1.5rem 0;
 }
 
+
+.card-detail .mui-navigate-right:after,
+.card-detail .mui-push-right:after{
+    font-size: 1rem;
+}
+
 .card-detail ul a {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     color: #5f6d78 !important;
 }
 
@@ -352,15 +374,21 @@ div.crossWord {
     margin: -1.5rem 0;
 }
 
+.card-detail ul span{
+    display: inline-block;
+    height:0.9rem;
+}
+
 .card-detail ul span.mui-pull-right {
     padding-right: 1rem;
-    color: #5f6d78;
-    margin-top: 1px;
+    color: black;
+    margin-top: 0.1rem;
 }
 
 .card-detail ul li i {
     vertical-align: bottom;
     font-size: 1rem;
+    margin-right:0.2rem;
 }
 
 .card-detail li.mui-table-view-cell .c-fb {
@@ -406,23 +434,23 @@ div.crossWord {
 }
 
 .recharge .recharge-info {
-    margin-top: 2.5rem;
+    margin-top: 3rem;
 }
 
 .recharge-info .recharge-p {
     color: #333;
     margin-bottom: 0.4rem;
     margin-top: 0.3rem;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
 }
 
 .recharge-p2 {
     color: #333;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
 }
 
 .recharge .icon-yinxingqia {
-    font-size: 2.5rem;
+    font-size: 2.3rem;
     color: orange;
     margin-top: 0.2rem;
 }
@@ -555,8 +583,8 @@ div.crossWord {
 
 .detail-card-info .oh {
     border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 0.4rem;
-    margin: 0.5rem 0.7rem;
+    padding-bottom: 0.7rem;
+    margin: 0.7rem 0.7rem;
 }
 
 .trade-detail .mui-text-center {
@@ -603,7 +631,7 @@ div.crossWord {
 
 .change-pwd .mui-input-row label,
 .change-pwd .mui-input-row input {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     padding-top: 0.6rem;
 }
 
@@ -623,7 +651,7 @@ div.crossWord {
 .mui-btn-primary, .mui-btn-grey {
     padding: 0.25rem 0;
     width: 60%;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
 }
 
 .forget-Pwd {
@@ -636,12 +664,12 @@ div.crossWord {
 .find-pwd {
     margin-top: 3rem;
     padding: 0 0.7rem;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
 }
 
 .find-pwd2 {
     margin-top: 3rem;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
 }
 
 .find-pwd .mui-input-row {
@@ -672,6 +700,7 @@ div.crossWord {
     width: 33%;
     float: right;
     padding-right: 0;
+    margin-top:0.1rem;
 }
 
 .find-pwd .c-90 {
@@ -688,7 +717,7 @@ div.crossWord {
 .phoneNumber {
     margin-top: 80px;
     padding: 0 0.7rem;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
 }
 
 .phoneNumber .mui-text-center div.c-28 {
@@ -721,7 +750,7 @@ div.crossWord {
 
 .problem h5 {
     color: #524b4b;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
 }
 
 .problem-item {
@@ -798,7 +827,7 @@ div.crossWord {
 /*onlinePay css*/
 
 .online-pay, .add-card {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     margin-top: 2.5rem;
 }
 
@@ -829,9 +858,26 @@ div.crossWord {
     height: 0;
 }
 
+.online-btn {
+    text-align: center;
+}
+
+.online-btn a:first-child {
+    margin-top:2rem;
+    margin-left: 3.2rem;
+}
+
+.online-btn a:last-child {
+    margin-top: 1rem;
+}
+
+.online-btn a {
+    display: block;
+}
+
 /*selectCard css*/
 .select-card {
-    margin-top: 2.5rem;
+    margin-top: 3rem;
 }
 
 .select-card li h5 {
@@ -880,7 +926,7 @@ div.crossWord {
 
 .error-view .error-p1, .success-tips .s-p1 {
     margin-top: 1rem;
-    font-size: 0.7rem !important;
+    font-size: 0.65rem !important;
     line-height: 1.2rem;
 }
 
@@ -951,7 +997,7 @@ div.crossWord {
     color: #2390ed;
 }
 
-.buy-electron-card .bind-card {
+.bind-cards {
     margin-top: 2rem;
 }
 
@@ -1299,7 +1345,7 @@ div.crossWord {
 }
 
 .invoice-info h3 {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 700;
     border-top: 1px solid #c8c7cc;
     border-bottom: 1px solid #c8c7cc;
@@ -1405,7 +1451,7 @@ div.crossWord {
     margin-top: 1rem;
     display: inline-block;
     color: #999;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
 }
 
 .intro-detail h3::before, .intro-detail h3::after {

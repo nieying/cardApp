@@ -29,7 +29,7 @@ angular.module('cardApp').controller('sfcardCtrl',['$scope', '$rootScope', '$sta
 
     /**显示输入密码页面 解除绑定*/
     $scope.showPwdView = function (data) {
-        /*获取密码加密格式*/
+        /**获取密码加密格式*/
         dataService.getDes3Sk().success(function (obj) {
             if (obj.success) {
                 $scope.pwdDes3Sk = obj.msgData.des3Sk;
@@ -45,8 +45,8 @@ angular.module('cardApp').controller('sfcardCtrl',['$scope', '$rootScope', '$sta
             mui.alert(tipMsg.GET_DES3SK_FAIL);
             return false;
         }
-        if(!regular.reg6.test($scope.params.pwd)){
-            mui.alert(tipMsg.COMFIRM_PWD);
+        if(!regular.reg8.test($scope.params.pwd)){
+            mui.alert(tipMsg.COMFIRM_OLD_PWD);
             return false;
         }
         if (!$scope.pwdForm.$invalid) {

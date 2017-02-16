@@ -21,51 +21,59 @@
             <ul class="mui-table-view" ng-if="cardInfo.setPwd">
                 <li class="mui-table-view-cell" ng-if="cardInfo.allowRecharge">
                     <a class="mui-navigate-right" ui-sref="recharge">
-                        <i class="mui-icon iconfont icon-chongzhi"></i> 我要充值
+                        <i class="mui-icon iconfont icon-chongzhi"></i>
+                        <span>我要充值</span>
                     </a>
                 </li>
                 <li class="mui-table-view-cell">
                     <a class="mui-navigate-right" href="javascript:void(0)" ng-click="showPwdView()">
-                        <i class="mui-icon iconfont icon-bimaiqingdan"></i> 交易查询
+                        <i class="mui-icon iconfont icon-bimaiqingdan"></i>
+                        <span>交易查询</span>
                     </a>
                 </li>
                 <li class="mui-table-view-cell">
                     <a class="mui-navigate-right" ui-sref="changePwd({mobile:cardInfo.mobile})">
-                        <i class="mui-icon iconfont icon-edit"></i> 密码修改
+                        <i class="mui-icon iconfont icon-edit"></i>
+                        <span>密码修改</span>
                     </a>
                 </li>
                 <li class="mui-table-view-cell" ng-if="cardInfo.invoiceSwitch">
                     <a class="mui-navigate-right" ui-sref="invoiceApply">
                         <img style="width: 1rem;height: 1rem;vertical-align: bottom;"
                              src="images/menu-invoice-apply.png" alt="">
-                        发票申请
+                        <span>&nbsp;发票申请</span>
                     </a>
                 </li>
                 <li class="mui-table-view-cell">
                     <a class="mui-navigate-right" ng-if="cardInfo.mobile==null" ui-sref="bindPhone({mobile:''})">
-                        <i class="mui-icon iconfont icon-shouji"></i> 手机号码
+                        <i class="mui-icon iconfont icon-shouji"></i>
+                        <span>手机号码</span>
                         <span class="mui-pull-right">去绑定</span>
                     </a>
                     <a class="mui-navigate-right" ng-if="cardInfo.mobile !=null"
                        ui-sref="changeMobile({mobile:cardInfo.mobile})">
-                        <i class="mui-icon iconfont icon-shouji"></i> 手机号码
+                        <i class="mui-icon iconfont icon-shouji"></i>
+                        <span>手机号码</span>
                         <span class="mui-pull-right">{{cardInfo.mobile}}</span>
                     </a>
                 </li>
                 <li class="mui-table-view-cell">
                     <a class="mui-navigate-right" ui-sref="problem">
-                        <i class="mui-icon iconfont icon-bangzhu"></i> 常见问题
+                        <i class="mui-icon iconfont icon-bangzhu"></i>
+                        <span>常见问题</span>
                     </a>
                 </li>
                 <li class="mui-table-view-cell">
                     <a class="mui-navigate-right" ui-sref="updateRemark({remarkName:cardInfo.remark})">
-                        <i class="mui-icon iconfont icon-beizhu"></i> 备注
+                        <i class="mui-icon iconfont icon-beizhu"></i>
+                        <span>备注</span>
                         <span class="mui-pull-right">{{cardInfo.remark}}</span>
                     </a>
                 </li>
                 <li class="mui-table-view-cell">
                     <a class="mui-navigate-right" href="tel:{{tel}}">
-                        <i class="mui-icon iconfont icon-dianhua-copy"></i> 联系客服
+                        <i class="mui-icon iconfont icon-dianhua-copy"></i>
+                        <span>联系客服</span>
                         <a class="mui-pull-right">{{tel}}</a>
                     </a>
                 </li>
@@ -97,9 +105,9 @@
         <h1 class="mui-title">输入密码</h1>
     </header>
     <div class="change-pwd">
-        <form name="pwdForm" class="mui-input-group">
+        <form name="pwdForm" class="mui-inp\ut-group">
             <div class="mui-input-row">
-                <label class="mui-text-center">密&nbsp;&nbsp;&nbsp;&nbsp; 码</label>
+                <label class="mui-text-center">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
                 <input class="pwd" type="tel" maxlength="8" pattern="[0-9]*" ng-model="params.pwd"
                        placeholder="请输入您的密码">
                 <span class="mui-icon mui-icon-closeempty" ng-if="params.pwd != ''" ng-click="params.pwd = ''"></span>
