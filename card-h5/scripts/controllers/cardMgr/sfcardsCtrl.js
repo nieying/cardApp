@@ -4,7 +4,7 @@
  */
 angular.module('cardApp').controller('sfcardsCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$cookieStore', 'dataService', function ($scope, $rootScope, $state, $stateParams, $cookieStore, dataService) {
     $rootScope.loading = true;
-    $scope.showGoBackBtn = true;//判断是否显示返回按钮
+    $scope.showBackBtn = true;//判断是否显示返回按钮
     clearCookie();
     $cookieStore.put("system", {value: 'SFCARD'});
 
@@ -23,7 +23,6 @@ angular.module('cardApp').controller('sfcardsCtrl', ['$scope', '$rootScope', '$s
         } else {
             if (obj.code == '302') {
                 //去活动页面
-                console.log(obj.msgData.hash.split('/')[1]);
                 $state.go("mkt", {mktName: obj.msgData.hash.split('/')[1]});
             } else {
                 errorTips(obj, $state)
@@ -101,7 +100,7 @@ angular.module('cardApp').controller('sfcardsCtrl', ['$scope', '$rootScope', '$s
     } else if (isSfApp()) {//新版APP
         onBridgeReady();
     } else {//旧版APP等其他
-        $scope.showGoBackBtn = false;
+        $scope.showBackBtn = false;
     }
 
     function onBridgeReady() {
